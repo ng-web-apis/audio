@@ -1,6 +1,6 @@
 {
-    "name": "@tinkoff/angular-open-source-starter",
-    "version": "1.0.0",
+    "name": "ng-web-audio",
+    "version": "0.0.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -27,25 +27,21 @@
         "release:patch": "npm run release -- --release-as patch",
         "release:minor": "npm run release -- --release-as minor",
         "release:major": "npm run release -- --release-as major",
-        "publish": "npm run build:all && npm publish:all"
+        "publish": "npm run build:all && npm publish:all",
+        "build:all": "npm run build:ng-web-audio",
+        "publish:all": "npm run publish:ng-web-audio",
+        "build:ng-web-audio": "ng run ng-web-audio:build",
+        "test:ng-web-audio": "ng run ng-web-audio:test",
+        "test:ng-web-audio:watch": "ng run ng-web-audio:test --watch=true",
+        "publish:ng-web-audio": "npm publish ./dist/ng-web-audio"
     },
-    "description": "This is a template project to develop, create and open-source Angular libraries with demos",
-    "keywords": [
-        "angular",
-        "ng",
-        "workspace",
-        "library",
-        "starter",
-        "tinkoff"
-    ],
-    "license": "Apache-2.0",
-    "authors": [
-        "Roman Sedov <r.sedov@tinkoff.ru>",
-        "Alex Inkin <a.inkin@tinkoff.ru>"
-    ],
-    "repository": "https://github.com/TinkoffCreditSystems/angular-library-starter",
-    "bugs": "https://github.com/TinkoffCreditSystems/angular-library-starter/issues",
-    "homepage": "https://github.com/TinkoffCreditSystems/angular-library-starter#README",
+    "description": "This is a library for declarative use of Web Audio API with Angular",
+    "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
+    "license": "WTFPL",
+    "authors": ["Alex Inkin <alexander@inkin.ru>"],
+    "repository": "https://github.com/waterplea/ng-web-audio",
+    "bugs": "https://github.com/waterplea/ng-web-audio/issues",
+    "homepage": "https://github.com/waterplea/ng-web-audio#README",
     "schematics": "./schematics/collection.json",
     "dependencies": {
         "@angular/animations": "^7.2.15",
@@ -111,10 +107,7 @@
         }
     },
     "lint-staged": {
-        "*.{js,ts,html,md,less,json}": [
-            "prettier --write",
-            "git add"
-        ],
+        "*.{js,ts,html,md,less,json}": ["prettier --write", "git add"],
         "*.ts": "tslint"
     },
     "standard-version": {
