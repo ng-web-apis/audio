@@ -1,9 +1,9 @@
-import {TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppBrowserModule} from './app.browser.module';
 import {AppComponent} from './app.component';
 
 describe('Test dummy', () => {
-    let component: AppComponent;
+    let component: ComponentFixture<AppComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

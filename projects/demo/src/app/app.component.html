@@ -1,10 +1,7 @@
-<blockquote>
-    Import from your library in this demo project as if you were using it as an NPM package
-</blockquote>
-<blockquote>
-    <a routerLink="." style="margin-right: 16px">Static component</a>
-    <a routerLink="/lazy">Lazy component</a>
-</blockquote>
-<blockquote>
-    <router-outlet></router-outlet>
-</blockquote>
+<input type="range" min="0" max="1" step="0.01" [(ngModel)]="gain" />
+
+<audio src="/assets/strays.mp3" controls #source="audioNode" audioMedia></audio>
+<ng-container audioWire [source]="source" [destination]="destination"></ng-container>
+<ng-container #destination="audioNode" audioGain [gain]="gain">
+    <ng-container audioDestination></ng-container>
+</ng-container>

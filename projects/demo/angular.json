@@ -19,7 +19,14 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.demo.json",
                         "aot": false,
-                        "assets": ["src/favicon.ico"],
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "projects/demo/src/assets/",
+                                "output": "./assets/"
+                            },
+                            "src/favicon.ico"
+                        ],
                         "styles": ["src/styles.css"],
                         "scripts": []
                     },
