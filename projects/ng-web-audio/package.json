@@ -2,7 +2,8 @@
     "name": "ng-web-audio",
     "version": "0.0.1",
     "peerDependencies": {
-        "@angular/core": ">=4.0.0"
+        "@angular/common": ">=6.0.0",
+        "@angular/core": ">=6.0.0"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
     "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],

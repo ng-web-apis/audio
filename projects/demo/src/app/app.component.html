@@ -1,7 +1,192 @@
-<input type="range" min="0" max="1" step="0.01" [(ngModel)]="gain" />
+<h1>Source</h1>
 
-<audio src="/assets/strays.mp3" controls #source="audioNode" audioMedia></audio>
-<ng-container audioWire [source]="source" [destination]="destination"></ng-container>
-<ng-container #destination="audioNode" audioGain [gain]="gain">
-    <ng-container audioDestination></ng-container>
+<p>
+    <label>
+        <input type="radio" name="source" [(ngModel)]="selectedSource" value="media" />
+        MediaElementAudioSourceNode
+    </label>
+</p>
+<p>
+    <label>
+        <input type="radio" name="source" [(ngModel)]="selectedSource" value="buffer" />
+        AudioBufferSourceNode
+    </label>
+</p>
+
+<audio
+    *ngIf="selectedSource === 'media'; else buffer"
+    src="/assets/demo.wav"
+    loop
+    controls
+    MediaElementAudioSourceNode
+>
+    <ng-container [AudioOutput]="chain || fallback"></ng-container>
+</audio>
+
+<ng-template #buffer>
+    <button
+        buffer="/assets/demo.wav"
+        #source="AudioNode"
+        AudioBufferSourceNode
+        [loop]="true"
+        (click)="source.start()"
+    >
+        Play
+        <ng-container [AudioOutput]="chain || fallback"></ng-container>
+    </button>
+    <div>
+        <em>
+            <code>AudioBufferSourceNode</code> is a "one shot" in Web Audio API, you
+            cannot restart it once you hit play. Switch to media element and back to
+            create it again so you can restart it if you need to do so.
+        </em>
+    </div>
+</ng-template>
+
+<ng-container #fallback="AudioNode" Destination></ng-container>
+
+<h1>Chain</h1>
+<p>
+    This is a demo for <code><em>ng-web-audio</em></code> — a Web Audio API declarative
+    library for Angular. Below you can see AudioNode graph for selected configuration.
+    Demo page uses HTML elements as directives hosts, in real life scenario you can use
+    <code>ng-container</code> so you will not have redundant DOM tags.
+</p>
+
+<p>
+    <label>
+        <input type="radio" name="chain" [(ngModel)]="selectedChain" value="dry" />
+        Dry
+    </label>
+</p>
+<p>
+    <label>
+        <input type="radio" name="chain" [(ngModel)]="selectedChain" value="panner" />
+        Balance
+    </label>
+</p>
+<p>
+    <label>
+        <input type="radio" name="chain" [(ngModel)]="selectedChain" value="delay" />
+        Delay
+    </label>
+</p>
+<p>
+    <label>
+        <input type="radio" name="chain" [(ngModel)]="selectedChain" value="complex" />
+        Complex
+    </label>
+</p>
+
+<ng-container [ngSwitch]="selectedChain">
+    <ng-container *ngSwitchCase="'panner'">
+        <fieldset #chain="AudioNode" [GainNode]="gain">
+            <legend>GainNode</legend>
+            <input type="range" min="0" max="1" step="0.01" [(ngModel)]="gain" />
+            <fieldset [StereoPannerNode]="pan">
+                <legend>StereoPannerNode</legend>
+                <input type="range" min="-1" max="1" step="0.01" [(ngModel)]="pan" />
+                <fieldset Destination>
+                    <legend>Destination</legend>
+                </fieldset>
+            </fieldset>
+        </fieldset>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'delay'">
+        <fieldset #chain="AudioNode" [GainNode]="gain">
+            <legend>GainNode</legend>
+            <em>For feedback loop purposes only</em>
+
+            <fieldset [DelayNode]="delayTime">
+                <legend>DelayNode</legend>
+                <input type="range" min="0" max="1" step="0.01" [(ngModel)]="delayTime" />
+                <fieldset [GainNode]="delayGain">
+                    <legend>GainNode</legend>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        [(ngModel)]="delayGain"
+                    />
+                    <fieldset [AudioOutput]="chain">
+                        <legend>AudioOutput</legend>
+                        <em>Connected back to the beginning of the chain</em>
+                    </fieldset>
+                </fieldset>
+            </fieldset>
+            <fieldset Destination>
+                <legend>Destination</legend>
+            </fieldset>
+        </fieldset>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'complex'">
+        <fieldset
+            #chain="AudioNode"
+            BiquadFilterNode
+            [type]="type"
+            [gain]="filterGain"
+            [frequency]="frequency"
+            [Q]="Q"
+            [detune]="detune"
+        >
+            <legend>BiquadFilterNode</legend>
+            <label>
+                <select [(ngModel)]="type">
+                    <option value="lowpass">lowpass</option>
+                    <option value="highpass">highpass</option>
+                    <option value="bandpass">bandpass</option>
+                    <option value="lowshelf">lowshelf</option>
+                    <option value="highshelf">highshelf</option>
+                    <option value="peaking">peaking</option>
+                    <option value="notch">notch</option>
+                    <option value="allpass">allpass</option>
+                </select>
+                <code>type</code>
+            </label>
+            <label>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    [(ngModel)]="filterGain"
+                />
+                <code>gain</code>
+            </label>
+            <label>
+                <input type="range" min="20" max="5000" [(ngModel)]="frequency" />
+                <code>frequency</code>
+            </label>
+            <label>
+                <input type="range" min="1" max="100" [(ngModel)]="Q" />
+                <code>Q</code>
+            </label>
+            <label>
+                <input type="range" min="0" max="100" [(ngModel)]="detune" />
+                <code>detune</code>
+            </label>
+            <fieldset WaveShaperNode oversample="4x" [curve]="curve">
+                <legend>WaveShaperNode</legend>
+                <input
+                    type="range"
+                    min="0"
+                    max="20"
+                    step="0.1"
+                    [ngModel]="distortion"
+                    (ngModelChange)="onCurveChange($event)"
+                />
+                <ng-container [GainNode]="distortionCompensation">
+                    <fieldset ConvolverNode buffer="/assets/response.m4a">
+                        <legend>ConvolverNode</legend>
+                        <fieldset Destination>
+                            <legend>Destination</legend>
+                        </fieldset>
+                    </fieldset>
+                </ng-container>
+            </fieldset>
+        </fieldset>
+    </ng-container>
 </ng-container>

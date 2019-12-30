@@ -1,5 +1,66 @@
 body {
     font-family: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', system-ui, 'Roboto', 'Helvetica Neue', sans-serif;
     color: #333;
-    margin: 0;
+    width: 320px;
+    margin: 0 auto;
+}
+
+audio {
+    margin-top: 1em;
+}
+
+label {
+    display: flex;
+    align-items: center;
+}
+
+input,
+select {
+    max-width: 100px;
+    margin-right: 1em;
+}
+
+fieldset {
+    margin-top: 1em;
+    border: none;
+    border-radius: 4px;
+}
+
+legend {
+    background: white;
+    box-shadow: 0 0 2px;
+    padding: 5px 10px;
+    border-radius: 2px;
+}
+
+*[ng-reflect--gain-node] {
+    background: pink;
+}
+
+*[ng-reflect--delay-node] {
+    background: lightgreen;
+}
+
+*[ng-reflect--stereo-panner-node] {
+    background: skyblue;
+}
+
+*[ng-reflect--audio-output] {
+    background: thistle;
+}
+
+*[Destination] {
+    background: khaki;
+}
+
+*[WaveShaperNode] {
+    background: salmon;
+}
+
+*[BiquadFilterNode] {
+    background: gold;
+}
+
+*[ConvolverNode] {
+    background: aquamarine;
 }
