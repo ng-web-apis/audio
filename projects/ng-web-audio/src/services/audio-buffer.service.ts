@@ -13,6 +13,8 @@ export class AudioBufferService {
 
             request.open('GET', url, true);
             request.responseType = 'arraybuffer';
+            request.onerror = reject;
+            request.onabort = reject;
             request.onload = () => {
                 this.context.decodeAudioData(request.response, resolve, reject);
             };

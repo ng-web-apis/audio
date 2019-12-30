@@ -14,12 +14,11 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 export class WebAudioOutput extends GainNode implements OnDestroy {
     @Input()
     set AudioOutput(node: AudioNode | undefined) {
-        if (!node) {
-            return;
-        }
-
         this.disconnect();
-        this.connect(node);
+
+        if (node) {
+            this.connect(node);
+        }
     }
 
     constructor(

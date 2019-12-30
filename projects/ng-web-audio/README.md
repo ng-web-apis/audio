@@ -20,9 +20,9 @@ You can build audio graph with directives. For example, here's a typical echo fe
 </audio>
 ```
 
-_Note that single input nodes, such as `GainNode` or `DelayNode` user directive name as
+_Note that single input nodes, such as `GainNode` or `DelayNode` use directive name as
 input alias for underlying `gain` or `delayTime` parameters. Whereas more complex nodes
-use respective parameters names_
+use respective parameters names._
 
 ## AudioBufferService
 
@@ -48,15 +48,19 @@ pass string URL, as well as an actual `AudioBuffer`. For example:
 
 You can use following audio nodes through directives:
 
+### Sources
+
 -   [AudioBufferSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode)
 -   [MediaElementAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode)
 
-*   [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
-*   [ConvolverNode](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode)
-*   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
-*   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
-*   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
-*   [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
+### Processors
+
+-   [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
+-   [ConvolverNode](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode)
+-   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
+-   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
+-   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
+-   [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
 
 ## Special cases
 
