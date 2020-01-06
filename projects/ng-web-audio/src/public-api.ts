@@ -1,6 +1,8 @@
 /**
  * Public API Surface of ng-web-audio
  */
+export * from './decorators/audio-param';
+
 export * from './directives/destination';
 export * from './directives/output';
 

@@ -1,13 +1,24 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import {audioParam} from '../decorators/audio-param';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AudioParamInput} from '../types/audio-param-input';
 
+// @dynamic
 @Directive({
     selector: '[AudioBufferSourceNode]',
     exportAs: 'AudioNode',
+    inputs: [
+        'loop',
+        'loopStart',
+        'loopEnd',
+        'channelCount',
+        'channelCountMode',
+        'channelInterpretation',
+    ],
     providers: [
         {
             provide: AUDIO_NODE,
@@ -21,24 +32,13 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
         this.buffer$.next(source);
     }
 
-    @Input()
-    loop = false;
-
-    @Input()
-    loopStart = 0;
-
-    @Input()
-    loopEnd = 0;
-
     @Input('detune')
-    set detuneSetter(value: number) {
-        this.detune.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('detune')
+    detuneParam?: AudioParamInput;
 
     @Input('playbackRate')
-    set playbackRateSetter(value: number) {
-        this.playbackRate.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('playbackRate')
+    playbackRateParam?: AudioParamInput;
 
     private readonly buffer$ = new Subject<AudioBuffer | null | string>();
 
@@ -68,6 +68,7 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
 
     ngOnDestroy(): void {
         this.buffer$.complete();
+        this.stop();
         this.disconnect();
     }
 }

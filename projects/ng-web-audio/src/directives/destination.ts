@@ -2,6 +2,7 @@ import {Directive, Inject, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 
+// @dynamic
 @Directive({
     selector: '[Destination]',
     exportAs: 'AudioNode',

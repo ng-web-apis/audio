@@ -2,14 +2,14 @@
 
 <p>
     <label>
-        <input type="radio" name="source" [(ngModel)]="selectedSource" value="media" />
-        MediaElementAudioSourceNode
+        <input type="radio" name="source" [(ngModel)]="selectedSource" value="buffer" />
+        AudioBufferSourceNode
     </label>
 </p>
 <p>
     <label>
-        <input type="radio" name="source" [(ngModel)]="selectedSource" value="buffer" />
-        AudioBufferSourceNode
+        <input type="radio" name="source" [(ngModel)]="selectedSource" value="media" />
+        MediaElementAudioSourceNode
     </label>
 </p>
 
@@ -20,27 +20,21 @@
     controls
     MediaElementAudioSourceNode
 >
-    <ng-container [AudioOutput]="chain || fallback"></ng-container>
+    <ng-container [Output]="chain || fallback"></ng-container>
 </audio>
 
 <ng-template #buffer>
     <button
+        *ngFor="let _ of buffers"
         buffer="/assets/demo.wav"
         #source="AudioNode"
         AudioBufferSourceNode
         [loop]="true"
-        (click)="source.start()"
+        (click)="onClick(source, $event.target)"
     >
         Play
-        <ng-container [AudioOutput]="chain || fallback"></ng-container>
+        <ng-container [Output]="chain || fallback"></ng-container>
     </button>
-    <div>
-        <em>
-            <code>AudioBufferSourceNode</code> is a "one shot" in Web Audio API, you
-            cannot restart it once you hit play. Switch to media element and back to
-            create it again so you can restart it if you need to do so.
-        </em>
-    </div>
 </ng-template>
 
 <ng-container #fallback="AudioNode" Destination></ng-container>
@@ -110,8 +104,8 @@
                         step="0.01"
                         [(ngModel)]="delayGain"
                     />
-                    <fieldset [AudioOutput]="chain">
-                        <legend>AudioOutput</legend>
+                    <fieldset [Output]="chain">
+                        <legend>Output</legend>
                         <em>Connected back to the beginning of the chain</em>
                     </fieldset>
                 </fieldset>

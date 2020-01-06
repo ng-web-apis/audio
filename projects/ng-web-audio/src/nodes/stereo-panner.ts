@@ -1,10 +1,14 @@
 import {Directive, forwardRef, Inject, Input, SkipSelf} from '@angular/core';
+import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AudioParamInput} from '../types/audio-param-input';
 
+// @dynamic
 @Directive({
     selector: '[StereoPannerNode]',
     exportAs: 'AudioNode',
+    inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
             provide: AUDIO_NODE,
@@ -14,9 +18,8 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 })
 export class WebAudioStereoPanner extends StereoPannerNode {
     @Input()
-    set StereoPannerNode(value: number) {
-        this.pan.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('pan')
+    StereoPannerNode?: AudioParamInput;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,

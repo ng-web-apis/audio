@@ -12,7 +12,7 @@ You can build audio graph with directives. For example, here's a typical echo fe
 <audio src="/demo.wav" MediaElementAudioSourceNode>
     <ng-container #node="AudioNode" [DelayNode]="delayTime">
         <ng-container [GainNode]="gain">
-            <ng-container [AudioOutput]="node"></ng-container>
+            <ng-container [Output]="node"></ng-container>
             <ng-container Destination></ng-container>
         </ng-container>
     </ng-container>
@@ -65,7 +65,7 @@ You can use following audio nodes through directives:
 ## Special cases
 
 -   Use `Destination` directive to end the graph (see examples above)
--   Use `AudioOutput` directive when you need non-linear graph (see feedback loop example above)
+-   Use `Output` directive when you need non-linear graph (see feedback loop example above) or to connect `AudioNode` to `AudioParam`
 -   All node directives are exported as `AudioNode` so you can use them with template reference variables (see feedback loop example above)
 
 ## Tokens
@@ -77,5 +77,22 @@ You can use following audio nodes through directives:
 
 ## TODO
 
--   Add remaining audio nodes
+-   Add remaining audio nodes:
+    - `AnalyserNode`
+    - `AudioScheduledSourceNode`
+    - `ChannelMergerNode`
+    - `ChannelMergerNode`
+    - `ChannelSplitterNode`
+    - `ConstantSourceNode`
+    - `DynamicsCompressorNode`
+    - `IIRFilterNode`
+    - `OscillatorNode`
+    - `PannerNode`
 -   Add sophisticated `AudioParam` manipulations such as ramping and scheduled changes
+-   `AudioListener` concept
+-   `AudioWorklet` concept
+-   `OfflineAudioContext` 
+-   `PeriodicWave` 
+-   Streaming concept
+    - `MediaStreamAudioDestinationNode`
+    - `MediaStreamAudioSourceNode`

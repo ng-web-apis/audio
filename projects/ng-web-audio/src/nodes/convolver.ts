@@ -5,9 +5,11 @@ import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 
+// @dynamic
 @Directive({
     selector: '[ConvolverNode]',
     exportAs: 'AudioNode',
+    inputs: ['normalize', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
             provide: AUDIO_NODE,
@@ -16,9 +18,6 @@ import {AUDIO_NODE} from '../tokens/audio-node';
     ],
 })
 export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
-    @Input()
-    normalize = true;
-
     @Input('buffer')
     set bufferSetter(source: AudioBuffer | null | string) {
         this.buffer$.next(source);

@@ -2,8 +2,9 @@ import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angula
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 
+// @dynamic
 @Directive({
-    selector: '[AudioOutput]',
+    selector: '[Output]',
     providers: [
         {
             provide: AUDIO_NODE,
@@ -13,11 +14,14 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 })
 export class WebAudioOutput extends GainNode implements OnDestroy {
     @Input()
-    set AudioOutput(node: AudioNode | undefined) {
+    set Output(destination: AudioNode | AudioParam | undefined) {
         this.disconnect();
 
-        if (node) {
-            this.connect(node);
+        // TODO: Workaround TS buggy overload
+        if (destination instanceof AudioNode) {
+            this.connect(destination);
+        } else if (destination) {
+            this.connect(destination);
         }
     }
 

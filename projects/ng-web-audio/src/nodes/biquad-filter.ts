@@ -1,10 +1,14 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AudioParamInput} from '../types/audio-param-input';
 
+// @dynamic
 @Directive({
     selector: '[BiquadFilterNode]',
     exportAs: 'AudioNode',
+    inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
             provide: AUDIO_NODE,
@@ -13,28 +17,21 @@ import {AUDIO_NODE} from '../tokens/audio-node';
     ],
 })
 export class WebAudioBiquadFilter extends BiquadFilterNode implements OnDestroy {
-    @Input()
-    type: BiquadFilterType = 'lowpass';
-
     @Input('gain')
-    set gainSetter(value: number) {
-        this.gain.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('gain')
+    gainParam?: AudioParamInput;
 
     @Input('frequency')
-    set frequencySetter(value: number) {
-        this.frequency.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('frequency')
+    frequencyParam?: AudioParamInput;
 
     @Input('Q')
-    set qSetter(value: number) {
-        this.Q.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('Q')
+    qParam?: AudioParamInput;
 
     @Input('detune')
-    set detuneSetter(value: number) {
-        this.detune.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('detune')
+    detuneParam?: AudioParamInput;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,

@@ -6,9 +6,11 @@ import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+    buffers = [Date.now()];
+
     selectedChain = 'dry';
 
-    selectedSource = 'media';
+    selectedSource = 'buffer';
 
     gain = 1;
 
@@ -42,6 +44,15 @@ export class AppComponent {
     onCurveChange(distortion: number) {
         this.distortion = distortion;
         this.curve = makeDistortionCurve(distortion);
+    }
+
+    onClick(source: AudioBufferSourceNode, button: HTMLButtonElement) {
+        if (button.textContent!.trim() === 'Play') {
+            button.textContent = 'Stop';
+            source.start();
+        } else {
+            this.buffers[0] = Date.now();
+        }
     }
 }
 

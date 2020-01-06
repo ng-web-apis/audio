@@ -1,10 +1,14 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AudioParamInput} from '../types/audio-param-input';
 
+// @dynamic
 @Directive({
     selector: '[GainNode]',
     exportAs: 'AudioNode',
+    inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
             provide: AUDIO_NODE,
@@ -14,9 +18,8 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 })
 export class WebAudioGain extends GainNode implements OnDestroy {
     @Input()
-    set GainNode(value: number) {
-        this.gain.setValueAtTime(value, this.context.currentTime);
-    }
+    @audioParam('gain')
+    GainNode?: AudioParamInput;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,

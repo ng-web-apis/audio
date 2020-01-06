@@ -2,6 +2,7 @@ import {Directive, ElementRef, forwardRef, Inject, OnDestroy} from '@angular/cor
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 
+// @dynamic
 @Directive({
     selector: 'audio[MediaElementAudioSourceNode], video[MediaElementAudioSourceNode]',
     exportAs: 'AudioNode',
