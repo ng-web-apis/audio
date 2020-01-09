@@ -44,7 +44,7 @@ export class WebAudioBiquadFilter extends BiquadFilterNode implements OnDestroy 
         }
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.disconnect();
     }
 }

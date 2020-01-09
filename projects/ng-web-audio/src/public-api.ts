@@ -8,14 +8,19 @@ export * from './directives/output';
 
 export * from './nodes/biquad-filter';
 export * from './nodes/delay';
+export * from './nodes/dynamics-compressor';
 export * from './nodes/gain';
+export * from './nodes/panner';
 export * from './nodes/stereo-panner';
 export * from './nodes/wave-shaper';
+
+export * from './pipes/periodic-wave.pipe';
 
 export * from './services/audio-buffer.service';
 
 export * from './sources/buffer-source';
 export * from './sources/media-source';
+export * from './sources/oscillator';
 
 export * from './tokens/audio-context-options';
 export * from './tokens/audio-context';

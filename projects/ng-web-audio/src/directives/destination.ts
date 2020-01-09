@@ -21,7 +21,7 @@ export class WebAudioDestination extends GainNode implements OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.disconnect();
     }
 }

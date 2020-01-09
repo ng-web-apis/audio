@@ -49,7 +49,7 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
             });
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.buffer$.complete();
         this.disconnect();
     }

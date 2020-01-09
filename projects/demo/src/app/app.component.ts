@@ -34,6 +34,8 @@ export class AppComponent {
 
     curve = makeDistortionCurve(this.distortion);
 
+    readonly real = [0, 0, 1, 0, 1];
+
     @ViewChild('chain')
     readonly chain?: AudioNode;
 
@@ -46,7 +48,7 @@ export class AppComponent {
         this.curve = makeDistortionCurve(distortion);
     }
 
-    onClick(source: AudioBufferSourceNode, button: HTMLButtonElement) {
+    onClick(source: AudioScheduledSourceNode, button: HTMLButtonElement) {
         if (button.textContent!.trim() === 'Play') {
             button.textContent = 'Stop';
             source.start();

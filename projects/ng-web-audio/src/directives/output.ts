@@ -36,7 +36,7 @@ export class WebAudioOutput extends GainNode implements OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.disconnect();
     }
 }

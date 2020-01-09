@@ -13,7 +13,8 @@ import {AUDIO_NODE} from '../tokens/audio-node';
         },
     ],
 })
-export class WebAudioMediaSource extends MediaElementAudioSourceNode implements OnDestroy {
+export class WebAudioMediaSource extends MediaElementAudioSourceNode
+    implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,
         @Inject(ElementRef) {nativeElement}: ElementRef<HTMLMediaElement>,
@@ -21,7 +22,7 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode implements 
         super(context, {mediaElement: nativeElement});
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.disconnect();
     }
 }

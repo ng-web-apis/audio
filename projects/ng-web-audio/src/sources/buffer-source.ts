@@ -1,4 +1,14 @@
-import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {
+    Attribute,
+    Directive,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    OnDestroy,
+    Output,
+    SkipSelf,
+} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {audioParam} from '../decorators/audio-param';
@@ -40,12 +50,18 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
     @audioParam('playbackRate')
     playbackRateParam?: AudioParamInput;
 
+    @Output()
+    readonly ended = new EventEmitter<void>();
+
+    readonly onended = () => this.ended.emit();
+
     private readonly buffer$ = new Subject<AudioBuffer | null | string>();
 
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: AudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Attribute('autoplay') autoplay: string | null,
     ) {
         super(context);
 
@@ -63,12 +79,20 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
             )
             .subscribe(buffer => {
                 this.buffer = buffer;
+
+                if (autoplay !== null) {
+                    this.start();
+                }
             });
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.buffer$.complete();
-        this.stop();
+
+        try {
+            this.stop();
+        } catch (_) {}
+
         this.disconnect();
     }
 }

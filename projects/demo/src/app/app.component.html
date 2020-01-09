@@ -12,30 +12,54 @@
         MediaElementAudioSourceNode
     </label>
 </p>
+<p>
+    <label>
+        <input
+            type="radio"
+            name="source"
+            [(ngModel)]="selectedSource"
+            value="oscillator"
+        />
+        OscillatorNode
+    </label>
+</p>
 
-<audio
-    *ngIf="selectedSource === 'media'; else buffer"
-    src="/assets/demo.wav"
-    loop
-    controls
-    MediaElementAudioSourceNode
->
-    <ng-container [Output]="chain || fallback"></ng-container>
-</audio>
-
-<ng-template #buffer>
-    <button
-        *ngFor="let _ of buffers"
-        buffer="/assets/demo.wav"
-        #source="AudioNode"
-        AudioBufferSourceNode
-        [loop]="true"
-        (click)="onClick(source, $event.target)"
+<ng-container [ngSwitch]="selectedSource">
+    <ng-container *ngSwitchCase="'buffer'">
+        <button
+            *ngFor="let _ of buffers"
+            buffer="/assets/demo.wav"
+            #source="AudioNode"
+            AudioBufferSourceNode
+            [loop]="true"
+            (click)="onClick(source, $event.target)"
+        >
+            Play
+            <ng-container [Output]="chain || fallback"></ng-container>
+        </button>
+    </ng-container>
+    <audio
+        *ngSwitchCase="'media'"
+        src="/assets/demo.wav"
+        loop
+        controls
+        MediaElementAudioSourceNode
     >
-        Play
         <ng-container [Output]="chain || fallback"></ng-container>
-    </button>
-</ng-template>
+    </audio>
+    <ng-container *ngSwitchCase="'oscillator'">
+        <button
+            *ngFor="let _ of buffers"
+            #source="AudioNode"
+            OscillatorNode
+            [periodicWave]="real | PeriodicWave"
+            (click)="onClick(source, $event.target)"
+        >
+            Play
+            <ng-container [Output]="chain || fallback"></ng-container>
+        </button>
+    </ng-container>
+</ng-container>
 
 <ng-container #fallback="AudioNode" Destination></ng-container>
 

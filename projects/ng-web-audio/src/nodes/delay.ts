@@ -32,7 +32,7 @@ export class WebAudioDelay extends DelayNode implements OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.disconnect();
     }
 }

@@ -51,12 +51,17 @@ You can use following audio nodes through directives:
 ### Sources
 
 -   [AudioBufferSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode)
+    -   Additionally supports setting URL to media file as `buffer` so it will be automatically downloaded and turned into `ArrayBuffer`
+    -   Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start playing immediately
 -   [MediaElementAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode)
+-   [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
+    -   Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start playing immediately
 
 ### Processors
 
 -   [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
 -   [ConvolverNode](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode)
+    -   Additionally supports setting URL to media file as `buffer` so it will be automatically downloaded and turned into `ArrayBuffer`
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
 -   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
 -   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
@@ -66,6 +71,7 @@ You can use following audio nodes through directives:
 
 -   Use `Destination` directive to end the graph (see examples above)
 -   Use `Output` directive when you need non-linear graph (see feedback loop example above) or to connect `AudioNode` to `AudioParam`
+-   Use `PeriodicWave` pipe to create `PeriodicWave` for `OscillatorNode`
 -   All node directives are exported as `AudioNode` so you can use them with template reference variables (see feedback loop example above)
 
 ## Tokens
@@ -78,20 +84,17 @@ You can use following audio nodes through directives:
 ## TODO
 
 -   Add remaining audio nodes:
-    - `AnalyserNode`
-    - `AudioScheduledSourceNode`
-    - `ChannelMergerNode`
-    - `ChannelSplitterNode`
-    - `ConstantSourceNode`
-    - `DynamicsCompressorNode`
-    - `IIRFilterNode`
-    - `OscillatorNode`
-    - `PannerNode`
+    -   `AnalyserNode`
+    -   `AudioScheduledSourceNode`
+    -   `ChannelMergerNode`
+    -   `ChannelSplitterNode`
+    -   `ConstantSourceNode`
+    -   `IIRFilterNode`
+    -   `PannerNode`
 -   Add sophisticated `AudioParam` manipulations such as ramping and scheduled changes
 -   `AudioListener` concept
 -   `AudioWorklet` concept
--   `OfflineAudioContext` 
--   `PeriodicWave` 
+-   `OfflineAudioContext`
 -   Streaming concept
-    - `MediaStreamAudioDestinationNode`
-    - `MediaStreamAudioSourceNode`
+    -   `MediaStreamAudioDestinationNode`
+    -   `MediaStreamAudioSourceNode`
