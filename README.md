@@ -68,7 +68,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Not required if you only need one, global context will be created when needed
 
-    💡 Also give you access to
+    💡 Also gives you access to
     [AudioListener](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener)
     parameters such as
     [positionX](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/positionX)
@@ -78,7 +78,7 @@ You can use following audio nodes through directives of the same name:
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
     rendering immediately
       
-    💡 Also give you access to
+    💡 Also gives you access to
     [AudioListener](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener)
     parameters such as
     [positionX](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/positionX)
