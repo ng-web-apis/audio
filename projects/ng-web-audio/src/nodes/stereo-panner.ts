@@ -1,8 +1,9 @@
-import {Directive, forwardRef, Inject, Input, SkipSelf} from '@angular/core';
-import {audioParam} from '../decorators/audio-param';
+import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {fallbackAudioParam} from '../utils/fallback-audio-param';
+import {processAudioParam} from '../utils/process-audio-param';
 
 // @dynamic
 @Directive({
@@ -16,13 +17,20 @@ import {AudioParamInput} from '../types/audio-param-input';
         },
     ],
 })
-export class WebAudioStereoPanner extends StereoPannerNode {
+export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy {
     @Input()
-    @audioParam('pan')
-    StereoPannerNode?: AudioParamInput;
+    set StereoPannerNode(pan: AudioParamInput) {
+        if ('setPosition' in this) {
+            /** fallback for browsers not supporting {@link StereoPannerNode} */
+            // @ts-ignore
+            this.fallbackToPannerNode(fallbackAudioParam(pan));
+        } else {
+            processAudioParam(this.pan, pan, this.context.currentTime);
+        }
+    }
 
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
@@ -30,5 +38,20 @@ export class WebAudioStereoPanner extends StereoPannerNode {
         if (node) {
             node.connect(this);
         }
+    }
+
+    // @ts-ignore
+    private fallbackToPannerNode(pan: number) {
+        const xDeg = pan * 100;
+        const zDeg = xDeg > 0 ? 270 - xDeg : xDeg + 90;
+        const x = Math.sin(xDeg * (Math.PI / 180));
+        const z = Math.sin(zDeg * (Math.PI / 180));
+
+        // @ts-ignore
+        this.setPosition(x, 0, z);
+    }
+
+    ngOnDestroy() {
+        this.disconnect();
     }
 }

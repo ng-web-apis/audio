@@ -27,7 +27,7 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
 
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);

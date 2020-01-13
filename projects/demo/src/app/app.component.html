@@ -35,7 +35,9 @@
             (click)="onClick(source, $event.target)"
         >
             Play
-            <ng-container [Output]="chain || fallback"></ng-container>
+            <ng-container AnalyserNode (timeByte$)="onTimeDomain($event, canvas)">
+                <ng-container [Output]="chain || fallback"></ng-container>
+            </ng-container>
         </button>
     </ng-container>
     <audio
@@ -45,7 +47,9 @@
         controls
         MediaElementAudioSourceNode
     >
-        <ng-container [Output]="chain || fallback"></ng-container>
+        <ng-container AnalyserNode (timeByte$)="onTimeDomain($event, canvas)">
+            <ng-container [Output]="chain || fallback"></ng-container>
+        </ng-container>
     </audio>
     <ng-container *ngSwitchCase="'oscillator'">
         <button
@@ -56,12 +60,18 @@
             (click)="onClick(source, $event.target)"
         >
             Play
-            <ng-container [Output]="chain || fallback"></ng-container>
+            <ng-container AnalyserNode (timeByte$)="onTimeDomain($event, canvas)">
+                <ng-container [Output]="chain || fallback"></ng-container>
+            </ng-container>
         </button>
     </ng-container>
 </ng-container>
 
-<ng-container #fallback="AudioNode" Destination></ng-container>
+<p>
+    <canvas #canvas></canvas>
+</p>
+
+<ng-container #fallback="AudioNode" AudioDestinationNode></ng-container>
 
 <h1>Chain</h1>
 <p>
@@ -104,8 +114,8 @@
             <fieldset [StereoPannerNode]="pan">
                 <legend>StereoPannerNode</legend>
                 <input type="range" min="-1" max="1" step="0.01" [(ngModel)]="pan" />
-                <fieldset Destination>
-                    <legend>Destination</legend>
+                <fieldset AudioDestinationNode>
+                    <legend>AudioDestinationNode</legend>
                 </fieldset>
             </fieldset>
         </fieldset>
@@ -134,8 +144,8 @@
                     </fieldset>
                 </fieldset>
             </fieldset>
-            <fieldset Destination>
-                <legend>Destination</legend>
+            <fieldset AudioDestinationNode>
+                <legend>AudioDestinationNode</legend>
             </fieldset>
         </fieldset>
     </ng-container>
@@ -199,8 +209,8 @@
                 <ng-container [GainNode]="distortionCompensation">
                     <fieldset ConvolverNode buffer="/assets/response.m4a">
                         <legend>ConvolverNode</legend>
-                        <fieldset Destination>
-                            <legend>Destination</legend>
+                        <fieldset AudioDestinationNode>
+                            <legend>AudioDestinationNode</legend>
                         </fieldset>
                     </fieldset>
                 </ng-container>

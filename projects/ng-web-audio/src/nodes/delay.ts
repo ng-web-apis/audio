@@ -22,7 +22,7 @@ export class WebAudioDelay extends DelayNode implements OnDestroy {
     DelayNode?: AudioParamInput;
 
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);

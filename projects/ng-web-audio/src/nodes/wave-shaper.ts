@@ -22,7 +22,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 })
 export class WebAudioWaveShaper extends WaveShaperNode implements OnDestroy {
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);

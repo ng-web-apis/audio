@@ -1,4 +1,5 @@
 AudioContext = globalThis.AudioContext || globalThis.webkitAudioContext;
+StereoPannerNode = globalThis.StereoPannerNode || globalThis.PannerNode;
 
 const context = new AudioContext();
 
@@ -25,7 +26,9 @@ try {
         return context.createPanner();
     };
     globalThis.StereoPannerNode = function(context) {
-        return context.createStereoPanner();
+        return context.createStereoPanner
+            ? context.createStereoPanner()
+            : context.createPanner();
     };
     globalThis.WaveShaperNode = function(context) {
         return context.createWaveShaper();

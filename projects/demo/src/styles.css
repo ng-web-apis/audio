@@ -45,11 +45,11 @@ legend {
     background: skyblue;
 }
 
-*[ng-reflect--audio-output] {
+*[ng-reflect--output] {
     background: thistle;
 }
 
-*[Destination] {
+*[AudioDestinationNode] {
     background: khaki;
 }
 

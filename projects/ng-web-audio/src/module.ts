@@ -1,6 +1,10 @@
 import {NgModule} from '@angular/core';
+import {WebAudioContext} from './directives/audio-context';
 import {WebAudioDestination} from './directives/destination';
+import {WebAudioListener} from './directives/listener';
+import {WebAudioOfflineContext} from './directives/offline-audio-context';
 import {WebAudioOutput} from './directives/output';
+import {WebAudioAnalyser} from './nodes/analyser';
 import {WebAudioBiquadFilter} from './nodes/biquad-filter';
 import {WebAudioConvolver} from './nodes/convolver';
 import {WebAudioDelay} from './nodes/delay';
@@ -16,11 +20,15 @@ import {WebAudioOscillator} from './sources/oscillator';
 
 @NgModule({
     declarations: [
+        WebAudioContext,
         WebAudioDestination,
+        WebAudioListener,
+        WebAudioOfflineContext,
         WebAudioOutput,
         WebAudioBufferSource,
         WebAudioMediaSource,
         WebAudioOscillator,
+        WebAudioAnalyser,
         WebAudioBiquadFilter,
         WebAudioConvolver,
         WebAudioDelay,
@@ -32,11 +40,15 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioPeriodicWavePipe,
     ],
     exports: [
+        WebAudioContext,
         WebAudioDestination,
+        WebAudioListener,
+        WebAudioOfflineContext,
         WebAudioOutput,
         WebAudioBufferSource,
         WebAudioMediaSource,
         WebAudioOscillator,
+        WebAudioAnalyser,
         WebAudioBiquadFilter,
         WebAudioConvolver,
         WebAudioDelay,

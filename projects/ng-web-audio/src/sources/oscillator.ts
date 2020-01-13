@@ -46,7 +46,7 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
     readonly onended = () => this.ended.emit();
 
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Attribute('autoplay') autoplay: string | null,
     ) {

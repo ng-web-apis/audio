@@ -22,7 +22,7 @@ export class WebAudioGain extends GainNode implements OnDestroy {
     GainNode?: AudioParamInput;
 
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);

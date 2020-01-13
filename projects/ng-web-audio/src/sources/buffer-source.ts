@@ -59,7 +59,7 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
 
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Attribute('autoplay') autoplay: string | null,
     ) {

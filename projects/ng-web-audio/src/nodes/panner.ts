@@ -1,8 +1,17 @@
-import {Directive, forwardRef, Inject, Input, SkipSelf} from '@angular/core';
+import {
+    Directive,
+    forwardRef,
+    Inject,
+    Input,
+    OnChanges,
+    OnDestroy,
+    SkipSelf,
+} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
 // @dynamic
 @Directive({
@@ -28,33 +37,35 @@ import {AudioParamInput} from '../types/audio-param-input';
         },
     ],
 })
-export class WebAudioPanner extends PannerNode {
+export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
     @Input()
     @audioParam('orientationX')
-    orientationXNode?: AudioParamInput;
+    orientationXParam?: AudioParamInput;
 
     @Input()
     @audioParam('orientationY')
-    orientationYNode?: AudioParamInput;
+    orientationYParam?: AudioParamInput;
 
     @Input()
     @audioParam('orientationZ')
-    orientationZNode?: AudioParamInput;
+    orientationZParam?: AudioParamInput;
 
     @Input()
     @audioParam('positionX')
-    positionXNode?: AudioParamInput;
+    positionXParam?: AudioParamInput;
 
     @Input()
     @audioParam('positionY')
-    positionYNode?: AudioParamInput;
+    positionYParam?: AudioParamInput;
 
     @Input()
     @audioParam('positionZ')
-    positionZNode?: AudioParamInput;
+    positionZParam?: AudioParamInput;
+
+    private readonly paramSupported = this.positionX instanceof AudioParam;
 
     constructor(
-        @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
@@ -62,5 +73,27 @@ export class WebAudioPanner extends PannerNode {
         if (node) {
             node.connect(this);
         }
+    }
+
+    ngOnChanges() {
+        if (this.paramSupported) {
+            return;
+        }
+
+        // Fallback for older browsers
+        this.setOrientation(
+            fallbackAudioParam(this.orientationXParam),
+            fallbackAudioParam(this.orientationYParam),
+            fallbackAudioParam(this.orientationZParam),
+        );
+        this.setPosition(
+            fallbackAudioParam(this.positionXParam),
+            fallbackAudioParam(this.positionYParam),
+            fallbackAudioParam(this.positionZParam),
+        );
+    }
+
+    ngOnDestroy() {
+        this.disconnect();
     }
 }

@@ -6,7 +6,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
     name: 'PeriodicWave',
 })
 export class WebAudioPeriodicWavePipe implements PipeTransform {
-    constructor(@Inject(AUDIO_CONTEXT) private readonly context: AudioContext) {}
+    constructor(@Inject(AUDIO_CONTEXT) private readonly context: BaseAudioContext) {}
 
     /**
      * Created {@link PeriodicWave} to use with {@link OscillatorNode}

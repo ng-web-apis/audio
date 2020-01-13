@@ -8,7 +8,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
 export class AudioBufferService {
     readonly cache = new Map<string, AudioBuffer>();
 
-    constructor(@Inject(AUDIO_CONTEXT) private readonly context: AudioContext) {}
+    constructor(@Inject(AUDIO_CONTEXT) private readonly context: BaseAudioContext) {}
 
     fetch(url: string): Promise<AudioBuffer> {
         return new Promise<AudioBuffer>((resolve, reject) => {
