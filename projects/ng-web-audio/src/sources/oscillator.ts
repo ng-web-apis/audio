@@ -9,8 +9,9 @@ import {
     Output,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
@@ -21,12 +22,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioOscillator),
         },
     ],
 })
-export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
+export class WebAudioOscillator extends OscillatorNode
+    implements OnDestroy, AudioNodeAccessor {
     @Input()
     set periodicWave(periodicWave: PeriodicWave) {
         this.setPeriodicWave(periodicWave);
@@ -55,6 +57,11 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
         if (autoplay !== null) {
             this.start();
         }
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

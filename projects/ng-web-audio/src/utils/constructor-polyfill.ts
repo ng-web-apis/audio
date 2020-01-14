@@ -37,4 +37,6 @@ function polyfillAudioNode<T extends AudioNode>(that: any, node: T) {
             Object.defineProperty(that, prop, newDescriptor);
         }
     });
+
+    that['__node'] = node;
 }

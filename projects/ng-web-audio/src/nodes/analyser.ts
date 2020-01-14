@@ -1,8 +1,10 @@
 import {Directive, forwardRef, Inject, OnDestroy, Output, SkipSelf} from '@angular/core';
 import {animationFrameScheduler, interval, Observable} from 'rxjs';
 import {map, mapTo, tap} from 'rxjs/operators';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -21,12 +23,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioAnalyser),
         },
     ],
 })
-export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
+export class WebAudioAnalyser extends AnalyserNode
+    implements OnDestroy, AudioNodeAccessor {
     @Output()
     readonly frequencyByte$: Observable<Uint8Array> = interval(
         0,
@@ -91,8 +94,13 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
         constructorPolyfill(this, context.createAnalyser());
 
         if (node) {
-            node.connect(this);
+            node.connect(this.node);
         }
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

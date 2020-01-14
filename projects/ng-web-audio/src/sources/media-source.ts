@@ -1,6 +1,7 @@
 import {Directive, ElementRef, forwardRef, Inject, OnDestroy} from '@angular/core';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -9,13 +10,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     exportAs: 'AudioNode',
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioMediaSource),
         },
     ],
 })
 export class WebAudioMediaSource extends MediaElementAudioSourceNode
-    implements OnDestroy {
+    implements OnDestroy, AudioNodeAccessor {
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,
         @Inject(ElementRef) {nativeElement}: ElementRef<HTMLMediaElement>,
@@ -25,6 +26,11 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode
         try {
             constructorPolyfill(this, context.createMediaElementSource(nativeElement));
         } catch (_) {}
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

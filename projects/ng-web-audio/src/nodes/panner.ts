@@ -8,8 +8,10 @@ import {
     SkipSelf,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
@@ -33,12 +35,13 @@ import {fallbackAudioParam} from '../utils/fallback-audio-param';
     ],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioPanner),
         },
     ],
 })
-export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
+export class WebAudioPanner extends PannerNode
+    implements OnDestroy, OnChanges, AudioNodeAccessor {
     @Input()
     @audioParam('orientationX')
     orientationXParam?: AudioParamInput;
@@ -73,8 +76,13 @@ export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
         constructorPolyfill(this, context.createPanner());
 
         if (node) {
-            node.connect(this);
+            node.connect(this.node);
         }
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnChanges() {

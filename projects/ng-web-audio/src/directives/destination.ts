@@ -11,6 +11,7 @@ import {
 } from 'rxjs/operators';
 import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
@@ -20,7 +21,8 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     selector: '[AudioDestinationNode]',
     exportAs: 'AudioNode',
 })
-export class WebAudioDestination extends AnalyserNode implements OnDestroy {
+export class WebAudioDestination extends AnalyserNode
+    implements OnDestroy, AudioNodeAccessor {
     @Output()
     readonly quiet = interval(POLLING_TIME).pipe(
         mapTo(new Uint8Array(this.fftSize)),
@@ -43,8 +45,13 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         this.connect(context.destination);
 
         if (node) {
-            node.connect(this);
+            node.connect(this.node);
         }
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

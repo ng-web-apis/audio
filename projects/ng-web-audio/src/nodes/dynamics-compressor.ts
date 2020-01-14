@@ -1,7 +1,9 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
@@ -12,13 +14,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioDynamicsCompressor),
         },
     ],
 })
 export class WebAudioDynamicsCompressor extends DynamicsCompressorNode
-    implements OnDestroy {
+    implements OnDestroy, AudioNodeAccessor {
     @Input('attack')
     @audioParam('attack')
     attackParam?: AudioParamInput;
@@ -47,8 +49,14 @@ export class WebAudioDynamicsCompressor extends DynamicsCompressorNode
         constructorPolyfill(this, context.createDynamicsCompressor());
 
         if (node) {
-            node.connect(this);
+            // @ts-ignore
+            node.connect(this.node);
         }
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

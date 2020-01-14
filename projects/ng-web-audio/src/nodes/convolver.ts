@@ -1,9 +1,11 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -13,12 +15,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['normalize', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioConvolver),
         },
     ],
 })
-export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
+export class WebAudioConvolver extends ConvolverNode
+    implements OnDestroy, AudioNodeAccessor {
     @Input('buffer')
     set bufferSetter(source: AudioBuffer | null | string) {
         this.buffer$.next(source);
@@ -35,7 +38,7 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
         constructorPolyfill(this, context.createConvolver());
 
         if (node) {
-            node.connect(this);
+            node.connect(this.node);
         }
 
         this.buffer$
@@ -49,6 +52,11 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
             .subscribe(buffer => {
                 this.buffer = buffer;
             });
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

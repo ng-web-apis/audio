@@ -1,4 +1,4 @@
-import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {Directive, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
@@ -6,24 +6,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 // @dynamic
 @Directive({
     selector: '[Output]',
-    providers: [
-        {
-            provide: AUDIO_NODE,
-            useExisting: forwardRef(() => WebAudioOutput),
-        },
-    ],
 })
 export class WebAudioOutput extends GainNode implements OnDestroy {
     @Input()
     set Output(destination: AudioNode | AudioParam | undefined) {
         this.disconnect();
-
-        // TODO: Workaround TS buggy overload
-        if (destination instanceof AudioNode) {
-            this.connect(destination);
-        } else if (destination) {
-            this.connect(destination);
-        }
+        // @ts-ignore in Safari real node is stored under hacked '__node' property
+        this.connect(destination['__node'] || destination);
     }
 
     constructor(
@@ -34,7 +23,8 @@ export class WebAudioOutput extends GainNode implements OnDestroy {
         constructorPolyfill(this, context.createGain());
 
         if (node) {
-            node.connect(this);
+            // @ts-ignore
+            node.connect(this['__node'] || this);
         }
     }
 

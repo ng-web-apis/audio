@@ -11,9 +11,10 @@ import {
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {audioParam} from '../decorators/audio-param';
+import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
+import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
@@ -31,12 +32,13 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AUDIO_NODE_ACCESSOR,
             useExisting: forwardRef(() => WebAudioBufferSource),
         },
     ],
 })
-export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDestroy {
+export class WebAudioBufferSource extends AudioBufferSourceNode
+    implements OnDestroy, AudioNodeAccessor {
     @Input('buffer')
     set bufferSetter(source: AudioBuffer | null | string) {
         this.buffer$.next(source);
@@ -80,6 +82,11 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
                     this.start();
                 }
             });
+    }
+
+    get node(): AudioNode {
+        // @ts-ignore
+        return this['__node'] || this;
     }
 
     ngOnDestroy() {

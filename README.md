@@ -134,8 +134,16 @@ You can use following audio nodes through directives of the same name:
     [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
 -   Use `PeriodicWave` pipe to create [PeriodicWave](https://developer.mozilla.org/en-US/docs/Web/API/PeriodicWave)
     for [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
--   All node directives are exported as `AudioNode` so you can use them with template reference
-    variables (see feedback loop example above)
+-   All node directives are exported as `AudioNode` so you can use them with
+    [template reference variables](https://angular.io/guide/template-syntax#ref-var) (see feedback loop example above)
+
+> **IMPORTANT:** Safari and older browsers do not support constructor approach to
+> [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode) creation, therefore
+> it is emulated in those browsers through polyfill. This means that directives are not extensions
+> of nodes themselves. Use `node` getter if you are accessing directives through
+> [template reference variables](https://angular.io/guide/template-syntax#ref-var)
+> for your own needs. `Output` directive already takes that into account so you don't need to worry
+> about this when you use it.
 
 ## 💡 Tokens
 
@@ -147,7 +155,9 @@ You can use following audio nodes through directives of the same name:
 -   You can also provide custom
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     through that token
--   All node directives provide themselves as `AUDIO_NODE` token
+-   All node directives provide underlying
+    [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode)
+    as `AUDIO_NODE` token
 
 ## Browser support
 
