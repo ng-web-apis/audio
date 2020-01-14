@@ -77,7 +77,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
     rendering immediately
-      
+
     💡 Also gives you access to
     [AudioListener](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener)
     parameters such as
@@ -89,7 +89,7 @@ You can use following audio nodes through directives of the same name:
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     referencing the same
     [BaseAudioContext.destination](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/destination)
-      
+
     💡 Has `(quiet)` output to watch for particular graph branch going silent
 
 ### Sources
@@ -185,3 +185,4 @@ in browsers that do not support it yet
 -   Streaming concept
     -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
     -   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
+-   Add some sort of SSR fallback so it doesn't crash in Angular Universal environment

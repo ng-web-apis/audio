@@ -7,7 +7,6 @@ import {
     Input,
     OnDestroy,
     Output,
-    SkipSelf,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
@@ -47,14 +46,9 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Attribute('autoplay') autoplay: string | null,
     ) {
         super(context);
-
-        if (node) {
-            node.connect(this);
-        }
 
         if (autoplay !== null) {
             this.start();

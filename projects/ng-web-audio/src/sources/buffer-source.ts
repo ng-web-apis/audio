@@ -7,7 +7,6 @@ import {
     Input,
     OnDestroy,
     Output,
-    SkipSelf,
 } from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
@@ -60,14 +59,9 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Attribute('autoplay') autoplay: string | null,
     ) {
         super(context);
-
-        if (node) {
-            node.connect(this);
-        }
 
         this.buffer$
             .pipe(

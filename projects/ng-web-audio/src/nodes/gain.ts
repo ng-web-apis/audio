@@ -3,6 +3,7 @@ import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -26,6 +27,7 @@ export class WebAudioGain extends GainNode implements OnDestroy {
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createGain());
 
         if (node) {
             node.connect(this);
