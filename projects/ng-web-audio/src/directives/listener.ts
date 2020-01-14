@@ -2,6 +2,7 @@ import {Directive, Inject, Input, OnChanges, Self} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AudioParamInput} from '../types/audio-param-input';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
 // @dynamic
@@ -50,6 +51,7 @@ export class WebAudioListener extends GainNode implements OnChanges {
 
     constructor(@Self() @Inject(AUDIO_CONTEXT) context: BaseAudioContext) {
         super(context);
+        constructorPolyfill(this, context.createGain());
     }
 
     get forwardX(): AudioParam {

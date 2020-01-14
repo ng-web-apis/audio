@@ -3,6 +3,7 @@ import {animationFrameScheduler, interval, Observable} from 'rxjs';
 import {map, mapTo, tap} from 'rxjs/operators';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -87,6 +88,7 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createAnalyser());
 
         if (node) {
             node.connect(this);

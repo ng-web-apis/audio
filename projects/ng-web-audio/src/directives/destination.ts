@@ -13,6 +13,7 @@ import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -35,8 +36,10 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context, {fftSize: 256});
+        super(context);
+        constructorPolyfill(this, context.createAnalyser());
 
+        this.fftSize = 256;
         this.connect(context.destination);
 
         if (node) {

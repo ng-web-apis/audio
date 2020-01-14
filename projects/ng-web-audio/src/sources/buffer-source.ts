@@ -15,6 +15,7 @@ import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -62,6 +63,7 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
         @Attribute('autoplay') autoplay: string | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createBufferSource());
 
         this.buffer$
             .pipe(

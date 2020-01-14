@@ -1,6 +1,7 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -30,6 +31,7 @@ export class WebAudioOutput extends GainNode implements OnDestroy {
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createGain());
 
         if (node) {
             node.connect(this);

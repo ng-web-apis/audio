@@ -1,6 +1,7 @@
 import {Directive, forwardRef, Inject, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -26,6 +27,7 @@ export class WebAudioWaveShaper extends WaveShaperNode implements OnDestroy {
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createWaveShaper());
 
         if (node) {
             node.connect(this);

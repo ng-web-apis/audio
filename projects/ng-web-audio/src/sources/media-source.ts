@@ -1,6 +1,7 @@
 import {Directive, ElementRef, forwardRef, Inject, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -20,6 +21,7 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode
         @Inject(ElementRef) {nativeElement}: ElementRef<HTMLMediaElement>,
     ) {
         super(context, {mediaElement: nativeElement});
+        constructorPolyfill(this, context.createMediaElementSource(nativeElement));
     }
 
     ngOnDestroy() {

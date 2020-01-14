@@ -2,6 +2,7 @@ import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angula
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 import {processAudioParam} from '../utils/process-audio-param';
 
@@ -34,6 +35,7 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createPanner());
 
         if (node) {
             node.connect(this);

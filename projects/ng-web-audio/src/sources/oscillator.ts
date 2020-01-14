@@ -12,6 +12,7 @@ import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -49,6 +50,7 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
         @Attribute('autoplay') autoplay: string | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createOscillator());
 
         if (autoplay !== null) {
             this.start();

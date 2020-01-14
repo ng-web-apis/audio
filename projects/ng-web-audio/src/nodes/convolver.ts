@@ -4,6 +4,7 @@ import {switchMap} from 'rxjs/operators';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -31,6 +32,7 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         super(context);
+        constructorPolyfill(this, context.createConvolver());
 
         if (node) {
             node.connect(this);
