@@ -85,7 +85,9 @@ You can use following audio nodes through directives of the same name:
 
 -   [AudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioDestinationNode)
 
-    💡 Use it to terminate branch of your graph, can be used multiple times inside single
+    💡 Use it to terminate branch of your graph
+
+    💡 can be used multiple times inside single
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     referencing the same
     [BaseAudioContext.destination](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/destination)
@@ -98,7 +100,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Additionally supports setting URL to media file as
     [buffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/buffer)
-    so it will be automatically downloaded and turned into
+    so it will be automatically fetched and turned into
     [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)
 
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
@@ -117,7 +119,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Additionally supports setting URL to media file as
     [buffer](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode/buffer)
-    so it will be automatically downloaded and turned into
+    so it will be automatically fetched and turned into
     [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)
 
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
@@ -166,6 +168,10 @@ Same as for [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web
 **IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` included in your
 `angular.json` if you want to support Safari.
 
+💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
+is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
+in browsers that do not support it yet
+
 💡 [positionX](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/positionX)
 ([orientationX](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/orientationX)) and
 other similar properties of [AudioListener](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener)
@@ -173,10 +179,6 @@ and [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode) fa
 [setPosition](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/setPosition)
 ([setOrientation](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/setOrientation))
 method if browser does not support it
-
-💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
-is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
-in browsers that do not support it yet
 
 ## TODO
 
