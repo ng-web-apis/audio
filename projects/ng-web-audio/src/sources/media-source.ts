@@ -21,7 +21,10 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode
         @Inject(ElementRef) {nativeElement}: ElementRef<HTMLMediaElement>,
     ) {
         super(context, {mediaElement: nativeElement});
-        constructorPolyfill(this, context.createMediaElementSource(nativeElement));
+
+        try {
+            constructorPolyfill(this, context.createMediaElementSource(nativeElement));
+        } catch (_) {}
     }
 
     ngOnDestroy() {

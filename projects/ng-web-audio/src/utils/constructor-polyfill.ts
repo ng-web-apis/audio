@@ -16,21 +16,25 @@ function polyfillAudioNode<T extends AudioNode>(that: any, node: T) {
             Object.getOwnPropertyDescriptor(audioNodeProto, prop);
 
         if (prop !== 'constructor' && descriptor) {
-            const {writable, enumerable, configurable} = descriptor;
-            let {get, set, value} = descriptor;
-
-            get = get ? get.bind(node) : undefined;
-            set = set ? set.bind(node) : undefined;
-            value = typeof value === 'function' ? value.bind(node) : value;
-
-            Object.defineProperty(that, prop, {
-                writable,
+            const {get, set, value, enumerable, configurable} = descriptor;
+            const newDescriptor: PropertyDescriptor = {
                 enumerable,
                 configurable,
-                get,
-                set,
-                value,
-            });
+            };
+
+            if (get) {
+                newDescriptor.get = get.bind(node);
+            }
+
+            if (set) {
+                newDescriptor.set = set.bind(node);
+            }
+
+            if (typeof value === 'function') {
+                newDescriptor.value = value.bind(node);
+            }
+
+            Object.defineProperty(that, prop, newDescriptor);
         }
     });
 }
