@@ -1,14 +1,13 @@
-export function constructorPolyfill(that: AudioNode, node: AudioNode) {
-    // tslint:disable-next-line:no-console
-    console.log(that instanceof node.constructor);
-
-    let o2nd = that;
-    let o1st = Object.getPrototypeOf(o2nd);
-
-    while (o1st !== Object.prototype && o1st !== Function.prototype) {
-        o2nd = o1st;
-        o1st = Object.getPrototypeOf(o2nd);
+export function constructorPolyfill<T extends AudioNode>(that: any, node: T) {
+    if (!(that instanceof node.constructor)) {
+        polyfillAudioNode(that, node);
     }
+}
 
-    Object.setPrototypeOf(o2nd, node);
+function polyfillAudioNode(that: any, node: AudioNode) {
+    const proto = Object.getPrototypeOf(node);
+    const audioNodeProto = Object.getPrototypeOf(proto);
+
+    Object.defineProperties(that, Object.getOwnPropertyDescriptors(audioNodeProto));
+    Object.defineProperties(that, Object.getOwnPropertyDescriptors(proto));
 }
