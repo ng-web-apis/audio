@@ -1,3 +1,31 @@
+import {AudioNodeFactoryMethod} from '../types/audio-node-factory-method';
+
+export type Constructor<T> = new (...args: any[]) => T;
+
+export function constructorPolyfillz<T extends AudioNode>(
+    context: BaseAudioContext,
+    method: AudioNodeFactoryMethod,
+    node: Constructor<T>,
+    parentNode: AudioNode | null,
+): T | void {
+    try {
+        // @ts-ignore
+        const _test = new GainNode(context);
+    } catch (_) {
+        const result: AudioNode = context[method]();
+
+        // tslint:disable-next-line:no-console
+        console.log('Polyfill');
+        Object.setPrototypeOf(result, node.prototype);
+
+        if (parentNode) {
+            parentNode.connect(result);
+        }
+
+        return result as T;
+    }
+}
+
 export function constructorPolyfill<T extends AudioNode>(that: any, node: T) {
     if (!(that instanceof node.constructor)) {
         polyfillAudioNode(that, node);
