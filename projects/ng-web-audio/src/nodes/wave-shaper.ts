@@ -1,8 +1,7 @@
 import {Directive, forwardRef, Inject, OnDestroy, SkipSelf} from '@angular/core';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -18,31 +17,39 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioWaveShaper),
         },
     ],
 })
-export class WebAudioWaveShaper extends WaveShaperNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioWaveShaper extends WaveShaperNode implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createWaveShaper());
+        const result = constructorPolyfill(
+            context,
+            'createWaveShaper',
+            WebAudioWaveShaper,
+            node,
+        );
 
-        if (node) {
-            node.connect(this.node);
+        if (result) {
+            return result;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+        WebAudioWaveShaper.init(this, node);
     }
 
     ngOnDestroy() {
         this.disconnect();
+    }
+
+    static init(that: WebAudioWaveShaper, node: AudioNode | null) {
+        connect(
+            node,
+            that,
+        );
     }
 }

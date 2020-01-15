@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {WebAudioContext} from './directives/audio-context';
-import {WebAudioNode} from './directives/audio-node';
 import {WebAudioDestination} from './directives/destination';
 import {WebAudioListener} from './directives/listener';
 import {WebAudioOfflineContext} from './directives/offline-audio-context';
@@ -22,7 +21,6 @@ import {WebAudioOscillator} from './sources/oscillator';
 @NgModule({
     declarations: [
         WebAudioContext,
-        WebAudioNode,
         WebAudioDestination,
         WebAudioListener,
         WebAudioOfflineContext,
@@ -43,7 +41,6 @@ import {WebAudioOscillator} from './sources/oscillator';
     ],
     exports: [
         WebAudioContext,
-        WebAudioNode,
         WebAudioDestination,
         WebAudioListener,
         WebAudioOfflineContext,

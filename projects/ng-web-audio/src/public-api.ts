@@ -4,12 +4,9 @@
 export * from './decorators/audio-param';
 
 export * from './directives/audio-context';
-export * from './directives/audio-node';
 export * from './directives/destination';
 export * from './directives/listener';
 export * from './directives/output';
-
-export * from './interfaces/audio-node-accessor';
 
 export * from './nodes/analyser';
 export * from './nodes/biquad-filter';

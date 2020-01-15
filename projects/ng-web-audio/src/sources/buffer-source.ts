@@ -11,11 +11,11 @@ import {
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {audioParam} from '../decorators/audio-param';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -32,13 +32,12 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioBufferSource),
         },
     ],
 })
-export class WebAudioBufferSource extends AudioBufferSourceNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDestroy {
     @Input('buffer')
     set bufferSetter(source: AudioBuffer | null | string) {
         this.buffer$.next(source);
@@ -53,40 +52,30 @@ export class WebAudioBufferSource extends AudioBufferSourceNode
     playbackRateParam?: AudioParamInput;
 
     @Output()
-    readonly ended = new EventEmitter<void>();
+    ended?: EventEmitter<void>;
 
-    readonly onended = () => this.ended.emit();
-
-    private readonly buffer$ = new Subject<AudioBuffer | null | string>();
+    buffer$!: Subject<AudioBuffer | null | string>;
 
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Attribute('autoplay') autoplay: string | null,
     ) {
+        const result = constructorPolyfill(
+            context,
+            'createBufferSource',
+            WebAudioBufferSource,
+            null,
+            autoplay,
+            audioBufferService,
+        );
+
+        if (result) {
+            return result;
+        }
+
         super(context);
-        constructorPolyfill(this, context.createBufferSource());
-
-        this.buffer$
-            .pipe(
-                switchMap(source =>
-                    typeof source === 'string'
-                        ? audioBufferService.fetch(source)
-                        : of(source),
-                ),
-            )
-            .subscribe(buffer => {
-                this.buffer = buffer;
-
-                if (autoplay !== null) {
-                    this.start();
-                }
-            });
-    }
-
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        WebAudioBufferSource.init(this, null, autoplay, audioBufferService);
     }
 
     ngOnDestroy() {
@@ -97,5 +86,38 @@ export class WebAudioBufferSource extends AudioBufferSourceNode
         } catch (_) {}
 
         this.disconnect();
+    }
+
+    static init(
+        that: WebAudioBufferSource,
+        node: AudioNode | null,
+        autoplay: string | null,
+        audioBufferService: AudioBufferService,
+    ) {
+        connect(
+            node,
+            that,
+        );
+
+        if (autoplay !== null) {
+            that.start();
+        }
+
+        const ended = new EventEmitter<void>();
+
+        that.ended = ended;
+        that.onended = () => ended.emit();
+        that.buffer$ = new Subject<AudioBuffer | null | string>();
+        that.buffer$
+            .pipe(
+                switchMap(source =>
+                    typeof source === 'string'
+                        ? audioBufferService.fetch(source)
+                        : of(source),
+                ),
+            )
+            .subscribe(buffer => {
+                that.buffer = buffer;
+            });
     }
 }

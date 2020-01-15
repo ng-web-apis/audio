@@ -1,10 +1,9 @@
 import {Directive, forwardRef, Inject, OnDestroy, Output, SkipSelf} from '@angular/core';
 import {animationFrameScheduler, interval, Observable} from 'rxjs';
 import {map, mapTo, tap} from 'rxjs/operators';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -23,87 +22,91 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioAnalyser),
         },
     ],
 })
-export class WebAudioAnalyser extends AnalyserNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
     @Output()
-    readonly frequencyByte$: Observable<Uint8Array> = interval(
-        0,
-        animationFrameScheduler,
-    ).pipe(
-        mapTo(new Uint8Array(this.frequencyBinCount)),
-        map(array =>
-            array.length === this.frequencyBinCount
-                ? array
-                : new Uint8Array(this.frequencyBinCount),
-        ),
-        tap(array => this.getByteFrequencyData(array)),
-    );
+    frequencyByte$?: Observable<Uint8Array>;
 
     @Output()
-    readonly frequencyFloat$: Observable<Float32Array> = interval(
-        0,
-        animationFrameScheduler,
-    ).pipe(
-        mapTo(new Float32Array(this.frequencyBinCount)),
-        map(array =>
-            array.length === this.frequencyBinCount
-                ? array
-                : new Float32Array(this.frequencyBinCount),
-        ),
-        tap(array => this.getFloatFrequencyData(array)),
-    );
+    frequencyFloat$?: Observable<Float32Array>;
 
     @Output()
-    readonly timeByte$: Observable<Uint8Array> = interval(
-        0,
-        animationFrameScheduler,
-    ).pipe(
-        mapTo(new Uint8Array(this.fftSize)),
-        map(array =>
-            array.length === this.fftSize
-                ? array
-                : new Uint8Array(this.frequencyBinCount),
-        ),
-        tap(array => this.getByteTimeDomainData(array)),
-    );
+    timeByte$?: Observable<Uint8Array>;
 
     @Output()
-    readonly timeFloat$: Observable<Float32Array> = interval(
-        0,
-        animationFrameScheduler,
-    ).pipe(
-        mapTo(new Float32Array(this.fftSize)),
-        map(array =>
-            array.length === this.fftSize
-                ? array
-                : new Float32Array(this.frequencyBinCount),
-        ),
-        tap(array => this.getFloatTimeDomainData(array)),
-    );
+    timeFloat$?: Observable<Float32Array>;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createAnalyser());
+        const result = constructorPolyfill(
+            context,
+            'createAnalyser',
+            WebAudioAnalyser,
+            node,
+        );
 
-        if (node) {
-            node.connect(this.node);
+        if (result) {
+            return result;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+        WebAudioAnalyser.init(this, node);
     }
 
     ngOnDestroy() {
         this.disconnect();
+    }
+
+    static init(that: WebAudioAnalyser, node: AudioNode | null) {
+        connect(
+            node,
+            that,
+        );
+
+        that.frequencyByte$ = interval(0, animationFrameScheduler).pipe(
+            mapTo(new Uint8Array(that.frequencyBinCount)),
+            map(array =>
+                array.length === that.frequencyBinCount
+                    ? array
+                    : new Uint8Array(that.frequencyBinCount),
+            ),
+            tap(array => that.getByteFrequencyData(array)),
+        );
+
+        that.frequencyFloat$ = interval(0, animationFrameScheduler).pipe(
+            mapTo(new Float32Array(that.frequencyBinCount)),
+            map(array =>
+                array.length === that.frequencyBinCount
+                    ? array
+                    : new Float32Array(that.frequencyBinCount),
+            ),
+            tap(array => that.getFloatFrequencyData(array)),
+        );
+
+        that.timeByte$ = interval(0, animationFrameScheduler).pipe(
+            mapTo(new Uint8Array(that.fftSize)),
+            map(array =>
+                array.length === that.fftSize
+                    ? array
+                    : new Uint8Array(that.frequencyBinCount),
+            ),
+            tap(array => that.getByteTimeDomainData(array)),
+        );
+
+        that.timeFloat$ = interval(0, animationFrameScheduler).pipe(
+            mapTo(new Float32Array(that.fftSize)),
+            map(array =>
+                array.length === that.fftSize
+                    ? array
+                    : new Float32Array(that.frequencyBinCount),
+            ),
+            tap(array => that.getFloatTimeDomainData(array)),
+        );
     }
 }

@@ -1,5 +1,5 @@
 import {Directive, Inject, OnDestroy, Output} from '@angular/core';
-import {interval} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {
     debounceTime,
     distinctUntilChanged,
@@ -11,9 +11,9 @@ import {
 } from 'rxjs/operators';
 import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -21,37 +21,28 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     selector: '[AudioDestinationNode]',
     exportAs: 'AudioNode',
 })
-export class WebAudioDestination extends AnalyserNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioDestination extends AnalyserNode implements OnDestroy {
     @Output()
-    readonly quiet = interval(POLLING_TIME).pipe(
-        mapTo(new Uint8Array(this.fftSize)),
-        tap(array => this.getByteTimeDomainData(array)),
-        map(array => this.isSilent(array)),
-        distinctUntilChanged(),
-        debounceTime(1000),
-        filter(isSilent => isSilent),
-        skip(1),
-    );
+    quiet?: Observable<unknown>;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createAnalyser());
+        const result = constructorPolyfill(
+            context,
+            'createAnalyser',
+            WebAudioDestination,
+            node,
+        );
 
-        this.fftSize = 256;
-        this.connect(context.destination);
-
-        if (node) {
-            node.connect(this.node);
+        if (result) {
+            return;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+
+        WebAudioDestination.init(this, node);
     }
 
     ngOnDestroy() {
@@ -66,5 +57,23 @@ export class WebAudioDestination extends AnalyserNode
         }
 
         return true;
+    }
+
+    static init(that: WebAudioDestination, node: AudioNode | null) {
+        connect(
+            node,
+            that,
+        );
+        that.fftSize = 256;
+        that.connect(that.context.destination);
+        that.quiet = interval(POLLING_TIME).pipe(
+            mapTo(new Uint8Array(that.fftSize)),
+            tap(array => that.getByteTimeDomainData(array)),
+            map(array => that.isSilent(array)),
+            distinctUntilChanged(),
+            debounceTime(1000),
+            filter(isSilent => isSilent),
+            skip(1),
+        );
     }
 }

@@ -1,70 +1,25 @@
 import {AudioNodeFactoryMethod} from '../types/audio-node-factory-method';
 
-export type Constructor<T> = new (...args: any[]) => T;
+type Constructor<T> = (new (...args: any[]) => T) & {
+    init: (that: T, node: AudioNode | null, ...args: any[]) => void;
+};
 
-export function constructorPolyfillz<T extends AudioNode>(
+export function constructorPolyfill<T extends AudioNode>(
     context: BaseAudioContext,
     method: AudioNodeFactoryMethod,
-    node: Constructor<T>,
-    parentNode: AudioNode | null,
+    constructor: Constructor<T>,
+    node: AudioNode | null,
+    ...args: any[]
 ): T | void {
     try {
         // @ts-ignore
         const _test = new GainNode(context);
     } catch (_) {
-        const result: AudioNode = context[method]();
+        const result = context[method]() as T;
 
-        // tslint:disable-next-line:no-console
-        console.log('Polyfill');
-        Object.setPrototypeOf(result, node.prototype);
+        Object.setPrototypeOf(result, constructor.prototype);
+        constructor.init(result, node, ...args);
 
-        if (parentNode) {
-            parentNode.connect(result);
-        }
-
-        return result as T;
+        return result;
     }
-}
-
-export function constructorPolyfill<T extends AudioNode>(that: any, node: T) {
-    if (!(that instanceof node.constructor)) {
-        polyfillAudioNode(that, node);
-    }
-}
-
-function polyfillAudioNode<T extends AudioNode>(that: any, node: T) {
-    const proto = Object.getPrototypeOf(node);
-    const props = Object.getOwnPropertyNames(proto);
-    const audioNodeProto = Object.getPrototypeOf(proto);
-    const audioNodeProps = Object.getOwnPropertyNames(audioNodeProto);
-
-    [...audioNodeProps, ...props].forEach(prop => {
-        const descriptor =
-            Object.getOwnPropertyDescriptor(proto, prop) ||
-            Object.getOwnPropertyDescriptor(audioNodeProto, prop);
-
-        if (prop !== 'constructor' && descriptor) {
-            const {get, set, value, enumerable, configurable} = descriptor;
-            const newDescriptor: PropertyDescriptor = {
-                enumerable,
-                configurable,
-            };
-
-            if (get) {
-                newDescriptor.get = get.bind(node);
-            }
-
-            if (set) {
-                newDescriptor.set = set.bind(node);
-            }
-
-            if (typeof value === 'function') {
-                newDescriptor.value = value.bind(node);
-            }
-
-            Object.defineProperty(that, prop, newDescriptor);
-        }
-    });
-
-    that['__node'] = node;
 }

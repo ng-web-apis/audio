@@ -1,10 +1,8 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
+import {connect} from '../utils/connect';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 import {processAudioParam} from '../utils/process-audio-param';
 
@@ -15,13 +13,12 @@ import {processAudioParam} from '../utils/process-audio-param';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioStereoPanner),
         },
     ],
 })
-export class WebAudioStereoPanner extends StereoPannerNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy {
     @Input()
     set StereoPannerNode(pan: AudioParamInput) {
         if ('setPosition' in this) {
@@ -37,17 +34,20 @@ export class WebAudioStereoPanner extends StereoPannerNode
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createPanner());
+        try {
+            // @ts-ignore
+            const _test = new StereoPannerNode(context);
+        } catch (_) {
+            const result = (context.createPanner() as unknown) as WebAudioStereoPanner;
 
-        if (node) {
-            node.connect(this.node);
+            Object.setPrototypeOf(result, WebAudioStereoPanner.prototype);
+            WebAudioStereoPanner.init(result, node);
+
+            return result;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+        WebAudioStereoPanner.init(this, node);
     }
 
     ngOnDestroy() {
@@ -63,5 +63,12 @@ export class WebAudioStereoPanner extends StereoPannerNode
 
         // @ts-ignore
         this.setPosition(x, 0, z);
+    }
+
+    static init(that: WebAudioStereoPanner, node: AudioNode | null) {
+        connect(
+            node,
+            that,
+        );
     }
 }

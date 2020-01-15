@@ -24,12 +24,12 @@ You can build audio graph with directives. For example, here's a typical echo fe
 </audio>
 ```
 
-_Note that single input nodes, such as
-[GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) or
-[DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode) use directive name as
-input alias for underlying [gain](https://developer.mozilla.org/en-US/docs/Web/API/GainNode/gain) or
-[delayTime](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode/delayTime) parameters.
-Whereas more complex nodes use respective parameters names._
+> Note that single input nodes, such as
+> [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) or
+> [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode) use directive name as
+> input alias for underlying [gain](https://developer.mozilla.org/en-US/docs/Web/API/GainNode/gain) or
+> [delayTime](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode/delayTime) parameters.
+> Whereas more complex nodes use respective parameters names.
 
 ## 💡 AudioBufferService
 
@@ -139,14 +139,6 @@ You can use following audio nodes through directives of the same name:
 -   All node directives are exported as `AudioNode` so you can use them with
     [template reference variables](https://angular.io/guide/template-syntax#ref-var) (see feedback loop example above)
 
-> **IMPORTANT:** Safari and older browsers do not support constructor approach to
-> [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode) creation, therefore
-> it is emulated in those browsers through polyfill. This means that directives are not extensions
-> of nodes themselves. Use `node` getter if you are accessing directives through
-> [template reference variables](https://angular.io/guide/template-syntax#ref-var)
-> for your own needs. `Output` directive already takes that into account so you don't need to worry
-> about this when you use it.
-
 ## 💡 Tokens
 
 -   You can inject
@@ -165,8 +157,8 @@ You can use following audio nodes through directives of the same name:
 
 Same as for [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API):
 
-**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` included in your
-`angular.json` if you want to support Safari.
+_**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` included in your
+`angular.json` if you want to support Safari._
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)

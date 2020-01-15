@@ -8,11 +8,10 @@ import {
     SkipSelf,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
 import {AudioParamInput} from '../types/audio-param-input';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
@@ -35,13 +34,12 @@ import {fallbackAudioParam} from '../utils/fallback-audio-param';
     ],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioPanner),
         },
     ],
 })
-export class WebAudioPanner extends PannerNode
-    implements OnDestroy, OnChanges, AudioNodeAccessor {
+export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
     @Input()
     @audioParam('orientationX')
     orientationXParam?: AudioParamInput;
@@ -66,27 +64,22 @@ export class WebAudioPanner extends PannerNode
     @audioParam('positionZ')
     positionZParam?: AudioParamInput;
 
-    private readonly paramSupported = this.positionX instanceof AudioParam;
-
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createPanner());
+        const result = constructorPolyfill(context, 'createPanner', WebAudioPanner, node);
 
-        if (node) {
-            node.connect(this.node);
+        if (result) {
+            return result;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+        WebAudioPanner.init(this, node);
     }
 
     ngOnChanges() {
-        if (this.paramSupported) {
+        if (this.positionX instanceof AudioParam) {
             return;
         }
 
@@ -105,5 +98,12 @@ export class WebAudioPanner extends PannerNode
 
     ngOnDestroy() {
         this.disconnect();
+    }
+
+    static init(that: WebAudioPanner, node: AudioNode | null) {
+        connect(
+            node,
+            that,
+        );
     }
 }

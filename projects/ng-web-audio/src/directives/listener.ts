@@ -46,12 +46,14 @@ export class WebAudioListener extends GainNode implements OnChanges {
     @audioParam('upZ')
     upZParam?: AudioParamInput;
 
-    private readonly paramSupported =
-        this.context.listener.positionX instanceof AudioParam;
-
     constructor(@Self() @Inject(AUDIO_CONTEXT) context: BaseAudioContext) {
+        const result = constructorPolyfill(context, 'createGain', WebAudioListener, null);
+
+        if (result) {
+            return result;
+        }
+
         super(context);
-        constructorPolyfill(this, context.createGain());
     }
 
     get forwardX(): AudioParam {
@@ -91,7 +93,7 @@ export class WebAudioListener extends GainNode implements OnChanges {
     }
 
     ngOnChanges() {
-        if (this.paramSupported) {
+        if (this.context.listener.positionX instanceof AudioParam) {
             return;
         }
 
@@ -110,4 +112,6 @@ export class WebAudioListener extends GainNode implements OnChanges {
             fallbackAudioParam(this.positionZParam),
         );
     }
+
+    static init() {}
 }

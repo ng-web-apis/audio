@@ -9,10 +9,10 @@ import {
     Output,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -22,13 +22,12 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioOscillator),
         },
     ],
 })
-export class WebAudioOscillator extends OscillatorNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
     @Input()
     set periodicWave(periodicWave: PeriodicWave) {
         this.setPeriodicWave(periodicWave);
@@ -43,25 +42,26 @@ export class WebAudioOscillator extends OscillatorNode
     frequencyParam?: AudioParamInput;
 
     @Output()
-    readonly ended = new EventEmitter<void>();
-
-    readonly onended = () => this.ended.emit();
+    ended?: EventEmitter<void>;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Attribute('autoplay') autoplay: string | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createOscillator());
+        const result = constructorPolyfill(
+            context,
+            'createOscillator',
+            WebAudioOscillator,
+            null,
+            autoplay,
+        );
 
-        if (autoplay !== null) {
-            this.start();
+        if (result) {
+            return result;
         }
-    }
 
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
+        super(context);
+        WebAudioOscillator.init(this, null, autoplay);
     }
 
     ngOnDestroy() {
@@ -70,5 +70,25 @@ export class WebAudioOscillator extends OscillatorNode
         } catch (_) {}
 
         this.disconnect();
+    }
+
+    static init(
+        that: WebAudioOscillator,
+        node: AudioNode | null,
+        autoplay: string | null,
+    ) {
+        connect(
+            node,
+            that,
+        );
+
+        if (autoplay !== null) {
+            that.start();
+        }
+
+        const ended = new EventEmitter<void>();
+
+        that.ended = ended;
+        that.onended = () => ended.emit();
     }
 }

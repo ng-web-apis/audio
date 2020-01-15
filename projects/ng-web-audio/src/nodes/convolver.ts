@@ -1,11 +1,10 @@
 import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {AudioNodeAccessor} from '../interfaces/audio-node-accessor';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
-import {AUDIO_NODE_ACCESSOR} from '../tokens/audio-node-accessor';
+import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -15,33 +14,56 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['normalize', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE_ACCESSOR,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioConvolver),
         },
     ],
 })
-export class WebAudioConvolver extends ConvolverNode
-    implements OnDestroy, AudioNodeAccessor {
+export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
     @Input('buffer')
     set bufferSetter(source: AudioBuffer | null | string) {
         this.buffer$.next(source);
     }
 
-    private readonly buffer$ = new Subject<AudioBuffer | null | string>();
+    buffer$!: Subject<AudioBuffer | null | string>;
 
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        super(context);
-        constructorPolyfill(this, context.createConvolver());
+        const result = constructorPolyfill(
+            context,
+            'createConvolver',
+            WebAudioConvolver,
+            node,
+            audioBufferService,
+        );
 
-        if (node) {
-            node.connect(this.node);
+        if (result) {
+            return result;
         }
 
-        this.buffer$
+        super(context);
+        WebAudioConvolver.init(this, node, audioBufferService);
+    }
+
+    ngOnDestroy() {
+        this.buffer$.complete();
+        this.disconnect();
+    }
+
+    static init(
+        that: WebAudioConvolver,
+        node: AudioNode | null,
+        audioBufferService: AudioBufferService,
+    ) {
+        connect(
+            node,
+            that,
+        );
+        that.buffer$ = new Subject<AudioBuffer | null | string>();
+        that.buffer$
             .pipe(
                 switchMap(source =>
                     typeof source === 'string'
@@ -50,17 +72,7 @@ export class WebAudioConvolver extends ConvolverNode
                 ),
             )
             .subscribe(buffer => {
-                this.buffer = buffer;
+                that.buffer = buffer;
             });
-    }
-
-    get node(): AudioNode {
-        // @ts-ignore
-        return this['__node'] || this;
-    }
-
-    ngOnDestroy() {
-        this.buffer$.complete();
-        this.disconnect();
     }
 }
