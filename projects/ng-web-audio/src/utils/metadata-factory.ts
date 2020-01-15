@@ -4,9 +4,9 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 const DEFAULT_INPUTS = ['channelCount', 'channelCountMode', 'channelInterpretation'];
 
 // TODO: Not supported by @angular/language-service: https://github.com/angular/angular/issues/34691
-export function metadataFactory(
+export function metadataFactory<T>(
     selector: string,
-    type: Type<any>,
+    type: Type<T>,
     inputs: Array<string> = [],
 ): Directive {
     return {
