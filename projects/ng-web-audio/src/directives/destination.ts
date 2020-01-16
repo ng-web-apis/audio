@@ -37,7 +37,7 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         );
 
         if (result) {
-            return;
+            return result;
         }
 
         super(context);

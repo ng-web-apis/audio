@@ -155,10 +155,16 @@ You can use following audio nodes through directives of the same name:
 
 ## Browser support
 
-Same as for [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API):
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                                12+                                                                                                |                                                                                                  31+                                                                                                  |                                                                                                34+                                                                                                 |                                                                                                 9+                                                                                                 |
+
+> Keep in mind, that some features, such as
+> [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
+> were added later and are supported only by newer browser versions
 
 _**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` included in your
-`angular.json` if you want to support Safari._
+`angular.json` if you want to support Safari_
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)

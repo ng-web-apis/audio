@@ -7,6 +7,7 @@
         "start:ssr": "npm run build:demo:ssr && npm run serve:ssr",
         "start:prerender": "npm run build:demo:prerender && npm run serve:prerender",
         "build": "ng build",
+        "postbuild": "node scripts/postbuild.js",
         "build:schematics": "tsc -p tsconfig.schematics.json",
         "build:demo:client": "ng run demo:build",
         "build:demo:server": "ng run demo:server",
@@ -36,17 +37,9 @@
         "publish:ng-web-audio": "npm publish ./dist/ng-web-audio"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
-    "keywords": [
-        "angular",
-        "ng",
-        "audio",
-        "web audio",
-        "web audio api"
-    ],
+    "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
     "license": "WTFPL",
-    "authors": [
-        "Alex Inkin <alexander@inkin.ru>"
-    ],
+    "authors": ["Alex Inkin <alexander@inkin.ru>"],
     "repository": "https://github.com/waterplea/ng-web-audio",
     "bugs": "https://github.com/waterplea/ng-web-audio/issues",
     "homepage": "https://github.com/waterplea/ng-web-audio#README",
@@ -115,10 +108,7 @@
         }
     },
     "lint-staged": {
-        "*.{js,ts,html,md,less,json}": [
-            "prettier --write",
-            "git add"
-        ],
+        "*.{js,ts,html,md,less,json}": ["prettier --write", "git add"],
         "*.ts": "tslint"
     },
     "standard-version": {

@@ -1,6 +1,6 @@
 AudioContext = globalThis.AudioContext || globalThis.webkitAudioContext;
-StereoPannerNode =
-    globalThis.StereoPannerNode || globalThis.PannerNode || globalThis.webkitPannerNode;
+PannerNode = globalThis.PannerNode || globalThis.webkitAudioPannerNode;
+StereoPannerNode = globalThis.StereoPannerNode || globalThis.PannerNode;
 
 // Just to compile in Safari, these features are not supported if not supported natively
 BaseAudioContext = globalThis.BaseAudioContext || globalThis.AudioContext;

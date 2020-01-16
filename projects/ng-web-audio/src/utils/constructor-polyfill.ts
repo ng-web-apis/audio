@@ -11,15 +11,15 @@ export function constructorPolyfill<T extends AudioNode>(
     node: AudioNode | null,
     ...args: any[]
 ): T | void {
-    try {
-        // @ts-ignore
-        const _test = new GainNode(context);
-    } catch (_) {
-        const result = context[method]() as T;
+    // try {
+    //     // @ts-ignore
+    //     const _test = new GainNode(context);
+    // } catch (_) {
+    const result = context[method]() as T;
 
-        Object.setPrototypeOf(result, constructor.prototype);
-        constructor.init(result, node, ...args);
+    Object.setPrototypeOf(result, constructor.prototype);
+    constructor.init(result, node, ...args);
 
-        return result;
-    }
+    return result;
+    // }
 }
