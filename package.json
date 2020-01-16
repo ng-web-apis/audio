@@ -1,6 +1,6 @@
 {
     "name": "ng-web-audio",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -8,7 +8,6 @@
         "start:prerender": "npm run build:demo:prerender && npm run serve:prerender",
         "build": "ng build",
         "postbuild": "node scripts/postbuild.js",
-        "build:schematics": "tsc -p tsconfig.schematics.json",
         "build:demo:client": "ng run demo:build",
         "build:demo:server": "ng run demo:server",
         "build:demo:ssr": "npm run build:demo:client && npm run build:demo:server && npm run compile:server",
@@ -19,27 +18,26 @@
         "generate:prerender": "node dist/demo/ssr/prerender",
         "test": "ng test",
         "posttest": "node scripts/coveralls.js",
-        "preadd": "npm run build:schematics",
-        "add": "schematics ./schematics/collection.json:library-starter --debug=false",
-        "postadd": "git add ./projects",
         "lint": "ng lint",
         "typecheck": "tsc --noEmit --skipLibCheck",
         "release": "standard-version",
         "release:patch": "npm run release -- --release-as patch",
         "release:minor": "npm run release -- --release-as minor",
         "release:major": "npm run release -- --release-as major",
-        "publish": "npm run build:all && npm publish:all",
-        "build:all": "npm run build:ng-web-audio",
-        "publish:all": "npm run publish:ng-web-audio",
-        "build:ng-web-audio": "ng run ng-web-audio:build",
-        "test:ng-web-audio": "ng run ng-web-audio:test",
-        "test:ng-web-audio:watch": "ng run ng-web-audio:test --watch=true",
-        "publish:ng-web-audio": "npm publish ./dist/ng-web-audio"
+        "publish": "npm run build && npm publish ./dist/ng-web-audio"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
-    "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
+    "keywords": [
+        "angular",
+        "ng",
+        "audio",
+        "web audio",
+        "web audio api"
+    ],
     "license": "WTFPL",
-    "authors": ["Alex Inkin <alexander@inkin.ru>"],
+    "authors": [
+        "Alex Inkin <alexander@inkin.ru>"
+    ],
     "repository": "https://github.com/waterplea/ng-web-audio",
     "bugs": "https://github.com/waterplea/ng-web-audio/issues",
     "homepage": "https://github.com/waterplea/ng-web-audio#README",
@@ -108,7 +106,10 @@
         }
     },
     "lint-staged": {
-        "*.{js,ts,html,md,less,json}": ["prettier --write", "git add"],
+        "*.{js,ts,html,md,less,json}": [
+            "prettier --write",
+            "git add"
+        ],
         "*.ts": "tslint"
     },
     "standard-version": {
