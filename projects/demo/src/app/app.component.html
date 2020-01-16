@@ -29,7 +29,7 @@
     <ng-container *ngSwitchCase="'buffer'">
         <button
             *ngFor="let _ of buffers"
-            buffer="/assets/demo.js"
+            buffer="/assets/demo.wav"
             #source="AudioNode"
             AudioBufferSourceNode
             [loop]="true"
@@ -209,7 +209,7 @@
                     (ngModelChange)="onCurveChange($event)"
                 />
                 <ng-container [GainNode]="distortionCompensation">
-                    <fieldset ConvolverNode buffer="/assets/response.js">
+                    <fieldset ConvolverNode buffer="/assets/response.m4a">
                         <legend>ConvolverNode</legend>
                         <fieldset AudioDestinationNode>
                             <legend>AudioDestinationNode</legend>
