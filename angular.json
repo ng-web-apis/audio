@@ -15,7 +15,7 @@
                     "options": {
                         "baseHref": "/",
                         "deployUrl": "/",
-                        "outputPath": "dist/demo/browser",
+                        "outputPath": "docs",
                         "index": "projects/demo/src/index.html",
                         "main": "projects/demo/src/main.browser.ts",
                         "polyfills": "projects/demo/src/polyfills.local.ts",
