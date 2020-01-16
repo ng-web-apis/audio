@@ -19,8 +19,6 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode
         @Inject(AUDIO_CONTEXT) context: AudioContext,
         @Inject(ElementRef) {nativeElement}: ElementRef<HTMLMediaElement>,
     ) {
-        super(context, {mediaElement: nativeElement});
-
         try {
             // @ts-ignore
             const _test = new GainNode(context);
@@ -31,6 +29,8 @@ export class WebAudioMediaSource extends MediaElementAudioSourceNode
 
             return result as WebAudioMediaSource;
         }
+
+        super(context, {mediaElement: nativeElement});
     }
 
     ngOnDestroy() {

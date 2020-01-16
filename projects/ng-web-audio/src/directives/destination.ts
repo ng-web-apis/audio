@@ -41,7 +41,6 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         }
 
         super(context);
-
         WebAudioDestination.init(this, node);
     }
 

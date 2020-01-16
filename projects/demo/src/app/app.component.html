@@ -25,10 +25,11 @@
 </p>
 
 <ng-container [ngSwitch]="selectedSource">
+    <!--Assets not working in hosted environemnt of Stackblitz, spoofing WAV as JS file-->
     <ng-container *ngSwitchCase="'buffer'">
         <button
             *ngFor="let _ of buffers"
-            buffer="/assets/demo.wav"
+            buffer="/assets/demo.js"
             #source="AudioNode"
             AudioBufferSourceNode
             [loop]="true"
@@ -40,9 +41,10 @@
             </ng-container>
         </button>
     </ng-container>
+    <!--Assets not working in hosted environemnt of Stackblitz-->
     <audio
         *ngSwitchCase="'media'"
-        src="/assets/demo.wav"
+        src="https://github.com/waterplea/ng-web-audio/blob/master/projects/demo/src/assets/demo.wav?raw=true"
         loop
         controls
         MediaElementAudioSourceNode
@@ -207,7 +209,7 @@
                     (ngModelChange)="onCurveChange($event)"
                 />
                 <ng-container [GainNode]="distortionCompensation">
-                    <fieldset ConvolverNode buffer="/assets/response.m4a">
+                    <fieldset ConvolverNode buffer="/assets/response.js">
                         <legend>ConvolverNode</legend>
                         <fieldset AudioDestinationNode>
                             <legend>AudioDestinationNode</legend>
