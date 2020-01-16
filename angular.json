@@ -18,7 +18,7 @@
                         "outputPath": "dist/demo/browser",
                         "index": "projects/demo/src/index.html",
                         "main": "projects/demo/src/main.browser.ts",
-                        "polyfills": "projects/demo/src/polyfills.ts",
+                        "polyfills": "projects/demo/src/polyfills.local.ts",
                         "tsConfig": "tsconfig.json",
                         "aot": false,
                         "assets": [
