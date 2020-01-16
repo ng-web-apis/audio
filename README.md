@@ -104,7 +104,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Additionally supports setting URL to media file as
     [buffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/buffer)
-    so it will be automatically fetched and turned into
+    so it will be fetched and turned into
     [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)
 
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
@@ -123,7 +123,7 @@ You can use following audio nodes through directives of the same name:
 
     💡 Additionally supports setting URL to media file as
     [buffer](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode/buffer)
-    so it will be automatically fetched and turned into
+    so it will be fetched and turned into
     [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)
 
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
@@ -163,11 +163,11 @@ You can use following audio nodes through directives of the same name:
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                12+                                                                                                |                                                                                                  31+                                                                                                  |                                                                                                34+                                                                                                 |                                                                                                 9+                                                                                                 |
 
-> Keep in mind, that some features, such as
+> Keep in mind some features such as
 > [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
 > were added later and are supported only by newer browser versions
 
-_**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` included in your
+_**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` used in
 `angular.json` if you want to support Safari_
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
