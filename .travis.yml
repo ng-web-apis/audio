@@ -1,6 +1,4 @@
 language: node_js
-addons:
-    chrome: beta
 node_js:
   - "10"
 script:

@@ -33,7 +33,8 @@ describe('AudioContext', () => {
         expect(testComponent.audioContext instanceof AudioContext).toBe(true);
     });
 
-    it('parses sampleRate', () => {
+    // TODO: Enable when Chrome 74 becomes available on Travis
+    xit('parses sampleRate', () => {
         expect(testComponent.audioContext.sampleRate).toBe(22050);
     });
 });
