@@ -6,10 +6,12 @@ export * from './decorators/audio-param';
 export * from './directives/audio-context';
 export * from './directives/destination';
 export * from './directives/listener';
+export * from './directives/offline-audio-context';
 export * from './directives/output';
 
 export * from './nodes/analyser';
 export * from './nodes/biquad-filter';
+export * from './nodes/convolver';
 export * from './nodes/delay';
 export * from './nodes/dynamics-compressor';
 export * from './nodes/gain';

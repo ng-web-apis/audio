@@ -29,7 +29,7 @@
     <ng-container *ngSwitchCase="'buffer'">
         <button
             *ngFor="let _ of buffers"
-            buffer="/assets/demo.wav"
+            buffer="/assets/demo.mp3"
             #source="AudioNode"
             AudioBufferSourceNode
             [loop]="true"
@@ -44,7 +44,7 @@
     <!--Assets not working in hosted environemnt of Stackblitz-->
     <audio
         *ngSwitchCase="'media'"
-        src="/assets/demo.wav"
+        src="/assets/demo.mp3"
         loop
         controls
         MediaElementAudioSourceNode
