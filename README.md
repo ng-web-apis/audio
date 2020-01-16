@@ -163,9 +163,9 @@ You can use following audio nodes through directives of the same name:
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                12+                                                                                                |                                                                                                  31+                                                                                                  |                                                                                                34+                                                                                                 |                                                                                                 9+                                                                                                 |
 
-> Keep in mind some features such as
-> [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
-> were added later and are supported only by newer browser versions
+> Note that some features
+> ([AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) etc.)
+> were added later and are supported only by more recent versions
 
 _**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` used in
 `angular.json` if you want to support Safari_
