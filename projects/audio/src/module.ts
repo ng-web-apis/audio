@@ -11,10 +11,12 @@ import {WebAudioDelay} from './nodes/delay';
 import {WebAudioDynamicsCompressor} from './nodes/dynamics-compressor';
 import {WebAudioGain} from './nodes/gain';
 import {WebAudioPanner} from './nodes/panner';
+import {WebAudioScriptProcessor} from './nodes/script-processor';
 import {WebAudioStereoPanner} from './nodes/stereo-panner';
 import {WebAudioWaveShaper} from './nodes/wave-shaper';
 import {WebAudioPeriodicWavePipe} from './pipes/periodic-wave.pipe';
 import {WebAudioBufferSource} from './sources/buffer-source';
+import {WebAudioConstantSource} from './sources/constant-source';
 import {WebAudioMediaSource} from './sources/media-source';
 import {WebAudioOscillator} from './sources/oscillator';
 
@@ -26,6 +28,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioOfflineContext,
         WebAudioOutput,
         WebAudioBufferSource,
+        WebAudioConstantSource,
         WebAudioMediaSource,
         WebAudioOscillator,
         WebAudioAnalyser,
@@ -35,6 +38,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioDynamicsCompressor,
         WebAudioGain,
         WebAudioPanner,
+        WebAudioScriptProcessor,
         WebAudioStereoPanner,
         WebAudioWaveShaper,
         WebAudioPeriodicWavePipe,
@@ -46,6 +50,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioOfflineContext,
         WebAudioOutput,
         WebAudioBufferSource,
+        WebAudioConstantSource,
         WebAudioMediaSource,
         WebAudioOscillator,
         WebAudioAnalyser,
@@ -55,6 +60,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioDynamicsCompressor,
         WebAudioGain,
         WebAudioPanner,
+        WebAudioScriptProcessor,
         WebAudioStereoPanner,
         WebAudioWaveShaper,
         WebAudioPeriodicWavePipe,

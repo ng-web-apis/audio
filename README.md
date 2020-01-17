@@ -110,6 +110,11 @@ You can use following audio nodes through directives of the same name:
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
     playing immediately
 
+-   [ConstantSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/ConstantSourceNode)
+
+    💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
+    playing immediately
+
 -   [MediaElementAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode)
 -   [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
 
@@ -129,6 +134,7 @@ You can use following audio nodes through directives of the same name:
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
 -   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
 -   [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
+-   [ScriptProcessorNode](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode)
 -   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 -   [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
 
@@ -195,8 +201,6 @@ You can [try online demo here](https://ng-web-apis.github.io/audio/)
 -   Add remaining audio nodes:
     -   [ChannelMergerNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode)
     -   [ChannelSplitterNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelSplitterNode)
-    -   [ConstantSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/ConstantSourceNode)
-    -   [ScriptProcessorNode](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode)
 -   Add sophisticated [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
     manipulations such as ramping and scheduled changes
 -   [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) concept

@@ -15,7 +15,6 @@ import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
-import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
@@ -90,15 +89,10 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
 
     static init(
         that: WebAudioBufferSource,
-        node: AudioNode | null,
+        _node: AudioNode | null,
         autoplay: string | null,
         audioBufferService: AudioBufferService,
     ) {
-        connect(
-            node,
-            that,
-        );
-
         if (autoplay !== null) {
             that.start();
         }
