@@ -81,6 +81,7 @@
                     *ngFor="let _ of buffers"
                     #source="AudioNode"
                     OscillatorNode
+                    [frequency]="100"
                     [periodicWave]="real | PeriodicWave"
                     (click)="onClick(source, $event.target)"
                 >

@@ -11208,7 +11208,10 @@
                             0,
                             zo,
                             [Xi, [8, null]],
-                            {periodicWave: [0, 'periodicWave']},
+                            {
+                                periodicWave: [0, 'periodicWave'],
+                                frequencyParam: [1, 'frequencyParam'],
+                            },
                             null,
                         ),
                         As(128, 2, new Array(2)),
@@ -11282,7 +11285,8 @@
                                 }
                                 return r;
                             })(t, 0, 0, e(t, 2, 0, Zl(t.parent.parent, 0), n.real));
-                        e(t, 1, 0, r), e(t, 9, 0, n.chain || Zl(t.parent.parent, 61));
+                        e(t, 1, 0, r, 100),
+                            e(t, 9, 0, n.chain || Zl(t.parent.parent, 61));
                     },
                     null,
                 );
