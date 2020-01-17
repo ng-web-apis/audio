@@ -4,6 +4,7 @@
 export * from './decorators/audio-param';
 
 export * from './directives/audio-context';
+export * from './directives/channel';
 export * from './directives/destination';
 export * from './directives/listener';
 export * from './directives/offline-audio-context';
@@ -11,6 +12,8 @@ export * from './directives/output';
 
 export * from './nodes/analyser';
 export * from './nodes/biquad-filter';
+export * from './nodes/channel-merger';
+export * from './nodes/channel-splitter';
 export * from './nodes/convolver';
 export * from './nodes/delay';
 export * from './nodes/dynamics-compressor';

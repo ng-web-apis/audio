@@ -8,7 +8,7 @@ export function constructorPolyfill<T extends AudioNode>(
     context: BaseAudioContext,
     method: AudioNodeFactoryMethod,
     constructor: Constructor<T>,
-    node: AudioNode | null,
+    node: AudioNode | null = null,
     ...args: any[]
 ): T | void {
     try {

@@ -1,11 +1,14 @@
 import {NgModule} from '@angular/core';
 import {WebAudioContext} from './directives/audio-context';
+import {WebAudioChannel} from './directives/channel';
 import {WebAudioDestination} from './directives/destination';
 import {WebAudioListener} from './directives/listener';
 import {WebAudioOfflineContext} from './directives/offline-audio-context';
 import {WebAudioOutput} from './directives/output';
 import {WebAudioAnalyser} from './nodes/analyser';
 import {WebAudioBiquadFilter} from './nodes/biquad-filter';
+import {WebAudioChannelMerger} from './nodes/channel-merger';
+import {WebAudioChannelSplitter} from './nodes/channel-splitter';
 import {WebAudioConvolver} from './nodes/convolver';
 import {WebAudioDelay} from './nodes/delay';
 import {WebAudioDynamicsCompressor} from './nodes/dynamics-compressor';
@@ -23,6 +26,7 @@ import {WebAudioOscillator} from './sources/oscillator';
 @NgModule({
     declarations: [
         WebAudioContext,
+        WebAudioChannel,
         WebAudioDestination,
         WebAudioListener,
         WebAudioOfflineContext,
@@ -33,6 +37,8 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioOscillator,
         WebAudioAnalyser,
         WebAudioBiquadFilter,
+        WebAudioChannelSplitter,
+        WebAudioChannelMerger,
         WebAudioConvolver,
         WebAudioDelay,
         WebAudioDynamicsCompressor,
@@ -45,6 +51,7 @@ import {WebAudioOscillator} from './sources/oscillator';
     ],
     exports: [
         WebAudioContext,
+        WebAudioChannel,
         WebAudioDestination,
         WebAudioListener,
         WebAudioOfflineContext,
@@ -55,6 +62,8 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioOscillator,
         WebAudioAnalyser,
         WebAudioBiquadFilter,
+        WebAudioChannelSplitter,
+        WebAudioChannelMerger,
         WebAudioConvolver,
         WebAudioDelay,
         WebAudioDynamicsCompressor,

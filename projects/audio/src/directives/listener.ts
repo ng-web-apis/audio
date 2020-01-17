@@ -47,7 +47,7 @@ export class WebAudioListener extends GainNode implements OnChanges {
     upZParam?: AudioParamInput;
 
     constructor(@Self() @Inject(AUDIO_CONTEXT) context: BaseAudioContext) {
-        const result = constructorPolyfill(context, 'createGain', WebAudioListener, null);
+        const result = constructorPolyfill(context, 'createGain', WebAudioListener);
 
         if (result) {
             return result;

@@ -124,6 +124,11 @@ You can use following audio nodes through directives of the same name:
 ### Processors
 
 -   [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
+-   [ChannelMergerNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode)
+
+    💡 Use `Channel` directive to merge channels, see example in **Special cases** section
+
+-   [ChannelSplitterNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelSplitterNode)
 -   [ConvolverNode](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode)
 
     💡 Additionally supports setting URL to media file as
@@ -148,6 +153,24 @@ You can use following audio nodes through directives of the same name:
     for [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
 -   All node directives are exported as `AudioNode` so you can use them with
     [template reference variables](https://angular.io/guide/template-syntax#ref-var) (see feedback loop example above)
+-   Use `Channel` directive within
+    [ChannelMergerNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode)
+    and direct `Output` directive to it in order to perform channel merging:
+
+```html
+<!-- Inverting left and right channel -->
+<audio src="/demo.wav" MediaElementAudioSourceNode>
+    <ng-container ChannelSplitterNode>
+        <ng-container [Output]="right"></ng-container>
+        <ng-container [Output]="left"></ng-container>
+    </ng-container>
+    <ng-container ChannelMergerNode>
+        <ng-container #left="AudioNode" Channel></ng-container>
+        <ng-container #right="AudioNode" Channel></ng-container>
+        <ng-container AudioDestinationNode></ng-container>
+    </ng-container>
+</audio>
+```
 
 ## 💡 Tokens
 
@@ -198,9 +221,6 @@ You can [try online demo here](https://ng-web-apis.github.io/audio/)
     however it is not supported by Safari and generally
     [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
     is sufficient
--   Add remaining audio nodes:
-    -   [ChannelMergerNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode)
-    -   [ChannelSplitterNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelSplitterNode)
 -   Add sophisticated [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
     manipulations such as ramping and scheduled changes
 -   [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) concept
