@@ -184,7 +184,7 @@ method if browser does not support it
 
 ## Demo
 
-You can [try online demo here](https://codesandbox.io/s/github/waterplea/ng-web-audio/tree/master/projects/demo)
+You can [try online demo here](https://waterplea.github.io/ng-web-audio/)
 
 ## TODO
 
