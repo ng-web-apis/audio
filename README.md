@@ -1,15 +1,15 @@
 # Web Audio API for Angular
 
-[![npm version](https://img.shields.io/npm/v/ng-web-audio.svg)](https://npmjs.com/package/ng-web-audio)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/ng-web-audio)
-![Travis (.org)](https://img.shields.io/travis/waterplea/ng-web-audio)
-![Coveralls github](https://img.shields.io/coveralls/github/waterplea/ng-web-audio)
+[![npm version](https://img.shields.io/npm/v/ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/ng-web-apis/audio)
+![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)
+![Coveralls github](https://img.shields.io/coveralls/github/ng-web-apis/audio)
 [![angular-open-source-starter](https://img.shields.io/badge/made%20with-angular--open--source--starter-d81676?logo=angular)](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
 
 This is a library for declarative use of
 [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with Angular 6+.
 It is a complete conversion to declarative Angular directives, if you find any inconsistencies
-or errors, please [file an issue](https://github.com/waterplea/ng-web-audio/issues). Watch out
+or errors, please [file an issue](https://github.com/ng-web-apis/audio/issues). Watch out
 for 💡 emoji in this README for addition features and special use cases.
 
 ## How to use
@@ -167,7 +167,7 @@ You can use following audio nodes through directives of the same name:
 > ([AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) etc.)
 > were added later and are supported only by more recent versions
 
-_**IMPORTANT**: You must add `ng-web-audio/polyfill` to `polyfills.ts` used in
+_**IMPORTANT**: You must add `@ng-web-apis/audio/polyfill` to `polyfills.ts` used in
 `angular.json` if you want to support Safari_
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
@@ -184,7 +184,7 @@ method if browser does not support it
 
 ## Demo
 
-You can [try online demo here](https://waterplea.github.io/ng-web-audio/)
+You can [try online demo here](https://ng-web-apis.github.io/audio/)
 
 ## TODO
 

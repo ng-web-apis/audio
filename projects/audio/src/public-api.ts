@@ -1,5 +1,5 @@
 /**
- * Public API Surface of ng-web-audio
+ * Public API Surface of @ng-web-apis/audio
  */
 export * from './decorators/audio-param';
 

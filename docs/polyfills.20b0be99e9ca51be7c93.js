@@ -152,6 +152,15 @@
                 return r[t] || (r[t] = (a && i[t]) || (a ? i : o)('Symbol.' + t));
             }).store = r;
         },
+        '2pnq': function(t, e) {
+            (AudioContext = globalThis.AudioContext || globalThis.webkitAudioContext),
+                (PannerNode = globalThis.PannerNode || globalThis.webkitAudioPannerNode),
+                (StereoPannerNode = globalThis.StereoPannerNode || globalThis.PannerNode),
+                (BaseAudioContext =
+                    globalThis.BaseAudioContext || globalThis.AudioContext),
+                (OfflineAudioContext =
+                    globalThis.OfflineAudioContext || globalThis.AudioContext);
+        },
         '3M5Q': function(t, e, n) {
             'use strict';
             var r = n('dC+H'),
@@ -783,15 +792,6 @@
                 return n.call(t, e);
             };
         },
-        Jm82: function(t, e) {
-            (AudioContext = globalThis.AudioContext || globalThis.webkitAudioContext),
-                (PannerNode = globalThis.PannerNode || globalThis.webkitAudioPannerNode),
-                (StereoPannerNode = globalThis.StereoPannerNode || globalThis.PannerNode),
-                (BaseAudioContext =
-                    globalThis.BaseAudioContext || globalThis.AudioContext),
-                (OfflineAudioContext =
-                    globalThis.OfflineAudioContext || globalThis.AudioContext);
-        },
         KYgR: function(t, e, n) {
             var r = n('7zcn'),
                 o = n('7Zmh');
@@ -839,7 +839,7 @@
         },
         OOgv: function(t, e, n) {
             'use strict';
-            n.r(e), n('bADg'), n('Tyic'), n('uMpI'), n('Jm82');
+            n.r(e), n('bADg'), n('Tyic'), n('uMpI'), n('2pnq');
         },
         OeBI: function(t, e, n) {
             var r = n('7zcn'),
@@ -3212,8 +3212,8 @@
                     G = {},
                     W = {},
                     X = /^__zone_symbol__(\w+)(true|false)$/,
-                    B = '__zone_symbol__propagationStopped';
-                function q(t, e, n) {
+                    q = '__zone_symbol__propagationStopped';
+                function B(t, e, n) {
                     var o = (n && n.add) || a,
                         i = (n && n.rm) || c,
                         u = (n && n.listeners) || 'eventListeners',
@@ -3255,7 +3255,7 @@
                                     else
                                         for (
                                             var o = r.slice(), i = 0;
-                                            i < o.length && (!e || !0 !== e[B]);
+                                            i < o.length && (!e || !0 !== e[q]);
                                             i++
                                         )
                                             k(o[i], n, e);
@@ -3270,7 +3270,7 @@
                                     else
                                         for (
                                             var o = r.slice(), i = 0;
-                                            i < o.length && (!e || !0 !== e[B]);
+                                            i < o.length && (!e || !0 !== e[q]);
                                             i++
                                         )
                                             k(o[i], n, e);
@@ -4141,7 +4141,7 @@
                                 s &&
                                     (function(t, n) {
                                         var r = n.WebSocket;
-                                        n.EventTarget || q(n, [r.prototype]),
+                                        n.EventTarget || B(n, [r.prototype]),
                                             (n.WebSocket = function(t, n) {
                                                 var u,
                                                     s,
@@ -4276,7 +4276,7 @@
                                             'stopImmediatePropagation',
                                             function(t) {
                                                 return function(e, n) {
-                                                    (e[B] = !0), t && t.apply(e, n);
+                                                    (e[q] = !0), t && t.apply(e, n);
                                                 };
                                             },
                                         );
@@ -4328,7 +4328,7 @@
                                     var w = t[o[v]];
                                     m.push(w && w.prototype);
                                 }
-                                q(t, m, {
+                                B(t, m, {
                                     vh: function(t, e, n, r) {
                                         if (!c && s) {
                                             if (u)
@@ -4358,7 +4358,7 @@
                                         return !0;
                                     },
                                 }),
-                                    (e.patchEventTarget = q);
+                                    (e.patchEventTarget = B);
                             })(t, n);
                         var o = t.XMLHttpRequestEventTarget;
                         o && o.prototype && n.patchEventTarget(t, [o.prototype]),

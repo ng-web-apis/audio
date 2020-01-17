@@ -2,7 +2,7 @@ import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {WebAudioModule} from 'ng-web-audio';
+import {WebAudioModule} from '@ng-web-apis/audio';
 import {AppComponent} from './app.component';
 
 @NgModule({

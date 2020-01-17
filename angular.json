@@ -34,8 +34,8 @@
                     },
                     "configurations": {
                         "production": {
-                            "baseHref": "/ng-web-audio/",
-                            "deployUrl": "/ng-web-audio/",
+                            "baseHref": "/audio/",
+                            "deployUrl": "/audio/",
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
@@ -83,24 +83,24 @@
                 }
             }
         },
-        "ng-web-audio": {
+        "audio": {
             "projectType": "library",
-            "root": "projects/ng-web-audio",
-            "sourceRoot": "projects/ng-web-audio/src",
+            "root": "projects/audio",
+            "sourceRoot": "projects/audio/src",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-ng-packagr:build",
                     "options": {
-                        "tsConfig": "projects/ng-web-audio/tsconfig.lib.json",
-                        "project": "projects/ng-web-audio/ng-package.json"
+                        "tsConfig": "projects/audio/tsconfig.lib.json",
+                        "project": "projects/audio/ng-package.json"
                     }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "main": "projects/ng-web-audio/src/test.ts",
-                        "tsConfig": "projects/ng-web-audio/tsconfig.spec.json",
-                        "karmaConfig": "projects/ng-web-audio/karma.conf.js",
+                        "main": "projects/audio/src/test.ts",
+                        "tsConfig": "projects/audio/tsconfig.spec.json",
+                        "karmaConfig": "projects/audio/karma.conf.js",
                         "codeCoverage": true,
                         "browsers": "ChromeHeadless"
                     }
@@ -109,8 +109,8 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": [
-                            "projects/ng-web-audio/tsconfig.lib.json",
-                            "projects/ng-web-audio/tsconfig.spec.json"
+                            "projects/audio/tsconfig.lib.json",
+                            "projects/audio/tsconfig.spec.json"
                         ],
                         "exclude": ["**/node_modules/**"]
                     }
@@ -118,5 +118,5 @@
             }
         }
     },
-    "defaultProject": "ng-web-audio"
+    "defaultProject": "audio"
 }

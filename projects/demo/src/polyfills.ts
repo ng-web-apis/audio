@@ -2,4 +2,4 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
-import 'ng-web-audio/polyfill';
+import '@ng-web-apis/audio/polyfill';

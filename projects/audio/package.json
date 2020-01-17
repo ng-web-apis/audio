@@ -1,5 +1,5 @@
 {
-    "name": "ng-web-audio",
+    "name": "@ng-web-apis/audio",
     "version": "0.0.5",
     "peerDependencies": {
         "@angular/core": ">=6.0.0",
@@ -9,7 +9,7 @@
     "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
     "license": "WTFPL",
     "authors": ["Alex Inkin <alexander@inkin.ru>"],
-    "repository": "https://github.com/waterplea/ng-web-audio",
-    "bugs": "https://github.com/waterplea/ng-web-audio/issues",
-    "homepage": "https://github.com/waterplea/ng-web-audio#README"
+    "repository": "https://github.com/ng-web-apis/audio",
+    "bugs": "https://github.com/ng-web-apis/audio/issues",
+    "homepage": "https://github.com/ng-web-apis/audio#README"
 }

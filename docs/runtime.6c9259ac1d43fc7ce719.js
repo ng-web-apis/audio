@@ -1,31 +1,31 @@
 !(function(e) {
     function r(r) {
-        for (var t, i, f = r[0], l = r[1], a = r[2], c = 0, s = []; c < f.length; c++)
+        for (var n, i, f = r[0], l = r[1], a = r[2], c = 0, s = []; c < f.length; c++)
             o[(i = f[c])] && s.push(o[i][0]), (o[i] = 0);
-        for (t in l) Object.prototype.hasOwnProperty.call(l, t) && (e[t] = l[t]);
+        for (n in l) Object.prototype.hasOwnProperty.call(l, n) && (e[n] = l[n]);
         for (p && p(r); s.length; ) s.shift()();
-        return u.push.apply(u, a || []), n();
+        return u.push.apply(u, a || []), t();
     }
-    function n() {
+    function t() {
         for (var e, r = 0; r < u.length; r++) {
-            for (var n = u[r], t = !0, f = 1; f < n.length; f++)
-                0 !== o[n[f]] && (t = !1);
-            t && (u.splice(r--, 1), (e = i((i.s = n[0]))));
+            for (var t = u[r], n = !0, f = 1; f < t.length; f++)
+                0 !== o[t[f]] && (n = !1);
+            n && (u.splice(r--, 1), (e = i((i.s = t[0]))));
         }
         return e;
     }
-    var t = {},
+    var n = {},
         o = {0: 0},
         u = [];
     function i(r) {
-        if (t[r]) return t[r].exports;
-        var n = (t[r] = {i: r, l: !1, exports: {}});
-        return e[r].call(n.exports, n, n.exports, i), (n.l = !0), n.exports;
+        if (n[r]) return n[r].exports;
+        var t = (n[r] = {i: r, l: !1, exports: {}});
+        return e[r].call(t.exports, t, t.exports, i), (t.l = !0), t.exports;
     }
     (i.m = e),
-        (i.c = t),
-        (i.d = function(e, r, n) {
-            i.o(e, r) || Object.defineProperty(e, r, {enumerable: !0, get: n});
+        (i.c = n),
+        (i.d = function(e, r, t) {
+            i.o(e, r) || Object.defineProperty(e, r, {enumerable: !0, get: t});
         }),
         (i.r = function(e) {
             'undefined' != typeof Symbol &&
@@ -36,21 +36,21 @@
         (i.t = function(e, r) {
             if ((1 & r && (e = i(e)), 8 & r)) return e;
             if (4 & r && 'object' == typeof e && e && e.__esModule) return e;
-            var n = Object.create(null);
+            var t = Object.create(null);
             if (
-                (i.r(n),
-                Object.defineProperty(n, 'default', {enumerable: !0, value: e}),
+                (i.r(t),
+                Object.defineProperty(t, 'default', {enumerable: !0, value: e}),
                 2 & r && 'string' != typeof e)
             )
-                for (var t in e)
+                for (var n in e)
                     i.d(
-                        n,
                         t,
+                        n,
                         function(r) {
                             return e[r];
-                        }.bind(null, t),
+                        }.bind(null, n),
                     );
-            return n;
+            return t;
         }),
         (i.n = function(e) {
             var r =
@@ -66,11 +66,11 @@
         (i.o = function(e, r) {
             return Object.prototype.hasOwnProperty.call(e, r);
         }),
-        (i.p = '/ng-web-audio/');
+        (i.p = '/audio/');
     var f = (window.webpackJsonp = window.webpackJsonp || []),
         l = f.push.bind(f);
     (f.push = r), (f = f.slice());
     for (var a = 0; a < f.length; a++) r(f[a]);
     var p = l;
-    n();
+    t();
 })([]);

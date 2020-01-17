@@ -1,5 +1,5 @@
 {
-    "name": "ng-web-audio",
+    "name": "@ng-web-apis/audio",
     "version": "0.0.5",
     "scripts": {
         "ng": "ng",
@@ -20,15 +20,15 @@
         "release:patch": "npm run release -- --release-as patch",
         "release:minor": "npm run release -- --release-as minor",
         "release:major": "npm run release -- --release-as major",
-        "publish": "npm run build && && ng build demo --configuration=production && npm publish ./dist/ng-web-audio"
+        "publish": "npm run build && ng build demo --configuration=production && npm publish ./dist/audio"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
     "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
     "license": "WTFPL",
     "authors": ["Alex Inkin <alexander@inkin.ru>"],
-    "repository": "https://github.com/waterplea/ng-web-audio",
-    "bugs": "https://github.com/waterplea/ng-web-audio/issues",
-    "homepage": "https://github.com/waterplea/ng-web-audio#README",
+    "repository": "https://github.com/ng-web-apis/audio",
+    "bugs": "https://github.com/ng-web-apis/audio/issues",
+    "homepage": "https://github.com/ng-web-apis/audio#README",
     "schematics": "./schematics/collection.json",
     "dependencies": {
         "@angular/animations": "^7.2.15",

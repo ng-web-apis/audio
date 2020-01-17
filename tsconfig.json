@@ -19,7 +19,7 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2018", "dom"],
         "paths": {
-            "ng-web-audio": ["projects/ng-web-audio/src/public-api"]
+            "@ng-web-apis/audio": ["projects/audio/src/public-api"]
         }
     }
 }

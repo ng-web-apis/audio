@@ -16,14 +16,14 @@
         "@angular/platform-browser": "^8.2.14",
         "@angular/platform-browser-dynamic": "^8.2.14",
         "@angular/platform-server": "^8.2.14",
+        "@ng-web-apis/audio": "latest",
         "@nguniversal/common": "^8.2.6",
         "@nguniversal/express-engine": "^8.2.6",
         "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
         "core-js": "^2.5.7",
         "rxjs": "^6.5.4",
         "tslib": "^1.10.0",
-        "zone.js": "^0.10.2",
-        "ng-web-audio": "latest"
+        "zone.js": "^0.10.2"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^0.803.23",
