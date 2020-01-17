@@ -34,6 +34,8 @@
                     },
                     "configurations": {
                         "production": {
+                            "baseHref": "/ng-web-audio/",
+                            "deployUrl": "/ng-web-audio/",
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,

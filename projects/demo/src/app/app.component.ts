@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 
 @Component({
-    selector: 'my-app',
+    selector: 'app',
     templateUrl: './app.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -35,6 +35,9 @@ export class AppComponent {
     curve = makeDistortionCurve(this.distortion);
 
     readonly real = [0, 0, 1, 0, 1];
+
+    @ViewChild('chain')
+    readonly chain?: AudioNode;
 
     get distortionCompensation(): number {
         return 1.2 - this.distortion / 20;
