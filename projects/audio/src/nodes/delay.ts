@@ -19,9 +19,9 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
 })
 export class WebAudioDelay extends DelayNode implements OnDestroy {
-    @Input()
+    @Input('delayTime')
     @audioParam('delayTime')
-    DelayNode?: AudioParamInput;
+    delayTimeParam?: AudioParamInput;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,

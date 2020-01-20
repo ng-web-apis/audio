@@ -19,8 +19,8 @@ import {processAudioParam} from '../utils/process-audio-param';
     ],
 })
 export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy {
-    @Input()
-    set StereoPannerNode(pan: AudioParamInput) {
+    @Input('pan')
+    set panParam(pan: AudioParamInput) {
         if ('setPosition' in this) {
             /** fallback for browsers not supporting {@link StereoPannerNode} */
             // @ts-ignore

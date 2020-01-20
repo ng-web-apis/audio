@@ -19,9 +19,9 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
 })
 export class WebAudioGain extends GainNode implements OnDestroy {
-    @Input()
+    @Input('gain')
     @audioParam('gain')
-    GainNode?: AudioParamInput;
+    gainParam?: AudioParamInput;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,

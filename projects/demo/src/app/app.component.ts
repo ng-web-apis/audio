@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, ViewChild} from '@angular/core';
+import {AUDIO_CONTEXT} from '@ng-web-apis/audio';
 
 @Component({
     selector: 'app',
@@ -34,13 +35,22 @@ export class AppComponent {
 
     curve = makeDistortionCurve(this.distortion);
 
+    started = false;
+
     readonly real = [0, 0, 1, 0, 1];
 
     @ViewChild('chain')
     readonly chain?: AudioNode;
 
+    constructor(@Inject(AUDIO_CONTEXT) private readonly context: AudioContext) {}
+
     get distortionCompensation(): number {
         return 1.2 - this.distortion / 20;
+    }
+
+    start() {
+        this.started = true;
+        this.context.resume();
     }
 
     onCurveChange(distortion: number) {
