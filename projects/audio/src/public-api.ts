@@ -22,6 +22,7 @@ export * from './nodes/panner';
 export * from './nodes/script-processor';
 export * from './nodes/stereo-panner';
 export * from './nodes/wave-shaper';
+export * from './nodes/worklet';
 
 export * from './pipes/periodic-wave.pipe';
 
@@ -34,5 +35,9 @@ export * from './sources/oscillator';
 
 export * from './tokens/audio-context';
 export * from './tokens/audio-node';
+export * from './tokens/audio-worklet-processors';
+export * from './tokens/audio-worklet-processors-init';
+
+export * from './types/audio-param-input';
 
 export * from './module';

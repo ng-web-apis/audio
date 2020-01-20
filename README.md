@@ -7,7 +7,7 @@
 [![angular-open-source-starter](https://img.shields.io/badge/made%20with-angular--open--source--starter-d81676?logo=angular)](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
 
 This is a library for declarative use of
-[Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with Angular 6+.
+[Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with Angular 7+.
 It is a complete conversion to declarative Angular directives, if you find any inconsistencies
 or errors, please [file an issue](https://github.com/ng-web-apis/audio/issues). Watch out
 for 💡 emoji in this README for addition features and special use cases.
@@ -18,8 +18,8 @@ You can build audio graph with directives. For example, here's a typical echo fe
 
 ```html
 <audio src="/demo.wav" MediaElementAudioSourceNode>
-    <ng-container #node="AudioNode" [DelayNode]="delayTime">
-        <ng-container [GainNode]="gain">
+    <ng-container #node="AudioNode" DelayNode [delayTime]="delayTime">
+        <ng-container GainNode [gain]="gain">
             <ng-container [Output]="node"></ng-container>
             <ng-container AudioDestinationNode></ng-container>
         </ng-container>
@@ -27,13 +27,6 @@ You can build audio graph with directives. For example, here's a typical echo fe
     <ng-container AudioDestinationNode></ng-container>
 </audio>
 ```
-
-> Note that single input nodes, such as
-> [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) or
-> [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode) use directive name as
-> input alias for underlying [gain](https://developer.mozilla.org/en-US/docs/Web/API/GainNode/gain) or
-> [delayTime](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode/delayTime) parameters.
-> Whereas more complex nodes use respective parameters names.
 
 ## 💡 AudioBufferService
 
@@ -143,6 +136,88 @@ You can use following audio nodes through directives of the same name:
 -   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 -   [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
 
+## [AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode)
+
+You can use [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
+in supporting browsers. To register your
+[AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
+in a global default [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)
+you can use tokens:
+
+```cs
+@NgModule({
+    bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    providers: [
+        {
+            provide: AUDIO_WORKLET_PROCESSORS,
+            useValue: ['assets/my-processor.js'],
+        },
+    ],
+})
+export class AppModule {}
+```
+
+```cs
+@Component({
+    selector: 'app',
+    templateUrl: './app.component.html',
+})
+export class AppComponent {
+    ready = false;
+
+    constructor(
+        @Inject(AUDIO_WORKLET_PROCESSORS_INIT) processorsReady: Promise<unknown>,
+    ) {
+        processorsReady.then(() => {
+            this.ready = true;
+        });
+    }
+
+    // ...
+}
+
+```
+
+You can then instantiate your
+[AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode):
+
+```html
+<ng-container AudioWorkletNode name="my-processor">
+    <ng-container AudioDestinationNode></ng-container>
+</ng-container>
+```
+
+If you need to create your own node with custom
+[AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+and control it declaratively you can extend `WebAudioWorklet` class
+and add `audioParam` decorator to new component's inputs:
+
+```cs
+@Directive({
+    selector: '[my-worklet-node]',
+    exportAs: 'AudioNode',
+    providers: [
+        {
+            provide: AUDIO_NODE,
+            useExisting: forwardRef(() => MyWorklet),
+        },
+    ],
+})
+export class MyWorklet extends WebAudioWorklet {
+    @Input()
+    @audioParam()
+    customParam?: AudioParamInput;
+
+    constructor(
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+    ) {
+        super(context, node, 'my-processor');
+    }
+}
+```
+
 ## 💡 Special cases
 
 -   Use `Output` directive when you need non-linear graph (see feedback loop example above)
@@ -185,6 +260,16 @@ You can use following audio nodes through directives of the same name:
 -   All node directives provide underlying
     [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode)
     as `AUDIO_NODE` token
+-   Use `AUDIO_WORKLET_PROCESSORS` token to declare array of
+    [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
+    to be added to default
+    [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)
+-   Inject `AUDIO_WORKLET_PROCESSORS_INIT` token to initialize provided
+    [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
+    loading and watch for
+    [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+    resolution before instantiating dependent
+    [AudioWorkletNodes](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode)
 
 ## Browser support
 
@@ -222,7 +307,6 @@ You can [try online demo here](https://ng-web-apis.github.io/audio/)
     is sufficient
 -   Add sophisticated [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
     manipulations such as ramping and scheduled changes
--   [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) concept
 -   Streaming concept
     -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
     -   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
