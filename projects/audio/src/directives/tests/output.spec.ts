@@ -1,17 +1,18 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioContext} from '../audio-context';
+import {WebAudioOutput} from '../output';
 
-describe('AudioContext', () => {
+describe('Output', () => {
     @Component({
         template: `
-            <div AudioContext sampleRate="22050"></div>
+            <div [Output]="destination"></div>
+            <div AudioDestinationNode #destination="AudioNode"></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioContext)
-        audioContext!: AudioContext;
+        @ViewChild(WebAudioOutput)
+        node!: AudioNode;
     }
 
     let fixture: ComponentFixture<TestComponent>;
@@ -30,12 +31,7 @@ describe('AudioContext', () => {
         fixture.detectChanges();
     });
 
-    it('creates context', () => {
-        expect(testComponent.audioContext instanceof AudioContext).toBe(true);
-    });
-
-    // TODO: Enable when Chrome 74 becomes available on Travis
-    xit('parses sampleRate', () => {
-        expect(testComponent.audioContext.sampleRate).toBe(22050);
+    it('creates node', () => {
+        expect(testComponent.node instanceof AudioNode).toBe(true);
     });
 });

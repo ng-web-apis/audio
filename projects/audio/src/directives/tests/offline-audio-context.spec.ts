@@ -27,6 +27,7 @@ describe('OfflineAudioContext', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
     it('creates context', () => {
