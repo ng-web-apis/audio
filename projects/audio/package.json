@@ -2,7 +2,7 @@
     "name": "@ng-web-apis/audio",
     "version": "0.0.5",
     "peerDependencies": {
-        "@angular/core": ">=6.0.0",
+        "@angular/core": ">=7.0.0",
         "rxjs": ">=6.0.0"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
