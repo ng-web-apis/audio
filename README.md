@@ -1,4 +1,4 @@
-# Web Audio API for Angular
+# ![ng-web-apis logo](logo.svg) Web Audio API for Angular
 
 [![npm version](https://img.shields.io/npm/v/ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/ng-web-apis/audio)
@@ -10,7 +10,7 @@ This is a library for declarative use of
 [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with Angular 7+.
 It is a complete conversion to declarative Angular directives, if you find any inconsistencies
 or errors, please [file an issue](https://github.com/ng-web-apis/audio/issues). Watch out
-for 💡 emoji in this README for addition features and special use cases.
+for 💡 emoji in this README for additional features and special use cases.
 
 ## How to use
 
@@ -218,6 +218,90 @@ export class MyWorklet extends WebAudioWorklet {
 }
 ```
 
+## 💡 [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+
+Since work with [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+is imperative in its nature, there are difference to native API when working with
+declarative inputs and directives.
+
+> **NOTE**: You can always access directives through
+> [template reference variables](https://angular.io/guide/template-syntax#ref-var) /
+> [@ViewChild](https://angular.io/api/core/ViewChild) and since they extend native nodes
+> work with [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+> in traditional Web Audio fashion
+
+[AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam) inputs
+for directives accept following arguments:
+
+-   `number` to set in instantly, equivalent to setting
+    [AudioParam.value](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/value)
+-   `AudioParamCurve` to set array of values over given duration, equivalent to
+    [AudioParam.setValueCurveAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueCurveAtTime)
+    called with
+    [AudioContext.currentTime](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/currentTime)
+
+        export type AudioParamCurve = {
+            readonly value: number[];
+            readonly duration: number;
+        }
+
+-   `AudioParamAutomation` to linearly or exponentially ramp to given value starting from
+    [AudioContext.currentTime](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/currentTime)
+
+        export type AudioParamAutomation = {
+            readonly value: number;
+            readonly duration: number;
+            readonly mode: 'instant' | 'linear' | 'exponential';
+        };
+
+-   `AudioParamAutomation[]` to schedule multiple changes in value, stacking one after another
+
+You can use `AudioParam` pipe to turn your number values into `AudioParamAutomation`
+(default mode is `exponential`, so last argument can be omitted)
+or number arrays to `AudioParamCurve` (second argument `duration` is in **seconds**):
+
+```html
+<ng-container GainNode [gain]="gain | AudioParam : 0.1 : 'linear'"></ng-container>
+```
+
+This way values would change smoothly rather than abruptly, causing audio artifacts.
+
+To schedule an audio envelope looking something like this:
+
+![Envelope](envelope.png)
+
+You would need to pass the following array of `AudioParamAutomation` items:
+
+```css
+envelope = [
+    {
+        value: 0,
+        duration: 0,
+        mode: 'instant',
+    },
+    {
+        value: 1,
+        duration: ATTACK_TIME,
+        mode: 'linear',
+    },
+    {
+        value: SUS,
+        duration: DECAY_TIME,
+        mode: 'linear',
+    },
+    {
+        value: SUS,
+        duration: SUSTAIN_TIME,
+        mode: 'instant',
+    },
+    {
+        value: 0,
+        duration: RELEASE_TIME,
+        mode: 'exponential',
+    },
+];
+```
+
 ## 💡 Special cases
 
 -   Use `Output` directive when you need non-linear graph (see feedback loop example above)
@@ -305,9 +389,6 @@ You can [try online demo here](https://ng-web-apis.github.io/audio/)
     however it is not supported by Safari and generally
     [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
     is sufficient
--   Add sophisticated [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
-    manipulations such as ramping and scheduled changes
 -   Streaming concept
     -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
     -   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
--   Add some sort of SSR fallback so it doesn't crash in Angular Universal environment

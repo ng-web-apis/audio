@@ -1,1 +1,8 @@
-export type AudioParamInput = number;
+import {AudioParamAutomation} from './audio-param-automation';
+import {AudioParamCurve} from './audio-param-curve';
+
+export type AudioParamInput =
+    | number
+    | AudioParamCurve
+    | AudioParamAutomation
+    | AudioParamAutomation[];

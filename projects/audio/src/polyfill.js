@@ -7,3 +7,4 @@ BaseAudioContext = globalThis.BaseAudioContext || globalThis.AudioContext;
 OfflineAudioContext = globalThis.OfflineAudioContext || globalThis.AudioContext;
 ConstantSourceNode = globalThis.ConstantSourceNode || function() {};
 AudioWorkletNode = globalThis.AudioWorkletNode || function() {};
+IIRFilterNode = globalThis.IIRFilterNode || function() {};

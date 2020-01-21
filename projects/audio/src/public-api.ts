@@ -24,6 +24,7 @@ export * from './nodes/stereo-panner';
 export * from './nodes/wave-shaper';
 export * from './nodes/worklet';
 
+export * from './pipes/audio-param.pipe';
 export * from './pipes/periodic-wave.pipe';
 
 export * from './services/audio-buffer.service';
@@ -39,5 +40,8 @@ export * from './tokens/audio-worklet-processors';
 export * from './tokens/audio-worklet-processors-init';
 
 export * from './types/audio-param-input';
+export * from './types/audio-param-automation';
+export * from './types/audio-param-automation-mode';
+export * from './types/audio-param-curve';
 
 export * from './module';

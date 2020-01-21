@@ -9,7 +9,7 @@ export class WebAudioPeriodicWavePipe implements PipeTransform {
     constructor(@Inject(AUDIO_CONTEXT) private readonly context: BaseAudioContext) {}
 
     /**
-     * Created {@link PeriodicWave} to use with {@link OscillatorNode}
+     * Creates {@link PeriodicWave} to use with {@link OscillatorNode}
      *
      * @param real cosine terms (traditionally the A terms)
      * @param imag sine terms (traditionally the B terms)

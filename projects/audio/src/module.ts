@@ -18,6 +18,7 @@ import {WebAudioScriptProcessor} from './nodes/script-processor';
 import {WebAudioStereoPanner} from './nodes/stereo-panner';
 import {WebAudioWaveShaper} from './nodes/wave-shaper';
 import {WebAudioWorklet} from './nodes/worklet';
+import {WebAudioParamPipe} from './pipes/audio-param.pipe';
 import {WebAudioPeriodicWavePipe} from './pipes/periodic-wave.pipe';
 import {WebAudioBufferSource} from './sources/buffer-source';
 import {WebAudioConstantSource} from './sources/constant-source';
@@ -49,6 +50,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioStereoPanner,
         WebAudioWaveShaper,
         WebAudioWorklet,
+        WebAudioParamPipe,
         WebAudioPeriodicWavePipe,
     ],
     exports: [
@@ -75,6 +77,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioStereoPanner,
         WebAudioWaveShaper,
         WebAudioWorklet,
+        WebAudioParamPipe,
         WebAudioPeriodicWavePipe,
     ],
 })
