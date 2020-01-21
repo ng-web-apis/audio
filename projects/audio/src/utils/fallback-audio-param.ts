@@ -10,7 +10,9 @@ export function fallbackAudioParam(value?: AudioParamInput): number {
     }
 
     if (value instanceof Array) {
-        return value[value.length - 1].value;
+        const last = value[value.length - 1].value;
+
+        return typeof last === 'number' ? last : last[last.length - 1];
     }
 
     if (value.value instanceof Array) {

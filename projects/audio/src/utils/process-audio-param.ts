@@ -21,7 +21,16 @@ export function processAudioParam(
 
     if (value instanceof Array) {
         value.forEach(automation => {
-            processAutomation(param, automation, currentTime);
+            if ('mode' in automation) {
+                processAutomation(param, automation, currentTime);
+            } else {
+                param.setValueCurveAtTime(
+                    automation.value,
+                    currentTime,
+                    automation.duration,
+                );
+            }
+
             currentTime += automation.duration;
         });
 
@@ -40,7 +49,7 @@ export function processAudioParam(
 
 function processAutomation(
     param: AudioParam,
-    {value, mode, duration}: AudioParamAutomation,
+    {value, mode = 'instant', duration}: AudioParamAutomation,
     currentTime: number,
 ) {
     switch (mode) {
