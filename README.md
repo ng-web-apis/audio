@@ -1,7 +1,7 @@
-# Web Audio API for Angular
+# ![ng-web-apis logo](logo.svg) Web Audio API for Angular
 
-[![npm version](https://img.shields.io/npm/v/ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/ng-web-apis/audio)
+[![npm version](https://img.shields.io/npm/v/@ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)
 ![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)
 ![Coveralls github](https://img.shields.io/coveralls/github/ng-web-apis/audio)
 [![angular-open-source-starter](https://img.shields.io/badge/made%20with-angular--open--source--starter-d81676?logo=angular)](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
@@ -10,21 +10,21 @@ This is a library for declarative use of
 [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with Angular 7+.
 It is a complete conversion to declarative Angular directives, if you find any inconsistencies
 or errors, please [file an issue](https://github.com/ng-web-apis/audio/issues). Watch out
-for 💡 emoji in this README for addition features and special use cases.
+for 💡 emoji in this README for additional features and special use cases.
 
 ## How to use
 
 You can build audio graph with directives. For example, here's a typical echo feedback loop:
 
 ```html
-<audio src="/demo.wav" MediaElementAudioSourceNode>
-    <ng-container #node="AudioNode" DelayNode [delayTime]="delayTime">
-        <ng-container GainNode [gain]="gain">
-            <ng-container [Output]="node"></ng-container>
-            <ng-container AudioDestinationNode></ng-container>
+<audio src="/demo.wav" waMediaElementAudioSourceNode>
+    <ng-container #node="AudioNode" waDelayNode [delayTime]="delayTime">
+        <ng-container waGainNode [gain]="gain">
+            <ng-container [waOutput]="node"></ng-container>
+            <ng-container waAudioDestinationNode></ng-container>
         </ng-container>
     </ng-container>
-    <ng-container AudioDestinationNode></ng-container>
+    <ng-container waAudioDestinationNode></ng-container>
 </audio>
 ```
 
@@ -47,17 +47,18 @@ pass string URL, as well as an actual
 <button
     #source="AudioNode"
     buffer="/demo.wav"
-    AudioBufferSourceNode
+    waAudioBufferSourceNode
     (click)="source.start()"
 >
     Play
-    <ng-container AudioDestinationNode></ng-container>
+    <ng-container waAudioDestinationNode></ng-container>
 </button>
 ```
 
 ## Supported nodes
 
-You can use following audio nodes through directives of the same name:
+You can use following audio nodes through directives of the same name
+(**prefixed with `wa`** standing for Web API):
 
 ### Terminal nodes
 
@@ -91,6 +92,8 @@ You can use following audio nodes through directives of the same name:
 
     💡 Has `(quiet)` output to watch for particular graph branch going silent
 
+-   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
+
 ### Sources
 
 -   [AudioBufferSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode)
@@ -109,6 +112,8 @@ You can use following audio nodes through directives of the same name:
     playing immediately
 
 -   [MediaElementAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode)
+-   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
+-   [MediaStreamTrackAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode)
 -   [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
 
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
@@ -131,6 +136,7 @@ You can use following audio nodes through directives of the same name:
 
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
 -   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
+-   [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode)
 -   [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
 -   [ScriptProcessorNode](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode)
 -   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
@@ -183,8 +189,8 @@ You can then instantiate your
 [AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode):
 
 ```html
-<ng-container AudioWorkletNode name="my-processor">
-    <ng-container AudioDestinationNode></ng-container>
+<ng-container waAudioWorkletNode name="my-processor">
+    <ng-container waAudioDestinationNode></ng-container>
 </ng-container>
 ```
 
@@ -199,7 +205,7 @@ and add `audioParam` decorator to new component's inputs:
     exportAs: 'AudioNode',
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => MyWorklet),
         },
     ],
@@ -218,31 +224,115 @@ export class MyWorklet extends WebAudioWorklet {
 }
 ```
 
+## 💡 [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+
+Since work with [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+is imperative in its nature, there are difference to native API when working with
+declarative inputs and directives.
+
+> **NOTE**: You can always access directives through
+> [template reference variables](https://angular.io/guide/template-syntax#ref-var) /
+> [@ViewChild](https://angular.io/api/core/ViewChild) and since they extend native nodes
+> work with [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+> in traditional Web Audio fashion
+
+[AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam) inputs
+for directives accept following arguments:
+
+-   `number` to set in instantly, equivalent to setting
+    [AudioParam.value](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/value)
+-   `AudioParamCurve` to set array of values over given duration, equivalent to
+    [AudioParam.setValueCurveAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueCurveAtTime)
+    called with
+    [AudioContext.currentTime](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/currentTime)
+
+        export type AudioParamCurve = {
+            readonly value: number[];
+            readonly duration: number;
+        }
+
+-   `AudioParamAutomation` to linearly or exponentially ramp to given value starting from
+    [AudioContext.currentTime](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/currentTime)
+
+        export type AudioParamAutomation = {
+            readonly value: number;
+            readonly duration: number;
+            readonly mode: 'instant' | 'linear' | 'exponential';
+        };
+
+-   `AudioParamAutomation[]` to schedule multiple changes in value, stacking one after another
+
+You can use `waAudioParam` pipe to turn your number values into `AudioParamAutomation`
+(default mode is `exponential`, so last argument can be omitted)
+or number arrays to `AudioParamCurve` (second argument `duration` is in **seconds**):
+
+```html
+<ng-container waGainNode [gain]="gain | waAudioParam : 0.1 : 'linear'"></ng-container>
+```
+
+This way values would change smoothly rather than abruptly, causing audio artifacts.
+
+To schedule an audio envelope looking something like this:
+
+![Envelope](envelope.png)
+
+You would need to pass the following array of `AudioParamAutomation` items:
+
+```cs
+envelope = [
+    {
+        value: 0,
+        duration: 0,
+        mode: 'instant',
+    },
+    {
+        value: 1,
+        duration: ATTACK_TIME,
+        mode: 'linear',
+    },
+    {
+        value: SUS,
+        duration: DECAY_TIME,
+        mode: 'linear',
+    },
+    {
+        value: SUS,
+        duration: SUSTAIN_TIME,
+        mode: 'instant',
+    },
+    {
+        value: 0,
+        duration: RELEASE_TIME,
+        mode: 'exponential',
+    },
+];
+```
+
 ## 💡 Special cases
 
--   Use `Output` directive when you need non-linear graph (see feedback loop example above)
+-   Use `waOutput` directive when you need non-linear graph (see feedback loop example above)
     or to manually connect [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode)
     to [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode) or
     [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
--   Use `PeriodicWave` pipe to create [PeriodicWave](https://developer.mozilla.org/en-US/docs/Web/API/PeriodicWave)
+-   Use `waPeriodicWave` pipe to create [PeriodicWave](https://developer.mozilla.org/en-US/docs/Web/API/PeriodicWave)
     for [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
 -   All node directives are exported as `AudioNode` so you can use them with
     [template reference variables](https://angular.io/guide/template-syntax#ref-var) (see feedback loop example above)
--   Use `Channel` directive within
+-   Use `waChannel` directive within
     [ChannelMergerNode](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode)
-    and direct `Output` directive to it in order to perform channel merging:
+    and direct `waOutput` directive to it in order to perform channel merging:
 
 ```html
 <!-- Inverting left and right channel -->
-<audio src="/demo.wav" MediaElementAudioSourceNode>
-    <ng-container ChannelSplitterNode>
-        <ng-container [Output]="right"></ng-container>
-        <ng-container [Output]="left"></ng-container>
+<audio src="/demo.wav" waMediaElementAudioSourceNode>
+    <ng-container waChannelSplitterNode>
+        <ng-container [waOutput]="right"></ng-container>
+        <ng-container [waOutput]="left"></ng-container>
     </ng-container>
-    <ng-container ChannelMergerNode>
-        <ng-container #left="AudioNode" Channel></ng-container>
-        <ng-container #right="AudioNode" Channel></ng-container>
-        <ng-container AudioDestinationNode></ng-container>
+    <ng-container waChannelMergerNode>
+        <ng-container #left="AudioNode" waChannel></ng-container>
+        <ng-container #right="AudioNode" waChannel></ng-container>
+        <ng-container waAudioDestinationNode></ng-container>
     </ng-container>
 </audio>
 ```
@@ -257,6 +347,12 @@ export class MyWorklet extends WebAudioWorklet {
 -   You can also provide custom
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     through that token
+-   Provide `FEEDBACK_COEFFICIENTS` and `FEEDFORWARD_COEFFICIENTS` tokens to be able to
+    create [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode)
+-   Provide `MEDIA_STREAM` token to be able to create
+    [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
+-   Provide `MEDIA_STREAM_TRACK` token to be able to create
+    [MediaStreamTrackAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode)
 -   All node directives provide underlying
     [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode)
     as `AUDIO_NODE` token
@@ -281,7 +377,9 @@ export class MyWorklet extends WebAudioWorklet {
 > ([AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) etc.)
 > were added later and are supported only by more recent versions
 
-_**IMPORTANT**: You must add `@ng-web-apis/audio/polyfill` to your `polyfills.ts` if you want to support Safari_
+_**IMPORTANT**: You must add `@ng-web-apis/audio/polyfill` to your `polyfills.ts`,
+otherwise you will get `ReferenceError: X is not defined` in browsers for entities
+they do not support_
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
@@ -297,17 +395,4 @@ method if browser does not support it
 
 ## Demo
 
-You can [try online demo here](https://ng-web-apis.github.io/audio/)
-
-## TODO
-
--   [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode),
-    however it is not supported by Safari and generally
-    [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
-    is sufficient
--   Add sophisticated [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
-    manipulations such as ramping and scheduled changes
--   Streaming concept
-    -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
-    -   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
--   Add some sort of SSR fallback so it doesn't crash in Angular Universal environment
+You can [try online demo here](https://ng-web-apis.github.io/audio)

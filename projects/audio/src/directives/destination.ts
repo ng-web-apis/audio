@@ -18,7 +18,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[AudioDestinationNode]',
+    selector: '[waAudioDestinationNode]',
     exportAs: 'AudioNode',
 })
 export class WebAudioDestination extends AnalyserNode implements OnDestroy {

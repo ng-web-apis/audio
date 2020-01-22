@@ -9,7 +9,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[ConvolverNode]',
+    selector: '[waConvolverNode]',
     exportAs: 'AudioNode',
     inputs: ['normalize', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

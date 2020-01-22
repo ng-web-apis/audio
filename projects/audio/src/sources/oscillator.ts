@@ -17,7 +17,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[OscillatorNode]',
+    selector: '[waOscillatorNode]',
     exportAs: 'AudioNode',
     inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

@@ -75,38 +75,34 @@ legend {
     border-radius: 2px;
 }
 
-*[ng-reflect--output] {
+*[ng-reflect--waoutput] {
     background: thistle;
 }
 
-*[GainNode] {
+*[waGainNode] {
     background: pink;
 }
 
-*[DelayNode] {
+*[waDelayNode] {
     background: lightgreen;
 }
 
-*[StereoPannerNode] {
+*[waStereoPannerNode] {
     background: skyblue;
 }
 
-*[AudioDestinationNode] {
+*[waAudioDestinationNode] {
     background: khaki;
 }
 
-*[WaveShaperNode] {
+*[waWaveShaperNode] {
     background: salmon;
 }
 
-*[BiquadFilterNode] {
+*[waBiquadFilterNode] {
     background: gold;
 }
 
-*[ConvolverNode] {
+*[waConvolverNode] {
     background: aquamarine;
-}
-
-*[NoiseWorklet] {
-    background: hotpink;
 }

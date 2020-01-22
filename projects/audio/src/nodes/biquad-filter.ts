@@ -8,7 +8,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[BiquadFilterNode]',
+    selector: '[waBiquadFilterNode]',
     exportAs: 'AudioNode',
     inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

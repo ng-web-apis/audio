@@ -4,7 +4,7 @@ import {latencyHintFactory} from '../utils/latency-hint-factory';
 
 // @dynamic
 @Directive({
-    selector: '[AudioContext]',
+    selector: '[waAudioContext]',
     providers: [
         {
             provide: AUDIO_CONTEXT,

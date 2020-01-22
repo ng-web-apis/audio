@@ -17,7 +17,7 @@ import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
 // @dynamic
 @Directive({
-    selector: '[PannerNode]',
+    selector: '[waPannerNode]',
     exportAs: 'AudioNode',
     inputs: [
         'coneInnerAngle',

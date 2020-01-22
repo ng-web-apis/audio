@@ -6,7 +6,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[WaveShaperNode]',
+    selector: '[waWaveShaperNode]',
     exportAs: 'AudioNode',
     inputs: [
         'oversample',

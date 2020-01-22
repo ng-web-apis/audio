@@ -13,7 +13,7 @@ import {connect} from '../utils/connect';
 
 // @dynamic
 @Directive({
-    selector: '[ChannelSplitterNode]',
+    selector: '[waChannelSplitterNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

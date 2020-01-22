@@ -4,7 +4,8 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 
 // @dynamic
 @Directive({
-    selector: 'audio[MediaElementAudioSourceNode], video[MediaElementAudioSourceNode]',
+    selector:
+        'audio[waMediaElementAudioSourceNode], video[waMediaElementAudioSourceNode]',
     exportAs: 'AudioNode',
     providers: [
         {

@@ -14,7 +14,7 @@ import {connect} from '../utils/connect';
 
 // @dynamic
 @Directive({
-    selector: '[ScriptProcessorNode]',
+    selector: '[waScriptProcessorNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

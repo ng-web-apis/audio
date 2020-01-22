@@ -8,7 +8,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[DelayNode]',
+    selector: '[waDelayNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

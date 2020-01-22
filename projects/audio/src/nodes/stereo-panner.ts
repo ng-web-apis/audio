@@ -8,7 +8,7 @@ import {processAudioParam} from '../utils/process-audio-param';
 
 // @dynamic
 @Directive({
-    selector: '[StereoPannerNode]',
+    selector: '[waStereoPannerNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

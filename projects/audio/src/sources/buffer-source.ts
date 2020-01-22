@@ -19,7 +19,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[AudioBufferSourceNode]',
+    selector: '[waAudioBufferSourceNode]',
     exportAs: 'AudioNode',
     inputs: [
         'loop',

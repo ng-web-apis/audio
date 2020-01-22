@@ -13,7 +13,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 
 // @dynamic
 @Directive({
-    selector: '[ChannelMergerNode]',
+    selector: '[waChannelMergerNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

@@ -8,7 +8,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[AnalyserNode]',
+    selector: '[waAnalyserNode]',
     exportAs: 'AudioNode',
     inputs: [
         'fftSize',

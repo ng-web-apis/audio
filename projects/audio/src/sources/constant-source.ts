@@ -15,7 +15,7 @@ import {AudioParamInput} from '../types/audio-param-input';
 
 // @dynamic
 @Directive({
-    selector: '[ConstantSourceNode]',
+    selector: '[waConstantSourceNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
