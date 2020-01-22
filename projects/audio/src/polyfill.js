@@ -8,3 +8,8 @@ OfflineAudioContext = globalThis.OfflineAudioContext || globalThis.AudioContext;
 ConstantSourceNode = globalThis.ConstantSourceNode || function() {};
 AudioWorkletNode = globalThis.AudioWorkletNode || function() {};
 IIRFilterNode = globalThis.IIRFilterNode || function() {};
+MediaStreamAudioDestinationNode =
+    globalThis.MediaStreamAudioDestinationNode || function() {};
+MediaStreamAudioSourceNode = globalThis.MediaStreamAudioSourceNode || function() {};
+MediaStreamTrackAudioSourceNode =
+    globalThis.MediaStreamTrackAudioSourceNode || function() {};

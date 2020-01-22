@@ -1,4 +1,4 @@
-import {Directive, Inject, OnDestroy, Optional, Output} from '@angular/core';
+import {Directive, Inject, OnDestroy, Output} from '@angular/core';
 import {interval, Observable} from 'rxjs';
 import {
     debounceTime,
@@ -12,6 +12,7 @@ import {
 import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
@@ -26,7 +27,7 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         const result = constructorPolyfill(
             context,

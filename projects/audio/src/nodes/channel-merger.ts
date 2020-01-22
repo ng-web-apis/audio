@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {WebAudioChannel} from '../directives/channel';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 
 // @dynamic
 @Directive({
@@ -17,7 +18,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioChannelMerger),
         },
     ],

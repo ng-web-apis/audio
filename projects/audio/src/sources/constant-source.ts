@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 
 // @dynamic
@@ -19,7 +20,7 @@ import {AudioParamInput} from '../types/audio-param-input';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioConstantSource),
         },
     ],

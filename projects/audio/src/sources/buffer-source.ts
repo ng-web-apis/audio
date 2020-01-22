@@ -13,6 +13,7 @@ import {switchMap} from 'rxjs/operators';
 import {audioParam} from '../decorators/audio-param';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
@@ -30,7 +31,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioBufferSource),
         },
     ],

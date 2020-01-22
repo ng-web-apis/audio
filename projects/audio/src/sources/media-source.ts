@@ -1,5 +1,6 @@
 import {Directive, ElementRef, forwardRef, Inject, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 
 // @dynamic
 @Directive({
@@ -8,7 +9,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
     exportAs: 'AudioNode',
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioMediaSource),
         },
     ],

@@ -1,14 +1,7 @@
-import {
-    Directive,
-    forwardRef,
-    Inject,
-    Input,
-    OnDestroy,
-    Optional,
-    SkipSelf,
-} from '@angular/core';
+import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
@@ -20,7 +13,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioGain),
         },
     ],
@@ -32,7 +25,7 @@ export class WebAudioGain extends GainNode implements OnDestroy {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         const result = constructorPolyfill(context, 'createGain', WebAudioGain, node);
 

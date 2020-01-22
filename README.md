@@ -92,6 +92,8 @@ You can use following audio nodes through directives of the same name
 
     💡 Has `(quiet)` output to watch for particular graph branch going silent
 
+-   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
+
 ### Sources
 
 -   [AudioBufferSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode)
@@ -110,6 +112,8 @@ You can use following audio nodes through directives of the same name
     playing immediately
 
 -   [MediaElementAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode)
+-   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
+-   [MediaStreamTrackAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode)
 -   [OscillatorNode](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode)
 
     💡 Additionally supports empty `autoplay` attribute similar to `audio` tag so it would start
@@ -132,6 +136,7 @@ You can use following audio nodes through directives of the same name
 
 -   [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode)
 -   [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode)
+-   [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode)
 -   [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
 -   [ScriptProcessorNode](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode)
 -   [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
@@ -273,7 +278,7 @@ To schedule an audio envelope looking something like this:
 
 You would need to pass the following array of `AudioParamAutomation` items:
 
-```css
+```cs
 envelope = [
     {
         value: 0,
@@ -342,8 +347,15 @@ envelope = [
 -   You can also provide custom
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     through that token
--   All node directives can be injected as
-    [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode) class
+-   Provide `FEEDBACK_COEFFICIENTS` and `FEEDFORWARD_COEFFICIENTS` tokens to be able to
+    create [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode)
+-   Provide `MEDIA_STREAM` token to be able to create
+    [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
+-   Provide `MEDIA_STREAM_TRACK` token to be able to create
+    [MediaStreamTrackAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode)
+-   All node directives provide underlying
+    [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode)
+    as `AUDIO_NODE` token
 -   Use `AUDIO_WORKLET_PROCESSORS` token to declare array of
     [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
     to be added to default
@@ -382,14 +394,3 @@ method if browser does not support it
 ## Demo
 
 You can [try online demo here](https://ng-web-apis.github.io/audio)
-
-## TODO
-
--   [IIRFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode),
-    however it is not supported by Safari and generally
-    [BiquadFilterNode](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode)
-    is sufficient
--   Streaming concept
-    -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
-    -   [MediaStreamAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode)
-    -   [MediaStreamTrackAudioSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode)

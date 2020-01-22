@@ -4,11 +4,11 @@ import {
     Directive,
     Inject,
     OnDestroy,
-    Optional,
     QueryList,
     SkipSelf,
 } from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 
 // @dynamic
@@ -18,13 +18,13 @@ import {connect} from '../utils/connect';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useValue: null,
         },
     ],
 })
 export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDestroy {
-    @ContentChildren(AudioNode, {descendants: false})
+    @ContentChildren(AUDIO_NODE as any, {descendants: false})
     set channels(channels: QueryList<AudioNode | null>) {
         this.disconnect();
         channels
@@ -37,7 +37,7 @@ export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDe
     constructor(
         @Attribute('numberOfOutputs') outputs: string | null,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         const numberOfOutputs = Number.parseInt(outputs || '', 10) || 6;
 

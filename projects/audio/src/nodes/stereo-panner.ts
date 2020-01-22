@@ -1,13 +1,6 @@
-import {
-    Directive,
-    forwardRef,
-    Inject,
-    Input,
-    OnDestroy,
-    Optional,
-    SkipSelf,
-} from '@angular/core';
+import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
@@ -20,7 +13,7 @@ import {processAudioParam} from '../utils/process-audio-param';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioStereoPanner),
         },
     ],
@@ -39,7 +32,7 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         try {
             // @ts-ignore

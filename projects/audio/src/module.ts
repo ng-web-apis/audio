@@ -5,6 +5,7 @@ import {WebAudioDestination} from './directives/destination';
 import {WebAudioListener} from './directives/listener';
 import {WebAudioOfflineContext} from './directives/offline-audio-context';
 import {WebAudioOutput} from './directives/output';
+import {WebAudioMediaStreamDestination} from './directives/stream-destination';
 import {WebAudioAnalyser} from './nodes/analyser';
 import {WebAudioBiquadFilter} from './nodes/biquad-filter';
 import {WebAudioChannelMerger} from './nodes/channel-merger';
@@ -13,6 +14,7 @@ import {WebAudioConvolver} from './nodes/convolver';
 import {WebAudioDelay} from './nodes/delay';
 import {WebAudioDynamicsCompressor} from './nodes/dynamics-compressor';
 import {WebAudioGain} from './nodes/gain';
+import {WebAudioIIRFilter} from './nodes/iir-filter';
 import {WebAudioPanner} from './nodes/panner';
 import {WebAudioScriptProcessor} from './nodes/script-processor';
 import {WebAudioStereoPanner} from './nodes/stereo-panner';
@@ -23,6 +25,8 @@ import {WebAudioPeriodicWavePipe} from './pipes/periodic-wave.pipe';
 import {WebAudioBufferSource} from './sources/buffer-source';
 import {WebAudioConstantSource} from './sources/constant-source';
 import {WebAudioMediaSource} from './sources/media-source';
+import {WebAudioMediaStreamSource} from './sources/media-stream-source';
+import {WebAudioMediaStreamTrackSource} from './sources/media-stream-track-source';
 import {WebAudioOscillator} from './sources/oscillator';
 
 @NgModule({
@@ -33,9 +37,12 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioListener,
         WebAudioOfflineContext,
         WebAudioOutput,
+        WebAudioMediaStreamDestination,
         WebAudioBufferSource,
         WebAudioConstantSource,
         WebAudioMediaSource,
+        WebAudioMediaStreamSource,
+        WebAudioMediaStreamTrackSource,
         WebAudioOscillator,
         WebAudioAnalyser,
         WebAudioBiquadFilter,
@@ -45,6 +52,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioDelay,
         WebAudioDynamicsCompressor,
         WebAudioGain,
+        WebAudioIIRFilter,
         WebAudioPanner,
         WebAudioScriptProcessor,
         WebAudioStereoPanner,
@@ -60,9 +68,12 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioListener,
         WebAudioOfflineContext,
         WebAudioOutput,
+        WebAudioMediaStreamDestination,
         WebAudioBufferSource,
         WebAudioConstantSource,
         WebAudioMediaSource,
+        WebAudioMediaStreamSource,
+        WebAudioMediaStreamTrackSource,
         WebAudioOscillator,
         WebAudioAnalyser,
         WebAudioBiquadFilter,
@@ -72,6 +83,7 @@ import {WebAudioOscillator} from './sources/oscillator';
         WebAudioDelay,
         WebAudioDynamicsCompressor,
         WebAudioGain,
+        WebAudioIIRFilter,
         WebAudioPanner,
         WebAudioScriptProcessor,
         WebAudioStereoPanner,

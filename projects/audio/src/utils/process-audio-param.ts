@@ -1,4 +1,5 @@
 import {AudioParamAutomation} from '../types/audio-param-automation';
+import {AudioParamCurve} from '../types/audio-param-curve';
 import {AudioParamInput} from '../types/audio-param-input';
 
 export function processAudioParam(
@@ -20,19 +21,7 @@ export function processAudioParam(
     }
 
     if (value instanceof Array) {
-        value.forEach(automation => {
-            if ('mode' in automation) {
-                processAutomation(param, automation, currentTime);
-            } else {
-                param.setValueCurveAtTime(
-                    automation.value,
-                    currentTime,
-                    automation.duration,
-                );
-            }
-
-            currentTime += automation.duration;
-        });
+        processSchedule(param, value, currentTime);
 
         return;
     }
@@ -45,6 +34,20 @@ export function processAudioParam(
 
     param.setValueAtTime(param.value, currentTime);
     processAutomation(param, value, currentTime);
+}
+
+function processSchedule(
+    param: AudioParam,
+    value: Array<AudioParamAutomation | AudioParamCurve>,
+    currentTime: number,
+) {
+    value.forEach(automation => {
+        if ('mode' in automation) {
+            processAutomation(param, automation, currentTime);
+        } else {
+            param.setValueCurveAtTime(automation.value, currentTime, automation.duration);
+        }
+    });
 }
 
 function processAutomation(

@@ -1,4 +1,4 @@
-export type AudioParamCurve = {
-    readonly value: number[];
-    readonly duration: number;
-};
+export type AudioParamCurve = Readonly<{
+    value: number[];
+    duration: number;
+}>;

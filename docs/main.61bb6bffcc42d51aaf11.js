@@ -393,7 +393,7 @@
                         }
                     }
                     forEach(e, t) {
-                        return new (t = b(t))((t, n) => {
+                        return new (t = w(t))((t, n) => {
                             let r;
                             r = this.subscribe(
                                 t => {
@@ -428,7 +428,7 @@
                         var t;
                     }
                     toPromise(e) {
-                        return new (e = b(e))((e, t) => {
+                        return new (e = w(e))((e, t) => {
                             let n;
                             this.subscribe(e => (n = e), e => t(e), () => e(n));
                         });
@@ -436,12 +436,12 @@
                 }
                 return (e.create = t => new e(t)), e;
             })();
-            function b(e) {
+            function w(e) {
                 if ((e || (e = s.Promise || Promise), !e))
                     throw new Error('no Promise impl found');
                 return e;
             }
-            function w() {
+            function b() {
                 return (
                     Error.call(this),
                     (this.message = 'object unsubscribed'),
@@ -449,8 +449,8 @@
                     this
                 );
             }
-            w.prototype = Object.create(Error.prototype);
-            const C = w;
+            b.prototype = Object.create(Error.prototype);
+            const C = b;
             class E extends h {
                 constructor(e, t) {
                     super(),
@@ -1172,8 +1172,8 @@
                     );
                 })(),
                 ve = se('Inject', e => ({token: e})),
-                be = se('Optional'),
-                we = se('Self'),
+                we = se('Optional'),
+                be = se('Self'),
                 Ce = se('SkipSelf'),
                 Ee = (function() {
                     var e = {Default: 0, Host: 1, Self: 2, SkipSelf: 4, Optional: 8};
@@ -1351,13 +1351,13 @@
                                                                 e++
                                                             ) {
                                                                 const n = t[e];
-                                                                n instanceof be || n == be
+                                                                n instanceof we || n == we
                                                                     ? (r |= 1)
                                                                     : n instanceof Ce ||
                                                                       n == Ce
                                                                     ? (r &= -3)
-                                                                    : n instanceof we ||
-                                                                      n == we
+                                                                    : n instanceof be ||
+                                                                      n == be
                                                                     ? (r &= -5)
                                                                     : (l =
                                                                           n instanceof ve
@@ -1603,7 +1603,7 @@
                     return (e.__NG_ELEMENT_ID__ = () => vt()), e;
                 })(),
                 vt = Me,
-                bt = (function() {
+                wt = (function() {
                     var e = {
                         NONE: 0,
                         HTML: 1,
@@ -1622,7 +1622,7 @@
                         e
                     );
                 })();
-            class wt {}
+            class bt {}
             class Ct {
                 constructor(e) {
                     (this.full = e),
@@ -2046,13 +2046,13 @@
             const _n = mn,
                 yn = mn,
                 vn = mn,
-                bn = mn;
-            class wn {
+                wn = mn;
+            class bn {
                 constructor() {
                     (this.compileModuleSync = _n),
                         (this.compileModuleAsync = yn),
                         (this.compileModuleAndAllComponentsSync = vn),
-                        (this.compileModuleAndAllComponentsAsync = bn);
+                        (this.compileModuleAndAllComponentsAsync = wn);
                 }
                 clearCache() {}
                 clearCacheFor(e) {}
@@ -3476,7 +3476,7 @@
                                         );
                                     return e.create(t, n);
                                 },
-                                deps: [[e, new Ce(), new be()]],
+                                deps: [[e, new Ce(), new we()]],
                             };
                         }
                         find(e) {
@@ -3519,7 +3519,7 @@
                                         );
                                     return e.create(t, n);
                                 },
-                                deps: [[e, new Ce(), new be()]],
+                                deps: [[e, new Ce(), new we()]],
                             };
                         }
                         find(e) {
@@ -3539,8 +3539,8 @@
                     );
                 })(),
                 vr = [new fr()],
-                br = new _r([new or()]),
-                wr = new yr(vr),
+                wr = new _r([new or()]),
+                br = new yr(vr),
                 Cr = zn(null, 'core', [
                     {provide: pn, useValue: 'unknown'},
                     {provide: qn, deps: [Le]},
@@ -3549,10 +3549,10 @@
                 ]),
                 Er = new re('LocaleId');
             function xr() {
-                return br;
+                return wr;
             }
             function Tr() {
-                return wr;
+                return br;
             }
             function Sr(e) {
                 return e || 'en-US';
@@ -3880,8 +3880,8 @@
                     m = null;
                 s && ([g, m] = ml(s)), (o = o || []);
                 const _ = new Array(o.length);
-                for (let b = 0; b < o.length; b++) {
-                    const [e, t, n] = o[b],
+                for (let w = 0; w < o.length; w++) {
+                    const [e, t, n] = o[w],
                         [r, l] = ml(t);
                     let s = void 0,
                         i = void 0;
@@ -3893,7 +3893,7 @@
                         case 8:
                             s = n;
                     }
-                    _[b] = {
+                    _[w] = {
                         flags: e,
                         ns: r,
                         name: l,
@@ -3904,9 +3904,9 @@
                 }
                 a = a || [];
                 const y = new Array(a.length);
-                for (let b = 0; b < a.length; b++) {
-                    const [e, t] = a[b];
-                    y[b] = {type: 0, target: e, eventName: t, propName: null};
+                for (let w = 0; w < a.length; w++) {
+                    const [e, t] = a[w];
+                    y[w] = {type: 0, target: e, eventName: t, propName: null};
                 }
                 const v = (i = i || []).map(([e, t]) => {
                     const [n, r] = ml(e);
@@ -3963,7 +3963,7 @@
                     }
                 );
             }
-            function bl(e, t, n) {
+            function wl(e, t, n) {
                 const r = n.element,
                     l = e.root.selectorOrNode,
                     s = e.renderer;
@@ -3985,7 +3985,7 @@
                     }
                 return i;
             }
-            function wl(e, t, n, r) {
+            function bl(e, t, n, r) {
                 for (let i = 0; i < n.outputs.length; i++) {
                     const o = n.outputs[i],
                         a = Cl(
@@ -4030,7 +4030,7 @@
                         break;
                     case 4:
                         !(function(e, t, n, r, l) {
-                            let s = e.root.sanitizer.sanitize(bt.STYLE, l);
+                            let s = e.root.sanitizer.sanitize(wt.STYLE, l);
                             if (null != s) {
                                 s = s.toString();
                                 const e = t.suffix;
@@ -4860,7 +4860,7 @@
                 else for (r = e; r.parent && !nl(r); ) r = r.parent;
                 return r;
             }
-            function bs(e, t, n, r, l, s) {
+            function ws(e, t, n, r, l, s) {
                 if (32768 & n.flags) {
                     const t = Vr(e, n.parent.nodeIndex).componentView;
                     2 & t.def.flags && (t.state |= 8);
@@ -4872,7 +4872,7 @@
                 }
                 return (e.oldValues[n.bindingIndex + r] = l), s;
             }
-            function ws(e, t) {
+            function bs(e, t) {
                 if (!(e.def.nodeFlags & t)) return;
                 const n = e.def.nodes;
                 let r = 0;
@@ -5317,13 +5317,13 @@
                     let i;
                     switch ((Mr.setCurrentNode(e, l), 201347067 & s.flags)) {
                         case 1:
-                            const n = bl(e, t, s);
+                            const n = wl(e, t, s);
                             let o = void 0;
                             if (33554432 & s.flags) {
                                 const t = ul(s.element.componentView);
                                 o = Mr.createComponentView(e, s, t, n);
                             }
-                            wl(e, o, s, n),
+                            bl(e, o, s, n),
                                 (i = {
                                     renderElement: n,
                                     componentView: o,
@@ -5385,11 +5385,11 @@
                     Ys(e, Ks.CheckAndUpdate),
                     ti(e, 67108864, 536870912, 0);
                 let t = kr(e, 256, 512);
-                ws(e, 2097152 | (t ? 1048576 : 0)),
+                bs(e, 2097152 | (t ? 1048576 : 0)),
                     Mr.updateRenderer(e, 0),
                     Js(e, Ks.CheckAndUpdate),
                     ti(e, 134217728, 536870912, 0),
-                    ws(e, 8388608 | ((t = kr(e, 512, 768)) ? 4194304 : 0)),
+                    bs(e, 8388608 | ((t = kr(e, 512, 768)) ? 4194304 : 0)),
                     2 & e.def.flags && (e.state &= -9),
                     (e.state &= -97),
                     kr(e, 768, 1024);
@@ -5460,34 +5460,34 @@
                                       return (
                                           m > 0 &&
                                               Zr(e, t, 0, n) &&
-                                              ((f = !0), (g = bs(e, h, t, 0, n, g))),
+                                              ((f = !0), (g = ws(e, h, t, 0, n, g))),
                                           m > 1 &&
                                               Zr(e, t, 1, r) &&
-                                              ((f = !0), (g = bs(e, h, t, 1, r, g))),
+                                              ((f = !0), (g = ws(e, h, t, 1, r, g))),
                                           m > 2 &&
                                               Zr(e, t, 2, l) &&
-                                              ((f = !0), (g = bs(e, h, t, 2, l, g))),
+                                              ((f = !0), (g = ws(e, h, t, 2, l, g))),
                                           m > 3 &&
                                               Zr(e, t, 3, s) &&
-                                              ((f = !0), (g = bs(e, h, t, 3, s, g))),
+                                              ((f = !0), (g = ws(e, h, t, 3, s, g))),
                                           m > 4 &&
                                               Zr(e, t, 4, i) &&
-                                              ((f = !0), (g = bs(e, h, t, 4, i, g))),
+                                              ((f = !0), (g = ws(e, h, t, 4, i, g))),
                                           m > 5 &&
                                               Zr(e, t, 5, o) &&
-                                              ((f = !0), (g = bs(e, h, t, 5, o, g))),
+                                              ((f = !0), (g = ws(e, h, t, 5, o, g))),
                                           m > 6 &&
                                               Zr(e, t, 6, a) &&
-                                              ((f = !0), (g = bs(e, h, t, 6, a, g))),
+                                              ((f = !0), (g = ws(e, h, t, 6, a, g))),
                                           m > 7 &&
                                               Zr(e, t, 7, u) &&
-                                              ((f = !0), (g = bs(e, h, t, 7, u, g))),
+                                              ((f = !0), (g = ws(e, h, t, 7, u, g))),
                                           m > 8 &&
                                               Zr(e, t, 8, c) &&
-                                              ((f = !0), (g = bs(e, h, t, 8, c, g))),
+                                              ((f = !0), (g = ws(e, h, t, 8, c, g))),
                                           m > 9 &&
                                               Zr(e, t, 9, d) &&
-                                              ((f = !0), (g = bs(e, h, t, 9, d, g))),
+                                              ((f = !0), (g = ws(e, h, t, 9, d, g))),
                                           g && p.ngOnChanges(g),
                                           65536 & t.flags &&
                                               Ir(e, 256, t.nodeIndex) &&
@@ -5654,7 +5654,7 @@
                                           i = void 0;
                                       for (let o = 0; o < n.length; o++)
                                           Zr(e, t, o, n[o]) &&
-                                              ((s = !0), (i = bs(e, r, t, o, n[o], i)));
+                                              ((s = !0), (i = ws(e, r, t, o, n[o], i)));
                                       return (
                                           i && l.ngOnChanges(i),
                                           65536 & t.flags &&
@@ -5749,7 +5749,7 @@
                     if (
                         (Ys(e, Ks.Destroy),
                         Js(e, Ks.Destroy),
-                        ws(e, 131072),
+                        bs(e, 131072),
                         e.disposables)
                     )
                         for (let t = 0; t < e.disposables.length; t++) e.disposables[t]();
@@ -5874,10 +5874,10 @@
                 const i = l.injector.get(mt),
                     o = si(e, l, new Fi(i), t, n),
                     a = gi(r);
-                return Mi(wi.create, js, null, [o, a, s]);
+                return Mi(bi.create, js, null, [o, a, s]);
             }
             function si(e, t, n, r, l) {
-                const s = t.injector.get(wt),
+                const s = t.injector.get(bt),
                     i = t.injector.get(sn),
                     o = n.createRenderer(null, null);
                 return {
@@ -5893,12 +5893,12 @@
             }
             function ii(e, t, n, r) {
                 const l = gi(n);
-                return Mi(wi.create, Fs, null, [e, t, l, r]);
+                return Mi(bi.create, Fs, null, [e, t, l, r]);
             }
             function oi(e, t, n, r) {
                 return (
                     (n = di.get(t.element.componentProvider.provider.token) || gi(n)),
-                    Mi(wi.create, Hs, null, [e, t, n, r])
+                    Mi(bi.create, Hs, null, [e, t, n, r])
                 );
             }
             function ai(e, t, n, r) {
@@ -6029,15 +6029,15 @@
                 );
             }
             function yi(e) {
-                return Mi(wi.detectChanges, zs, null, [e]);
+                return Mi(bi.detectChanges, zs, null, [e]);
             }
             function vi(e) {
-                return Mi(wi.checkNoChanges, $s, null, [e]);
+                return Mi(bi.checkNoChanges, $s, null, [e]);
             }
-            function bi(e) {
-                return Mi(wi.destroy, Qs, null, [e]);
+            function wi(e) {
+                return Mi(bi.destroy, Qs, null, [e]);
             }
-            const wi = (function() {
+            const bi = (function() {
                 var e = {
                     create: 0,
                     detectChanges: 1,
@@ -6060,11 +6060,11 @@
             }
             function Si(e, t, n, r) {
                 return (
-                    Ti(e, t), Mi(wi.handleEvent, e.def.handleEvent, null, [e, t, n, r])
+                    Ti(e, t), Mi(bi.handleEvent, e.def.handleEvent, null, [e, t, n, r])
                 );
             }
             function Ai(e, t) {
-                if (128 & e.state) throw jr(wi[Ci]);
+                if (128 & e.state) throw jr(bi[Ci]);
                 return (
                     Ti(e, Vi(e, 0)),
                     e.def.updateDirectives(function(e, n, r, ...l) {
@@ -6078,7 +6078,7 @@
                 );
             }
             function ki(e, t) {
-                if (128 & e.state) throw jr(wi[Ci]);
+                if (128 & e.state) throw jr(bi[Ci]);
                 return (
                     Ti(e, Oi(e, 0)),
                     e.def.updateRenderer(function(e, n, r, ...l) {
@@ -6414,7 +6414,7 @@
                                   clearOverrides: fi,
                                   checkAndUpdateView: yi,
                                   checkNoChangesView: vi,
-                                  destroyView: bi,
+                                  destroyView: wi,
                                   createDebugContext: (e, t) => new Di(e, t),
                                   handleEvent: Si,
                                   updateDirectives: Ai,
@@ -6624,15 +6624,19 @@
                     : (e.cancelScheduledValues(n), e.setValueAtTime(e.value, n)),
                     'number' != typeof t
                         ? t instanceof Array
-                            ? t.forEach(t => {
-                                  Ji(e, t, n), (n += t.duration);
-                              })
+                            ? (function(e, t, n) {
+                                  t.forEach(t => {
+                                      'mode' in t
+                                          ? Ji(e, t, n)
+                                          : e.setValueCurveAtTime(t.value, n, t.duration);
+                                  });
+                              })(e, t, n)
                             : 'mode' in t
                             ? (e.setValueAtTime(e.value, n), Ji(e, t, n))
                             : e.setValueCurveAtTime(t.value, n, t.duration)
                         : (e.value = t);
             }
-            function Ji(e, {value: t, mode: n, duration: r}, l) {
+            function Ji(e, {value: t, mode: n = 'instant', duration: r}, l) {
                 switch (n) {
                     case 'instant':
                         e.setValueAtTime(t, l), e.setValueAtTime(t, l + r);
@@ -6939,11 +6943,11 @@
                 }
                 call(e, t) {
                     return t.subscribe(
-                        new bo(e, this.nextOrObserver, this.error, this.complete),
+                        new wo(e, this.nextOrObserver, this.error, this.complete),
                     );
                 }
             }
-            class bo extends g {
+            class wo extends g {
                 constructor(e, t, n, l) {
                     super(e),
                         (this._tapNext = y),
@@ -6984,7 +6988,7 @@
                     return this.destination.complete();
                 }
             }
-            function wo(e, t) {
+            function bo(e, t) {
                 e && t && e.connect(t);
             }
             class Co extends AnalyserNode {
@@ -6997,7 +7001,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e),
+                    bo(t, e),
                         (e.frequencyByte$ = uo(0, fo).pipe(
                             go(new Uint8Array(e.frequencyBinCount)),
                             F(t =>
@@ -7037,8 +7041,8 @@
                 }
             }
             class Eo extends GainNode {
-                set Output(e) {
-                    this.disconnect(), wo(this, e);
+                set waOutput(e) {
+                    this.disconnect(), bo(this, e);
                 }
                 constructor(e, t) {
                     const n = Xi(e, 'createGain', Eo, t);
@@ -7049,7 +7053,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             class xo {}
@@ -7580,7 +7584,7 @@
                     this.disconnect();
                 }
                 static init(e, t, n) {
-                    wo(t, e), null !== n && e.start();
+                    bo(t, e), null !== n && e.start();
                     const r = new Wt();
                     (e.ended = r), (e.onended = () => r.emit());
                 }
@@ -7607,7 +7611,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             function Yo(e, t) {
@@ -8295,10 +8299,10 @@
                     ((ae.ng = ae.ng || {})[e] = t);
             }
             const va = {ApplicationRef: Wn, NgZone: In};
-            function ba(e) {
+            function wa(e) {
                 return sr(e);
             }
-            const wa = new re('EventManagerPlugins');
+            const ba = new re('EventManagerPlugins');
             class Ca {
                 constructor(e, t) {
                     (this._zone = t),
@@ -8872,9 +8876,9 @@
                 sanitize(e, t) {
                     if (null == t) return null;
                     switch (e) {
-                        case bt.NONE:
+                        case wt.NONE:
                             return t;
-                        case bt.HTML:
+                        case wt.HTML:
                             return t instanceof uu
                                 ? t.changingThisBreaksApplicationSecurity
                                 : (this.checkNotSafeValue(t, 'HTML'),
@@ -8914,7 +8918,7 @@
                                           }
                                       }
                                   })(this._doc, String(t)));
-                        case bt.STYLE:
+                        case wt.STYLE:
                             return t instanceof cu
                                 ? t.changingThisBreaksApplicationSecurity
                                 : (this.checkNotSafeValue(t, 'Style'),
@@ -8941,16 +8945,16 @@
                                                 ),
                                             'unsafe');
                                   })(t));
-                        case bt.SCRIPT:
+                        case wt.SCRIPT:
                             if (t instanceof du)
                                 return t.changingThisBreaksApplicationSecurity;
                             throw (this.checkNotSafeValue(t, 'Script'),
                             new Error('unsafe value used in a script context'));
-                        case bt.URL:
+                        case wt.URL:
                             return t instanceof pu || t instanceof hu
                                 ? t.changingThisBreaksApplicationSecurity
                                 : (this.checkNotSafeValue(t, 'URL'), Nt(String(t)));
-                        case bt.RESOURCE_URL:
+                        case wt.RESOURCE_URL:
                             if (t instanceof pu)
                                 return t.changingThisBreaksApplicationSecurity;
                             throw (this.checkNotSafeValue(t, 'ResourceURL'),
@@ -9129,8 +9133,8 @@
             function vu(e) {
                 return null == e || 0 === e.length;
             }
-            const bu = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
-            class wu {
+            const wu = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
+            class bu {
                 static min(e) {
                     return t => {
                         if (vu(t.value) || vu(e)) return null;
@@ -9156,7 +9160,7 @@
                     return !0 === e.value ? null : {required: !0};
                 }
                 static email(e) {
-                    return vu(e.value) ? null : bu.test(e.value) ? null : {email: !0};
+                    return vu(e.value) ? null : wu.test(e.value) ? null : {email: !0};
                 }
                 static minLength(e) {
                     return t => {
@@ -9176,7 +9180,7 @@
                     };
                 }
                 static pattern(e) {
-                    if (!e) return wu.nullValidator;
+                    if (!e) return bu.nullValidator;
                     let t, n;
                     return (
                         'string' == typeof e
@@ -9610,8 +9614,8 @@
             function Uu(e, t) {
                 e || zu(t, 'Cannot find control with'),
                     t.valueAccessor || zu(t, 'No value accessor for form control with'),
-                    (e.validator = wu.compose([e.validator, t.validator])),
-                    (e.asyncValidator = wu.composeAsync([
+                    (e.validator = bu.compose([e.validator, t.validator])),
+                    (e.asyncValidator = bu.composeAsync([
                         e.asyncValidator,
                         t.asyncValidator,
                     ])),
@@ -9666,10 +9670,10 @@
                 new Error(`${t} ${n}`));
             }
             function Gu(e) {
-                return null != e ? wu.compose(e.map(ku)) : null;
+                return null != e ? bu.compose(e.map(ku)) : null;
             }
             function qu(e) {
-                return null != e ? wu.composeAsync(e.map(Iu)) : null;
+                return null != e ? bu.composeAsync(e.map(Iu)) : null;
             }
             const Zu = [
                 class {
@@ -10516,8 +10520,8 @@
                             n = new ic({});
                         (function(e, t) {
                             null == e && zu(t, 'Cannot find control with'),
-                                (e.validator = wu.compose([e.validator, t.validator])),
-                                (e.asyncValidator = wu.composeAsync([
+                                (e.validator = bu.compose([e.validator, t.validator])),
+                                (e.asyncValidator = bu.composeAsync([
                                     e.asyncValidator,
                                     t.asyncValidator,
                                 ]));
@@ -10758,18 +10762,19 @@
             }
             class _c extends StereoPannerNode {
                 set panParam(e) {
-                    var t;
                     'setPosition' in this
                         ? this.fallbackToPannerNode(
-                              (t = e)
-                                  ? 'number' == typeof t
-                                      ? t
-                                      : t instanceof Array
-                                      ? t[t.length - 1].value
-                                      : t.value instanceof Array
-                                      ? t.value[t.value.length - 1]
-                                      : t.value
-                                  : 0,
+                              (function(t) {
+                                  if (!e) return 0;
+                                  if ('number' == typeof e) return e;
+                                  if (e instanceof Array) {
+                                      const e = e[e.length - 1].value;
+                                      return 'number' == typeof e ? e : e[e.length - 1];
+                                  }
+                                  return e.value instanceof Array
+                                      ? e.value[e.value.length - 1]
+                                      : e.value;
+                              })(),
                           )
                         : Ki(this.pan, e, this.context.currentTime);
                 }
@@ -10793,7 +10798,7 @@
                     this.setPosition(r, 0, l);
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             class yc {
@@ -10834,15 +10839,15 @@
                     n || ((this.key = t), this.destination.next(e));
                 }
             }
-            class bc {
+            class wc {
                 constructor(e, t) {
                     (this.dueTime = e), (this.scheduler = t);
                 }
                 call(e, t) {
-                    return t.subscribe(new wc(e, this.dueTime, this.scheduler));
+                    return t.subscribe(new bc(e, this.dueTime, this.scheduler));
                 }
             }
-            class wc extends g {
+            class bc extends g {
                 constructor(e, t, n) {
                     super(e),
                         (this.dueTime = t),
@@ -10941,7 +10946,7 @@
                 }
                 static init(e, t) {
                     var n;
-                    wo(t, e),
+                    bo(t, e),
                         (e.fftSize = 256),
                         e.connect(e.context.destination),
                         (e.quiet = uo(kc).pipe(
@@ -10950,7 +10955,7 @@
                             F(t => e.isSilent(t)),
                             e => e.lift(new yc(void 0, void 0)),
                             (function(e, t = ao) {
-                                return e => e.lift(new bc(1e3, t));
+                                return e => e.lift(new wc(1e3, t));
                             })(),
                             ((n = e => e),
                             function(e) {
@@ -10970,7 +10975,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             zi(
@@ -10989,7 +10994,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             zi(
@@ -11021,7 +11026,7 @@
                     this.disconnect();
                 }
                 static init(e, t) {
-                    wo(t, e);
+                    bo(t, e);
                 }
             }
             class Dc extends ConvolverNode {
@@ -11037,7 +11042,7 @@
                     this.buffer$.complete(), this.disconnect();
                 }
                 static init(e, t, n) {
-                    wo(t, e),
+                    bo(t, e),
                         (e.buffer$ = new T()),
                         e.buffer$
                             .pipe(Zi(e => ('string' == typeof e ? n.fetch(e) : qi(e))))
@@ -11111,8 +11116,8 @@
                             8,
                             'button',
                             [
-                                ['AudioBufferSourceNode', ''],
                                 ['buffer', 'assets/demo.mp3'],
+                                ['waAudioBufferSourceNode', ''],
                             ],
                             null,
                             [[null, 'click']],
@@ -11194,8 +11199,8 @@
                             null,
                             0,
                             Eo,
-                            [to, [1, ro]],
-                            {Output: [0, 'Output']},
+                            [to, ro],
+                            {waOutput: [0, 'waOutput']},
                             null,
                         ),
                     ],
@@ -11258,10 +11263,10 @@
                             7,
                             'audio',
                             [
-                                ['MediaElementAudioSourceNode', ''],
                                 ['controls', ''],
                                 ['loop', ''],
                                 ['src', 'assets/demo.mp3'],
+                                ['waMediaElementAudioSourceNode', ''],
                             ],
                             null,
                             null,
@@ -11323,8 +11328,8 @@
                             null,
                             0,
                             Eo,
-                            [to, [1, ro]],
-                            {Output: [0, 'Output']},
+                            [to, ro],
+                            {waOutput: [0, 'waOutput']},
                             null,
                         ),
                     ],
@@ -11346,7 +11351,7 @@
                             null,
                             9,
                             'button',
-                            [['OscillatorNode', '']],
+                            [['waOscillatorNode', '']],
                             null,
                             [[null, 'click']],
                             function(e, t, n) {
@@ -11431,8 +11436,8 @@
                             null,
                             0,
                             Eo,
-                            [to, [1, ro]],
-                            {Output: [0, 'Output']},
+                            [to, ro],
+                            {waOutput: [0, 'waOutput']},
                             null,
                         ),
                     ],
@@ -11498,7 +11503,7 @@
                             0,
                             null,
                             null,
-                            29,
+                            30,
                             null,
                             null,
                             null,
@@ -11513,9 +11518,9 @@
                             0,
                             null,
                             null,
-                            28,
+                            29,
                             'fieldset',
-                            [['GainNode', '']],
+                            [['waGainNode', '']],
                             null,
                             null,
                             null,
@@ -11647,9 +11652,9 @@
                             0,
                             null,
                             null,
-                            15,
+                            16,
                             'fieldset',
-                            [['StereoPannerNode', '']],
+                            [['waStereoPannerNode', '']],
                             null,
                             null,
                             null,
@@ -11666,10 +11671,11 @@
                             {panParam: [0, 'panParam']},
                             null,
                         ),
+                        Ns(16, 2),
                         us(2048, null, ro, null, [_c]),
                         (e()(),
                         vl(
-                            17,
+                            18,
                             0,
                             null,
                             null,
@@ -11685,7 +11691,7 @@
                         (e()(), Vs(-1, null, ['StereoPannerNode'])),
                         (e()(),
                         vl(
-                            19,
+                            20,
                             0,
                             null,
                             null,
@@ -11721,28 +11727,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 20)._handleInput(n.target.value) &&
+                                                Wl(e, 21)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 20).onTouched() && r),
+                                        (r = !1 !== Wl(e, 21).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 20)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 21)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 20)._compositionEnd(
+                                                Wl(e, 21)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 21).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 22).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 21).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 22).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 21).onTouched() && r),
+                                        (r = !1 !== Wl(e, 22).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.pan = n) && r),
                                     r
@@ -11751,8 +11757,8 @@
                             null,
                             null,
                         )),
-                        os(20, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(21, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(21, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(22, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -11763,7 +11769,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            23,
+                            24,
                             671744,
                             null,
                             0,
@@ -11773,26 +11779,26 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(25, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(26, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            26,
+                            27,
                             0,
                             null,
                             null,
                             3,
                             'fieldset',
-                            [['AudioDestinationNode', '']],
+                            [['waAudioDestinationNode', '']],
                             null,
                             null,
                             null,
                             null,
                             null,
                         )),
-                        os(27, 147456, null, 0, Ic, [to, ro], null, null),
+                        os(28, 147456, null, 0, Ic, [to, ro], null, null),
                         (e()(),
                         vl(
-                            28,
+                            29,
                             0,
                             null,
                             null,
@@ -11813,12 +11819,16 @@
                                 t,
                                 2,
                                 0,
-                                e(t, 3, 0, Wl(t.parent.parent, 1), n.gain, 3),
+                                e(t, 3, 0, Wl(t.parent.parent, 1), n.gain, 0.1),
                             );
-                        e(t, 2, 0, r),
-                            e(t, 11, 0, n.gain),
-                            e(t, 15, 0, n.pan),
-                            e(t, 23, 0, n.pan);
+                        e(t, 2, 0, r), e(t, 11, 0, n.gain);
+                        var l = Ur(
+                            t,
+                            15,
+                            0,
+                            e(t, 16, 0, Wl(t.parent.parent, 1), n.pan, 0.1),
+                        );
+                        e(t, 15, 0, l), e(t, 24, 0, n.pan);
                     },
                     function(e, t) {
                         e(
@@ -11835,15 +11845,15 @@
                         ),
                             e(
                                 t,
-                                19,
+                                20,
                                 0,
-                                Wl(t, 25).ngClassUntouched,
-                                Wl(t, 25).ngClassTouched,
-                                Wl(t, 25).ngClassPristine,
-                                Wl(t, 25).ngClassDirty,
-                                Wl(t, 25).ngClassValid,
-                                Wl(t, 25).ngClassInvalid,
-                                Wl(t, 25).ngClassPending,
+                                Wl(t, 26).ngClassUntouched,
+                                Wl(t, 26).ngClassTouched,
+                                Wl(t, 26).ngClassPristine,
+                                Wl(t, 26).ngClassDirty,
+                                Wl(t, 26).ngClassValid,
+                                Wl(t, 26).ngClassInvalid,
+                                Wl(t, 26).ngClassPending,
                             );
                     },
                 );
@@ -11858,7 +11868,7 @@
                             0,
                             null,
                             null,
-                            41,
+                            44,
                             null,
                             null,
                             null,
@@ -11873,9 +11883,9 @@
                             0,
                             null,
                             null,
-                            40,
+                            43,
                             'fieldset',
-                            [['GainNode', '']],
+                            [['waGainNode', '']],
                             null,
                             null,
                             null,
@@ -11892,10 +11902,11 @@
                             {gainParam: [0, 'gainParam']},
                             null,
                         ),
+                        Ns(3, 2),
                         us(2048, null, ro, null, [Jo]),
                         (e()(),
                         vl(
-                            4,
+                            5,
                             0,
                             null,
                             null,
@@ -11910,17 +11921,17 @@
                         )),
                         (e()(), Vs(-1, null, ['GainNode'])),
                         (e()(),
-                        vl(6, 0, null, null, 1, 'em', [], null, null, null, null, null)),
+                        vl(7, 0, null, null, 1, 'em', [], null, null, null, null, null)),
                         (e()(), Vs(-1, null, ['For feedback loop purposes only'])),
                         (e()(),
                         vl(
-                            8,
+                            9,
                             0,
                             null,
                             null,
-                            29,
+                            31,
                             'fieldset',
-                            [['DelayNode', '']],
+                            [['waDelayNode', '']],
                             null,
                             null,
                             null,
@@ -11928,7 +11939,7 @@
                             null,
                         )),
                         os(
-                            9,
+                            10,
                             147456,
                             null,
                             0,
@@ -11937,10 +11948,11 @@
                             {delayTimeParam: [0, 'delayTimeParam']},
                             null,
                         ),
+                        Ns(11, 2),
                         us(2048, null, ro, null, [Nc]),
                         (e()(),
                         vl(
-                            11,
+                            13,
                             0,
                             null,
                             null,
@@ -11956,7 +11968,7 @@
                         (e()(), Vs(-1, null, ['DelayNode'])),
                         (e()(),
                         vl(
-                            13,
+                            15,
                             0,
                             null,
                             null,
@@ -11992,28 +12004,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 14)._handleInput(n.target.value) &&
+                                                Wl(e, 16)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 14).onTouched() && r),
+                                        (r = !1 !== Wl(e, 16).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 14)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 16)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 14)._compositionEnd(
+                                                Wl(e, 16)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 15).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 17).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 15).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 17).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 15).onTouched() && r),
+                                        (r = !1 !== Wl(e, 17).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.delayTime = n) && r),
                                     r
@@ -12022,8 +12034,8 @@
                             null,
                             null,
                         )),
-                        os(14, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(15, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(16, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(17, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -12034,7 +12046,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            17,
+                            19,
                             671744,
                             null,
                             0,
@@ -12044,16 +12056,16 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(19, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(21, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            20,
+                            22,
                             0,
                             null,
                             null,
-                            17,
+                            18,
                             'fieldset',
-                            [['GainNode', '']],
+                            [['waGainNode', '']],
                             null,
                             null,
                             null,
@@ -12061,7 +12073,7 @@
                             null,
                         )),
                         os(
-                            21,
+                            23,
                             147456,
                             null,
                             0,
@@ -12070,10 +12082,11 @@
                             {gainParam: [0, 'gainParam']},
                             null,
                         ),
+                        Ns(24, 2),
                         us(2048, null, ro, null, [Jo]),
                         (e()(),
                         vl(
-                            23,
+                            26,
                             0,
                             null,
                             null,
@@ -12089,7 +12102,7 @@
                         (e()(), Vs(-1, null, ['GainNode'])),
                         (e()(),
                         vl(
-                            25,
+                            28,
                             0,
                             null,
                             null,
@@ -12125,28 +12138,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 26)._handleInput(n.target.value) &&
+                                                Wl(e, 29)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 26).onTouched() && r),
+                                        (r = !1 !== Wl(e, 29).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 26)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 29)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 26)._compositionEnd(
+                                                Wl(e, 29)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 27).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 30).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 27).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 30).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 27).onTouched() && r),
+                                        (r = !1 !== Wl(e, 30).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.delayGain = n) && r),
                                     r
@@ -12155,8 +12168,8 @@
                             null,
                             null,
                         )),
-                        os(26, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(27, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(29, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(30, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -12167,7 +12180,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            29,
+                            32,
                             671744,
                             null,
                             0,
@@ -12177,10 +12190,10 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(31, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(34, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            32,
+                            35,
                             0,
                             null,
                             null,
@@ -12194,18 +12207,18 @@
                             null,
                         )),
                         os(
-                            33,
+                            36,
                             147456,
                             null,
                             0,
                             Eo,
-                            [to, [1, ro]],
-                            {Output: [0, 'Output']},
+                            [to, ro],
+                            {waOutput: [0, 'waOutput']},
                             null,
                         ),
                         (e()(),
                         vl(
-                            34,
+                            37,
                             0,
                             null,
                             null,
@@ -12220,28 +12233,28 @@
                         )),
                         (e()(), Vs(-1, null, ['Output'])),
                         (e()(),
-                        vl(36, 0, null, null, 1, 'em', [], null, null, null, null, null)),
+                        vl(39, 0, null, null, 1, 'em', [], null, null, null, null, null)),
                         (e()(),
                         Vs(-1, null, ['Connected back to the beginning of the chain'])),
                         (e()(),
                         vl(
-                            38,
+                            41,
                             0,
                             null,
                             null,
                             3,
                             'fieldset',
-                            [['AudioDestinationNode', '']],
+                            [['waAudioDestinationNode', '']],
                             null,
                             null,
                             null,
                             null,
                             null,
                         )),
-                        os(39, 147456, null, 0, Ic, [to, ro], null, null),
+                        os(42, 147456, null, 0, Ic, [to, ro], null, null),
                         (e()(),
                         vl(
-                            40,
+                            43,
                             0,
                             null,
                             null,
@@ -12257,38 +12270,53 @@
                         (e()(), Vs(-1, null, ['AudioDestinationNode'])),
                     ],
                     function(e, t) {
-                        var n = t.component;
-                        e(t, 2, 0, n.gain),
-                            e(t, 9, 0, n.delayTime),
-                            e(t, 17, 0, n.delayTime),
-                            e(t, 21, 0, n.delayGain),
-                            e(t, 29, 0, n.delayGain),
-                            e(t, 33, 0, Wl(t, 2));
+                        var n = t.component,
+                            r = Ur(
+                                t,
+                                2,
+                                0,
+                                e(t, 3, 0, Wl(t.parent.parent, 1), n.gain, 0.1),
+                            );
+                        e(t, 2, 0, r);
+                        var l = Ur(
+                            t,
+                            10,
+                            0,
+                            e(t, 11, 0, Wl(t.parent.parent, 1), n.delayTime, 0.1),
+                        );
+                        e(t, 10, 0, l), e(t, 19, 0, n.delayTime);
+                        var s = Ur(
+                            t,
+                            23,
+                            0,
+                            e(t, 24, 0, Wl(t.parent.parent, 1), n.delayGain, 0.1),
+                        );
+                        e(t, 23, 0, s), e(t, 32, 0, n.delayGain), e(t, 36, 0, Wl(t, 2));
                     },
                     function(e, t) {
                         e(
                             t,
-                            13,
+                            15,
                             0,
-                            Wl(t, 19).ngClassUntouched,
-                            Wl(t, 19).ngClassTouched,
-                            Wl(t, 19).ngClassPristine,
-                            Wl(t, 19).ngClassDirty,
-                            Wl(t, 19).ngClassValid,
-                            Wl(t, 19).ngClassInvalid,
-                            Wl(t, 19).ngClassPending,
+                            Wl(t, 21).ngClassUntouched,
+                            Wl(t, 21).ngClassTouched,
+                            Wl(t, 21).ngClassPristine,
+                            Wl(t, 21).ngClassDirty,
+                            Wl(t, 21).ngClassValid,
+                            Wl(t, 21).ngClassInvalid,
+                            Wl(t, 21).ngClassPending,
                         ),
                             e(
                                 t,
-                                25,
+                                28,
                                 0,
-                                Wl(t, 31).ngClassUntouched,
-                                Wl(t, 31).ngClassTouched,
-                                Wl(t, 31).ngClassPristine,
-                                Wl(t, 31).ngClassDirty,
-                                Wl(t, 31).ngClassValid,
-                                Wl(t, 31).ngClassInvalid,
-                                Wl(t, 31).ngClassPending,
+                                Wl(t, 34).ngClassUntouched,
+                                Wl(t, 34).ngClassTouched,
+                                Wl(t, 34).ngClassPristine,
+                                Wl(t, 34).ngClassDirty,
+                                Wl(t, 34).ngClassValid,
+                                Wl(t, 34).ngClassInvalid,
+                                Wl(t, 34).ngClassPending,
                             );
                     },
                 );
@@ -12303,7 +12331,7 @@
                             0,
                             null,
                             null,
-                            110,
+                            115,
                             null,
                             null,
                             null,
@@ -12318,9 +12346,9 @@
                             0,
                             null,
                             null,
-                            109,
+                            114,
                             'fieldset',
-                            [['BiquadFilterNode', '']],
+                            [['waBiquadFilterNode', '']],
                             null,
                             null,
                             null,
@@ -12343,10 +12371,14 @@
                             },
                             null,
                         ),
+                        Ns(3, 2),
+                        Ns(4, 2),
+                        Ns(5, 2),
+                        Ns(6, 2),
                         us(2048, null, ro, null, [Vc]),
                         (e()(),
                         vl(
-                            4,
+                            8,
                             0,
                             null,
                             null,
@@ -12362,7 +12394,7 @@
                         (e()(), Vs(-1, null, ['BiquadFilterNode'])),
                         (e()(),
                         vl(
-                            6,
+                            10,
                             0,
                             null,
                             null,
@@ -12377,7 +12409,7 @@
                         )),
                         (e()(),
                         vl(
-                            7,
+                            11,
                             0,
                             null,
                             null,
@@ -12400,10 +12432,10 @@
                                 return (
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 8).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 12).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 8).onTouched() && r),
+                                        (r = !1 !== Wl(e, 12).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.type = n) && r),
                                     r
@@ -12412,7 +12444,7 @@
                             null,
                             null,
                         )),
-                        os(8, 16384, null, 0, Fu, [yt, pt], null, null),
+                        os(12, 16384, null, 0, Fu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -12423,7 +12455,7 @@
                             [Fu],
                         ),
                         os(
-                            10,
+                            14,
                             671744,
                             null,
                             0,
@@ -12433,43 +12465,7 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(12, 16384, null, 0, Ku, [[4, Vu]], null, null),
-                        (e()(),
-                        vl(
-                            13,
-                            0,
-                            null,
-                            null,
-                            3,
-                            'option',
-                            [['value', 'lowpass']],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                        )),
-                        os(
-                            14,
-                            147456,
-                            null,
-                            0,
-                            ju,
-                            [pt, yt, [2, Fu]],
-                            {value: [0, 'value']},
-                            null,
-                        ),
-                        os(
-                            15,
-                            147456,
-                            null,
-                            0,
-                            Lu,
-                            [pt, yt, [8, null]],
-                            {value: [0, 'value']},
-                            null,
-                        ),
-                        (e()(), Vs(-1, null, ['lowpass'])),
+                        os(16, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
                             17,
@@ -12478,7 +12474,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'highpass']],
+                            [['value', 'lowpass']],
                             null,
                             null,
                             null,
@@ -12505,7 +12501,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['highpass'])),
+                        (e()(), Vs(-1, null, ['lowpass'])),
                         (e()(),
                         vl(
                             21,
@@ -12514,7 +12510,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'bandpass']],
+                            [['value', 'highpass']],
                             null,
                             null,
                             null,
@@ -12541,7 +12537,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['bandpass'])),
+                        (e()(), Vs(-1, null, ['highpass'])),
                         (e()(),
                         vl(
                             25,
@@ -12550,7 +12546,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'lowshelf']],
+                            [['value', 'bandpass']],
                             null,
                             null,
                             null,
@@ -12577,7 +12573,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['lowshelf'])),
+                        (e()(), Vs(-1, null, ['bandpass'])),
                         (e()(),
                         vl(
                             29,
@@ -12586,7 +12582,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'highshelf']],
+                            [['value', 'lowshelf']],
                             null,
                             null,
                             null,
@@ -12613,7 +12609,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['highshelf'])),
+                        (e()(), Vs(-1, null, ['lowshelf'])),
                         (e()(),
                         vl(
                             33,
@@ -12622,7 +12618,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'peaking']],
+                            [['value', 'highshelf']],
                             null,
                             null,
                             null,
@@ -12649,7 +12645,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['peaking'])),
+                        (e()(), Vs(-1, null, ['highshelf'])),
                         (e()(),
                         vl(
                             37,
@@ -12658,7 +12654,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'notch']],
+                            [['value', 'peaking']],
                             null,
                             null,
                             null,
@@ -12685,7 +12681,7 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['notch'])),
+                        (e()(), Vs(-1, null, ['peaking'])),
                         (e()(),
                         vl(
                             41,
@@ -12694,7 +12690,7 @@
                             null,
                             3,
                             'option',
-                            [['value', 'allpass']],
+                            [['value', 'notch']],
                             null,
                             null,
                             null,
@@ -12721,10 +12717,46 @@
                             {value: [0, 'value']},
                             null,
                         ),
-                        (e()(), Vs(-1, null, ['allpass'])),
+                        (e()(), Vs(-1, null, ['notch'])),
                         (e()(),
                         vl(
                             45,
+                            0,
+                            null,
+                            null,
+                            3,
+                            'option',
+                            [['value', 'allpass']],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                        )),
+                        os(
+                            46,
+                            147456,
+                            null,
+                            0,
+                            ju,
+                            [pt, yt, [2, Fu]],
+                            {value: [0, 'value']},
+                            null,
+                        ),
+                        os(
+                            47,
+                            147456,
+                            null,
+                            0,
+                            Lu,
+                            [pt, yt, [8, null]],
+                            {value: [0, 'value']},
+                            null,
+                        ),
+                        (e()(), Vs(-1, null, ['allpass'])),
+                        (e()(),
+                        vl(
+                            49,
                             0,
                             null,
                             null,
@@ -12740,7 +12772,7 @@
                         (e()(), Vs(-1, null, ['type'])),
                         (e()(),
                         vl(
-                            47,
+                            51,
                             0,
                             null,
                             null,
@@ -12755,7 +12787,7 @@
                         )),
                         (e()(),
                         vl(
-                            48,
+                            52,
                             0,
                             null,
                             null,
@@ -12791,28 +12823,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 49)._handleInput(n.target.value) &&
+                                                Wl(e, 53)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 49).onTouched() && r),
+                                        (r = !1 !== Wl(e, 53).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 49)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 53)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 49)._compositionEnd(
+                                                Wl(e, 53)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 50).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 54).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 50).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 54).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 50).onTouched() && r),
+                                        (r = !1 !== Wl(e, 54).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.filterGain = n) && r),
                                     r
@@ -12821,8 +12853,8 @@
                             null,
                             null,
                         )),
-                        os(49, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(50, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(53, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(54, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -12833,7 +12865,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            52,
+                            56,
                             671744,
                             null,
                             0,
@@ -12843,10 +12875,10 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(54, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(58, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            55,
+                            59,
                             0,
                             null,
                             null,
@@ -12862,7 +12894,7 @@
                         (e()(), Vs(-1, null, ['gain'])),
                         (e()(),
                         vl(
-                            57,
+                            61,
                             0,
                             null,
                             null,
@@ -12877,7 +12909,7 @@
                         )),
                         (e()(),
                         vl(
-                            58,
+                            62,
                             0,
                             null,
                             null,
@@ -12908,28 +12940,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 59)._handleInput(n.target.value) &&
+                                                Wl(e, 63)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 59).onTouched() && r),
+                                        (r = !1 !== Wl(e, 63).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 59)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 63)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 59)._compositionEnd(
+                                                Wl(e, 63)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 60).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 64).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 60).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 64).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 60).onTouched() && r),
+                                        (r = !1 !== Wl(e, 64).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.frequency = n) && r),
                                     r
@@ -12938,8 +12970,8 @@
                             null,
                             null,
                         )),
-                        os(59, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(60, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(63, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(64, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -12950,7 +12982,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            62,
+                            66,
                             671744,
                             null,
                             0,
@@ -12960,10 +12992,10 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(64, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(68, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            65,
+                            69,
                             0,
                             null,
                             null,
@@ -12979,7 +13011,7 @@
                         (e()(), Vs(-1, null, ['frequency'])),
                         (e()(),
                         vl(
-                            67,
+                            71,
                             0,
                             null,
                             null,
@@ -12994,7 +13026,7 @@
                         )),
                         (e()(),
                         vl(
-                            68,
+                            72,
                             0,
                             null,
                             null,
@@ -13025,28 +13057,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 69)._handleInput(n.target.value) &&
+                                                Wl(e, 73)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 69).onTouched() && r),
+                                        (r = !1 !== Wl(e, 73).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 69)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 73)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 69)._compositionEnd(
+                                                Wl(e, 73)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 70).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 74).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 70).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 74).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 70).onTouched() && r),
+                                        (r = !1 !== Wl(e, 74).onTouched() && r),
                                     'ngModelChange' === t && (r = !1 !== (l.Q = n) && r),
                                     r
                                 );
@@ -13054,8 +13086,8 @@
                             null,
                             null,
                         )),
-                        os(69, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(70, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(73, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(74, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -13066,7 +13098,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            72,
+                            76,
                             671744,
                             null,
                             0,
@@ -13076,10 +13108,10 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(74, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(78, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            75,
+                            79,
                             0,
                             null,
                             null,
@@ -13095,7 +13127,7 @@
                         (e()(), Vs(-1, null, ['Q'])),
                         (e()(),
                         vl(
-                            77,
+                            81,
                             0,
                             null,
                             null,
@@ -13110,7 +13142,7 @@
                         )),
                         (e()(),
                         vl(
-                            78,
+                            82,
                             0,
                             null,
                             null,
@@ -13141,28 +13173,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 79)._handleInput(n.target.value) &&
+                                                Wl(e, 83)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 79).onTouched() && r),
+                                        (r = !1 !== Wl(e, 83).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 79)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 83)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 79)._compositionEnd(
+                                                Wl(e, 83)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 80).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 84).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 80).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 84).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 80).onTouched() && r),
+                                        (r = !1 !== Wl(e, 84).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== (l.detune = n) && r),
                                     r
@@ -13171,8 +13203,8 @@
                             null,
                             null,
                         )),
-                        os(79, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(80, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(83, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(84, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -13183,7 +13215,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            82,
+                            86,
                             671744,
                             null,
                             0,
@@ -13193,10 +13225,10 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(84, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(88, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            85,
+                            89,
                             0,
                             null,
                             null,
@@ -13212,13 +13244,13 @@
                         (e()(), Vs(-1, null, ['detune'])),
                         (e()(),
                         vl(
-                            87,
+                            91,
                             0,
                             null,
                             null,
-                            23,
+                            24,
                             'fieldset',
-                            [['WaveShaperNode', ''], ['oversample', '4x']],
+                            [['oversample', '4x'], ['waWaveShaperNode', '']],
                             null,
                             null,
                             null,
@@ -13226,7 +13258,7 @@
                             null,
                         )),
                         os(
-                            88,
+                            92,
                             147456,
                             null,
                             0,
@@ -13238,7 +13270,7 @@
                         us(2048, null, ro, null, [Oc]),
                         (e()(),
                         vl(
-                            90,
+                            94,
                             0,
                             null,
                             null,
@@ -13254,7 +13286,7 @@
                         (e()(), Vs(-1, null, ['WaveShaperNode'])),
                         (e()(),
                         vl(
-                            92,
+                            96,
                             0,
                             null,
                             null,
@@ -13290,28 +13322,28 @@
                                     'input' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 93)._handleInput(n.target.value) &&
+                                                Wl(e, 97)._handleInput(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 93).onTouched() && r),
+                                        (r = !1 !== Wl(e, 97).onTouched() && r),
                                     'compositionstart' === t &&
-                                        (r = !1 !== Wl(e, 93)._compositionStart() && r),
+                                        (r = !1 !== Wl(e, 97)._compositionStart() && r),
                                     'compositionend' === t &&
                                         (r =
                                             !1 !==
-                                                Wl(e, 93)._compositionEnd(
+                                                Wl(e, 97)._compositionEnd(
                                                     n.target.value,
                                                 ) && r),
                                     'change' === t &&
                                         (r =
-                                            !1 !== Wl(e, 94).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 98).onChange(n.target.value) &&
                                             r),
                                     'input' === t &&
                                         (r =
-                                            !1 !== Wl(e, 94).onChange(n.target.value) &&
+                                            !1 !== Wl(e, 98).onChange(n.target.value) &&
                                             r),
                                     'blur' === t &&
-                                        (r = !1 !== Wl(e, 94).onTouched() && r),
+                                        (r = !1 !== Wl(e, 98).onTouched() && r),
                                     'ngModelChange' === t &&
                                         (r = !1 !== l.onCurveChange(n) && r),
                                     r
@@ -13320,8 +13352,8 @@
                             null,
                             null,
                         )),
-                        os(93, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
-                        os(94, 16384, null, 0, Pu, [yt, pt], null, null),
+                        os(97, 16384, null, 0, Au, [yt, pt, [2, Su]], null, null),
+                        os(98, 16384, null, 0, Pu, [yt, pt], null, null),
                         us(
                             1024,
                             null,
@@ -13332,7 +13364,7 @@
                             [Au, Pu],
                         ),
                         os(
-                            96,
+                            100,
                             671744,
                             null,
                             0,
@@ -13342,14 +13374,14 @@
                             {update: 'ngModelChange'},
                         ),
                         us(2048, null, Vu, null, [fc]),
-                        os(98, 16384, null, 0, Ku, [[4, Vu]], null, null),
+                        os(102, 16384, null, 0, Ku, [[4, Vu]], null, null),
                         (e()(),
                         vl(
-                            99,
+                            103,
                             0,
                             null,
                             null,
-                            11,
+                            12,
                             null,
                             null,
                             null,
@@ -13359,7 +13391,7 @@
                             null,
                         )),
                         os(
-                            100,
+                            104,
                             147456,
                             null,
                             0,
@@ -13368,16 +13400,17 @@
                             {gainParam: [0, 'gainParam']},
                             null,
                         ),
+                        Ns(105, 2),
                         us(2048, null, ro, null, [Jo]),
                         (e()(),
                         vl(
-                            102,
+                            107,
                             0,
                             null,
                             null,
                             8,
                             'fieldset',
-                            [['ConvolverNode', ''], ['buffer', 'assets/response.m4a']],
+                            [['buffer', 'assets/response.m4a'], ['waConvolverNode', '']],
                             null,
                             null,
                             null,
@@ -13385,7 +13418,7 @@
                             null,
                         )),
                         os(
-                            103,
+                            108,
                             147456,
                             null,
                             0,
@@ -13397,7 +13430,7 @@
                         us(2048, null, ro, null, [Dc]),
                         (e()(),
                         vl(
-                            105,
+                            110,
                             0,
                             null,
                             null,
@@ -13413,23 +13446,23 @@
                         (e()(), Vs(-1, null, ['ConvolverNode'])),
                         (e()(),
                         vl(
-                            107,
+                            112,
                             0,
                             null,
                             null,
                             3,
                             'fieldset',
-                            [['AudioDestinationNode', '']],
+                            [['waAudioDestinationNode', '']],
                             null,
                             null,
                             null,
                             null,
                             null,
                         )),
-                        os(108, 147456, null, 0, Ic, [to, ro], null, null),
+                        os(113, 147456, null, 0, Ic, [to, ro], null, null),
                         (e()(),
                         vl(
-                            109,
+                            114,
                             0,
                             null,
                             null,
@@ -13445,106 +13478,138 @@
                         (e()(), Vs(-1, null, ['AudioDestinationNode'])),
                     ],
                     function(e, t) {
-                        var n = t.component;
-                        e(t, 2, 0, n.type, n.filterGain, n.frequency, n.Q, n.detune),
-                            e(t, 10, 0, n.type),
-                            e(t, 14, 0, 'lowpass'),
-                            e(t, 15, 0, 'lowpass'),
-                            e(t, 18, 0, 'highpass'),
-                            e(t, 19, 0, 'highpass'),
-                            e(t, 22, 0, 'bandpass'),
-                            e(t, 23, 0, 'bandpass'),
-                            e(t, 26, 0, 'lowshelf'),
-                            e(t, 27, 0, 'lowshelf'),
-                            e(t, 30, 0, 'highshelf'),
-                            e(t, 31, 0, 'highshelf'),
-                            e(t, 34, 0, 'peaking'),
-                            e(t, 35, 0, 'peaking'),
-                            e(t, 38, 0, 'notch'),
-                            e(t, 39, 0, 'notch'),
-                            e(t, 42, 0, 'allpass'),
-                            e(t, 43, 0, 'allpass'),
-                            e(t, 52, 0, n.filterGain),
-                            e(t, 62, 0, n.frequency),
-                            e(t, 72, 0, n.Q),
-                            e(t, 82, 0, n.detune),
-                            e(t, 88, 0, '4x', n.curve),
-                            e(t, 96, 0, n.distortion),
-                            e(t, 100, 0, n.distortionCompensation),
-                            e(t, 103, 0, 'assets/response.m4a');
+                        var n = t.component,
+                            r = n.type,
+                            l = Ur(
+                                t,
+                                2,
+                                1,
+                                e(t, 3, 0, Wl(t.parent.parent, 1), n.filterGain, 0.1),
+                            ),
+                            s = Ur(
+                                t,
+                                2,
+                                2,
+                                e(t, 4, 0, Wl(t.parent.parent, 1), n.frequency, 0.1),
+                            ),
+                            i = Ur(t, 2, 3, e(t, 5, 0, Wl(t.parent.parent, 1), n.Q, 0.1)),
+                            o = Ur(
+                                t,
+                                2,
+                                4,
+                                e(t, 6, 0, Wl(t.parent.parent, 1), n.detune, 0.1),
+                            );
+                        e(t, 2, 0, r, l, s, i, o),
+                            e(t, 14, 0, n.type),
+                            e(t, 18, 0, 'lowpass'),
+                            e(t, 19, 0, 'lowpass'),
+                            e(t, 22, 0, 'highpass'),
+                            e(t, 23, 0, 'highpass'),
+                            e(t, 26, 0, 'bandpass'),
+                            e(t, 27, 0, 'bandpass'),
+                            e(t, 30, 0, 'lowshelf'),
+                            e(t, 31, 0, 'lowshelf'),
+                            e(t, 34, 0, 'highshelf'),
+                            e(t, 35, 0, 'highshelf'),
+                            e(t, 38, 0, 'peaking'),
+                            e(t, 39, 0, 'peaking'),
+                            e(t, 42, 0, 'notch'),
+                            e(t, 43, 0, 'notch'),
+                            e(t, 46, 0, 'allpass'),
+                            e(t, 47, 0, 'allpass'),
+                            e(t, 56, 0, n.filterGain),
+                            e(t, 66, 0, n.frequency),
+                            e(t, 76, 0, n.Q),
+                            e(t, 86, 0, n.detune),
+                            e(t, 92, 0, '4x', n.curve),
+                            e(t, 100, 0, n.distortion);
+                        var a = Ur(
+                            t,
+                            104,
+                            0,
+                            e(
+                                t,
+                                105,
+                                0,
+                                Wl(t.parent.parent, 1),
+                                n.distortionCompensation,
+                                0.1,
+                            ),
+                        );
+                        e(t, 104, 0, a), e(t, 108, 0, 'assets/response.m4a');
                     },
                     function(e, t) {
                         e(
                             t,
-                            7,
+                            11,
                             0,
-                            Wl(t, 12).ngClassUntouched,
-                            Wl(t, 12).ngClassTouched,
-                            Wl(t, 12).ngClassPristine,
-                            Wl(t, 12).ngClassDirty,
-                            Wl(t, 12).ngClassValid,
-                            Wl(t, 12).ngClassInvalid,
-                            Wl(t, 12).ngClassPending,
+                            Wl(t, 16).ngClassUntouched,
+                            Wl(t, 16).ngClassTouched,
+                            Wl(t, 16).ngClassPristine,
+                            Wl(t, 16).ngClassDirty,
+                            Wl(t, 16).ngClassValid,
+                            Wl(t, 16).ngClassInvalid,
+                            Wl(t, 16).ngClassPending,
                         ),
                             e(
                                 t,
-                                48,
+                                52,
                                 0,
-                                Wl(t, 54).ngClassUntouched,
-                                Wl(t, 54).ngClassTouched,
-                                Wl(t, 54).ngClassPristine,
-                                Wl(t, 54).ngClassDirty,
-                                Wl(t, 54).ngClassValid,
-                                Wl(t, 54).ngClassInvalid,
-                                Wl(t, 54).ngClassPending,
+                                Wl(t, 58).ngClassUntouched,
+                                Wl(t, 58).ngClassTouched,
+                                Wl(t, 58).ngClassPristine,
+                                Wl(t, 58).ngClassDirty,
+                                Wl(t, 58).ngClassValid,
+                                Wl(t, 58).ngClassInvalid,
+                                Wl(t, 58).ngClassPending,
                             ),
                             e(
                                 t,
-                                58,
+                                62,
                                 0,
-                                Wl(t, 64).ngClassUntouched,
-                                Wl(t, 64).ngClassTouched,
-                                Wl(t, 64).ngClassPristine,
-                                Wl(t, 64).ngClassDirty,
-                                Wl(t, 64).ngClassValid,
-                                Wl(t, 64).ngClassInvalid,
-                                Wl(t, 64).ngClassPending,
+                                Wl(t, 68).ngClassUntouched,
+                                Wl(t, 68).ngClassTouched,
+                                Wl(t, 68).ngClassPristine,
+                                Wl(t, 68).ngClassDirty,
+                                Wl(t, 68).ngClassValid,
+                                Wl(t, 68).ngClassInvalid,
+                                Wl(t, 68).ngClassPending,
                             ),
                             e(
                                 t,
-                                68,
+                                72,
                                 0,
-                                Wl(t, 74).ngClassUntouched,
-                                Wl(t, 74).ngClassTouched,
-                                Wl(t, 74).ngClassPristine,
-                                Wl(t, 74).ngClassDirty,
-                                Wl(t, 74).ngClassValid,
-                                Wl(t, 74).ngClassInvalid,
-                                Wl(t, 74).ngClassPending,
+                                Wl(t, 78).ngClassUntouched,
+                                Wl(t, 78).ngClassTouched,
+                                Wl(t, 78).ngClassPristine,
+                                Wl(t, 78).ngClassDirty,
+                                Wl(t, 78).ngClassValid,
+                                Wl(t, 78).ngClassInvalid,
+                                Wl(t, 78).ngClassPending,
                             ),
                             e(
                                 t,
-                                78,
+                                82,
                                 0,
-                                Wl(t, 84).ngClassUntouched,
-                                Wl(t, 84).ngClassTouched,
-                                Wl(t, 84).ngClassPristine,
-                                Wl(t, 84).ngClassDirty,
-                                Wl(t, 84).ngClassValid,
-                                Wl(t, 84).ngClassInvalid,
-                                Wl(t, 84).ngClassPending,
+                                Wl(t, 88).ngClassUntouched,
+                                Wl(t, 88).ngClassTouched,
+                                Wl(t, 88).ngClassPristine,
+                                Wl(t, 88).ngClassDirty,
+                                Wl(t, 88).ngClassValid,
+                                Wl(t, 88).ngClassInvalid,
+                                Wl(t, 88).ngClassPending,
                             ),
                             e(
                                 t,
-                                92,
+                                96,
                                 0,
-                                Wl(t, 98).ngClassUntouched,
-                                Wl(t, 98).ngClassTouched,
-                                Wl(t, 98).ngClassPristine,
-                                Wl(t, 98).ngClassDirty,
-                                Wl(t, 98).ngClassValid,
-                                Wl(t, 98).ngClassInvalid,
-                                Wl(t, 98).ngClassPending,
+                                Wl(t, 102).ngClassUntouched,
+                                Wl(t, 102).ngClassTouched,
+                                Wl(t, 102).ngClassPristine,
+                                Wl(t, 102).ngClassDirty,
+                                Wl(t, 102).ngClassValid,
+                                Wl(t, 102).ngClassInvalid,
+                                Wl(t, 102).ngClassPending,
                             );
                     },
                 );
@@ -14016,7 +14081,7 @@
                             null,
                             1,
                             'canvas',
-                            [['AudioDestinationNode', '']],
+                            [['waAudioDestinationNode', '']],
                             null,
                             null,
                             null,
@@ -14735,7 +14800,12 @@
                             null,
                             1,
                             'a',
-                            [['href', 'https://www.npmjs.com/package/ng-web-apis/audio']],
+                            [
+                                [
+                                    'href',
+                                    'https://www.npmjs.com/package/@ng-web-apis/audio',
+                                ],
+                            ],
                             null,
                             null,
                             null,
@@ -14788,21 +14858,21 @@
                     kl(4608, Ou, Ou, []),
                     kl(5120, Er, Sr, [[3, Er]]),
                     kl(4608, Mo, Ro, [Er, [2, Po]]),
-                    kl(4608, wn, wn, []),
+                    kl(4608, bn, bn, []),
                     kl(5120, _r, xr, []),
                     kl(5120, yr, Tr, []),
                     kl(4608, iu, ou, [Zo]),
-                    kl(6144, wt, null, [iu]),
+                    kl(6144, bt, null, [iu]),
                     kl(4608, Xa, tu, []),
                     kl(
                         5120,
-                        wa,
+                        ba,
                         function(e, t, n, r, l, s, i, o) {
                             return [new Ja(e, t, n), new su(r), new nu(l, s, i, o)];
                         },
                         [Zo, In, pn, Zo, Zo, Xa, gn, [2, eu]],
                     ),
-                    kl(4608, Ca, Ca, [wa, In]),
+                    kl(4608, Ca, Ca, [ba, In]),
                     kl(135680, Ta, Ta, [Zo]),
                     kl(4608, Oa, Oa, [Ca, Ta, dn]),
                     kl(6144, mt, null, [Oa]),
@@ -14822,7 +14892,7 @@
                         function(e, t, n, r) {
                             return [
                                 ((l = e),
-                                ya('probe', ba),
+                                ya('probe', wa),
                                 ya(
                                     'coreTokens',
                                     Object.assign(
@@ -14834,7 +14904,7 @@
                                         ),
                                     ),
                                 ),
-                                () => ba),
+                                () => wa),
                                 ga(t, n, r),
                             ];
                             var l;

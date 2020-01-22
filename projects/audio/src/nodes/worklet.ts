@@ -5,11 +5,11 @@ import {
     forwardRef,
     Inject,
     OnDestroy,
-    Optional,
     Output,
     SkipSelf,
 } from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 
 // @dynamic
@@ -19,7 +19,7 @@ import {connect} from '../utils/connect';
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioWorklet),
         },
     ],
@@ -32,7 +32,7 @@ export class WebAudioWorklet extends AudioWorkletNode implements OnDestroy {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Attribute('name') name: string,
     ) {
         super(context, name);

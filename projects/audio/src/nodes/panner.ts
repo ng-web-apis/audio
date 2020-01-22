@@ -5,11 +5,11 @@ import {
     Input,
     OnChanges,
     OnDestroy,
-    Optional,
     SkipSelf,
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
@@ -34,7 +34,7 @@ import {fallbackAudioParam} from '../utils/fallback-audio-param';
     ],
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => WebAudioPanner),
         },
     ],
@@ -66,7 +66,7 @@ export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
+        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
         const result = constructorPolyfill(context, 'createPanner', WebAudioPanner, node);
 
