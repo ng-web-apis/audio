@@ -7,7 +7,7 @@ import {WebAudioDestination} from '../destination';
 describe('AudioDestinationNode', () => {
     @Component({
         template: `
-            <div AudioDestinationNode></div>
+            <div waAudioDestinationNode></div>
         `,
     })
     class TestComponent {

@@ -6,7 +6,7 @@ import {WebAudioChannel} from '../channel';
 describe('Channel', () => {
     @Component({
         template: `
-            <div Channel></div>
+            <div waChannel></div>
         `,
     })
     class TestComponent {

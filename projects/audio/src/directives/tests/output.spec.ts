@@ -6,8 +6,8 @@ import {WebAudioOutput} from '../output';
 describe('Output', () => {
     @Component({
         template: `
-            <div [Output]="destination"></div>
-            <div AudioDestinationNode #destination="AudioNode"></div>
+            <div [waOutput]="destination"></div>
+            <div waAudioDestinationNode #destination="AudioNode"></div>
         `,
     })
     class TestComponent {

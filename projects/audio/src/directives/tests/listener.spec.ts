@@ -6,7 +6,7 @@ import {WebAudioContext} from '../audio-context';
 describe('AudioListener', () => {
     @Component({
         template: `
-            <div AudioContext [forwardX]="237"></div>
+            <div waAudioContext [forwardX]="237"></div>
         `,
     })
     class TestComponent {

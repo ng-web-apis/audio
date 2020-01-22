@@ -6,7 +6,7 @@ import {WebAudioOfflineContext} from '../offline-audio-context';
 describe('OfflineAudioContext', () => {
     @Component({
         template: `
-            <div OfflineAudioContext sampleRate="22050" length="44100"></div>
+            <div waOfflineAudioContext sampleRate="22050" length="44100"></div>
         `,
     })
     class TestComponent {

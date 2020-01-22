@@ -6,7 +6,7 @@ import {WebAudioContext} from '../audio-context';
 describe('AudioContext', () => {
     @Component({
         template: `
-            <div AudioContext sampleRate="22050"></div>
+            <div waAudioContext sampleRate="22050"></div>
         `,
     })
     class TestComponent {
