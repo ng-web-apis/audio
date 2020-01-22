@@ -1,5 +1,7 @@
 # ![ng-web-apis logo](logo.svg) Web Audio API for Angular
 
+> Part of [Web APIs for Angular](https://ng-web-apis.github.io/) <img src="web-api.svg" align="right">
+
 [![npm version](https://img.shields.io/npm/v/@ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)
 ![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)
