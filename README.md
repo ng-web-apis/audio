@@ -377,7 +377,9 @@ envelope = [
 > ([AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) etc.)
 > were added later and are supported only by more recent versions
 
-_**IMPORTANT**: You must add `@ng-web-apis/audio/polyfill` to your `polyfills.ts` if you want to support Safari_
+_**IMPORTANT**: You must add `@ng-web-apis/audio/polyfill` to your `polyfills.ts`,
+otherwise you will get `ReferenceError: X is not defined` in browsers for entities
+they do not support_
 
 💡 [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode)
 is emulated with [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode)
