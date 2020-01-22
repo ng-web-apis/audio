@@ -1,20 +1,27 @@
-import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {
+    Directive,
+    forwardRef,
+    Inject,
+    Input,
+    OnDestroy,
+    Optional,
+    SkipSelf,
+} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[ConvolverNode]',
+    selector: '[waConvolverNode]',
     exportAs: 'AudioNode',
     inputs: ['normalize', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => WebAudioConvolver),
         },
     ],
@@ -30,7 +37,7 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
     ) {
         const result = constructorPolyfill(
             context,

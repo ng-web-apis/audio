@@ -5,21 +5,21 @@ import {
     forwardRef,
     Inject,
     OnDestroy,
+    Optional,
     Output,
     SkipSelf,
 } from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 
 // @dynamic
 @Directive({
-    selector: '[ScriptProcessorNode]',
+    selector: '[waScriptProcessorNode]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => WebAudioScriptProcessor),
         },
     ],
@@ -33,7 +33,7 @@ export class WebAudioScriptProcessor extends ScriptProcessorNode implements OnDe
         @Attribute('numberOfInputChannels') numberOfInputChannels: string | null,
         @Attribute('numberOfOutputChannels') numberOfOutputChannels: string | null,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
     ) {
         try {
             const result = context.createScriptProcessor(

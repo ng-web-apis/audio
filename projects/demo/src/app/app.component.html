@@ -21,9 +21,9 @@
                 <label>
                     <input
                         type="radio"
+                        value="buffer"
                         name="source"
                         [(ngModel)]="selectedSource"
-                        value="buffer"
                     />
                     AudioBufferSourceNode
                 </label>
@@ -32,9 +32,9 @@
                 <label>
                     <input
                         type="radio"
+                        value="media"
                         name="source"
                         [(ngModel)]="selectedSource"
-                        value="media"
                     />
                     MediaElementAudioSourceNode
                 </label>
@@ -43,9 +43,9 @@
                 <label>
                     <input
                         type="radio"
+                        value="oscillator"
                         name="source"
                         [(ngModel)]="selectedSource"
-                        value="oscillator"
                     />
                     OscillatorNode
                 </label>
@@ -55,54 +55,57 @@
                 <ng-container *ngSwitchCase="'buffer'">
                     <button
                         *ngFor="let _ of buffers"
-                        buffer="assets/demo.mp3"
                         #source="AudioNode"
-                        AudioBufferSourceNode
+                        waAudioBufferSourceNode
+                        buffer="assets/demo.mp3"
                         [loop]="true"
                         (click)="onClick(source, $event.target)"
                     >
                         Play
                         <ng-container
-                            AnalyserNode
+                            waAnalyserNode
                             (timeByte$)="onTimeDomain($event, canvas)"
                         >
-                            <ng-container [Output]="chain || fallback"></ng-container>
+                            <ng-container [waOutput]="chain || fallback"></ng-container>
                         </ng-container>
                     </button>
                 </ng-container>
                 <audio
                     *ngSwitchCase="'media'"
+                    waMediaElementAudioSourceNode
                     src="assets/demo.mp3"
                     loop
                     controls
-                    MediaElementAudioSourceNode
                 >
-                    <ng-container AnalyserNode (timeByte$)="onTimeDomain($event, canvas)">
-                        <ng-container [Output]="chain || fallback"></ng-container>
+                    <ng-container
+                        waAnalyserNode
+                        (timeByte$)="onTimeDomain($event, canvas)"
+                    >
+                        <ng-container [waOutput]="chain || fallback"></ng-container>
                     </ng-container>
                 </audio>
                 <ng-container *ngSwitchCase="'oscillator'">
                     <button
                         *ngFor="let _ of buffers"
                         #source="AudioNode"
-                        OscillatorNode
+                        waOscillatorNode
                         [frequency]="100"
-                        [periodicWave]="real | PeriodicWave"
+                        [periodicWave]="real | waPeriodicWave"
                         (click)="onClick(source, $event.target)"
                     >
                         Play
                         <ng-container
-                            AnalyserNode
+                            waAnalyserNode
                             (timeByte$)="onTimeDomain($event, canvas)"
                         >
-                            <ng-container [Output]="chain || fallback"></ng-container>
+                            <ng-container [waOutput]="chain || fallback"></ng-container>
                         </ng-container>
                     </button>
                 </ng-container>
             </ng-container>
 
             <p>
-                <canvas #fallback="AudioNode" AudioDestinationNode #canvas></canvas>
+                <canvas #fallback="AudioNode" #canvas waAudioDestinationNode></canvas>
             </p>
         </section>
 
@@ -156,7 +159,11 @@
 
             <ng-container [ngSwitch]="selectedChain">
                 <ng-container *ngSwitchCase="'balance'">
-                    <fieldset #chain="AudioNode" GainNode [gain]="gain | AudioParam: 0.1">
+                    <fieldset
+                        #chain="AudioNode"
+                        waGainNode
+                        [gain]="gain | waAudioParam: 0.1"
+                    >
                         <legend>GainNode</legend>
                         <input
                             type="range"
@@ -165,7 +172,7 @@
                             step="0.01"
                             [(ngModel)]="gain"
                         />
-                        <fieldset StereoPannerNode [pan]="pan | AudioParam: 0.1">
+                        <fieldset waStereoPannerNode [pan]="pan | waAudioParam: 0.1">
                             <legend>StereoPannerNode</legend>
                             <input
                                 type="range"
@@ -174,7 +181,7 @@
                                 step="0.01"
                                 [(ngModel)]="pan"
                             />
-                            <fieldset AudioDestinationNode>
+                            <fieldset waAudioDestinationNode>
                                 <legend>AudioDestinationNode</legend>
                             </fieldset>
                         </fieldset>
@@ -182,11 +189,15 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'delay'">
-                    <fieldset #chain="AudioNode" GainNode [gain]="gain | AudioParam: 0.1">
+                    <fieldset
+                        #chain="AudioNode"
+                        waGainNode
+                        [gain]="gain | waAudioParam: 0.1"
+                    >
                         <legend>GainNode</legend>
                         <em>For feedback loop purposes only</em>
 
-                        <fieldset DelayNode [delayTime]="delayTime | AudioParam: 0.1">
+                        <fieldset waDelayNode [delayTime]="delayTime | waAudioParam: 0.1">
                             <legend>DelayNode</legend>
                             <input
                                 type="range"
@@ -195,7 +206,7 @@
                                 step="0.01"
                                 [(ngModel)]="delayTime"
                             />
-                            <fieldset GainNode [gain]="delayGain | AudioParam: 0.1">
+                            <fieldset waGainNode [gain]="delayGain | waAudioParam: 0.1">
                                 <legend>GainNode</legend>
                                 <input
                                     type="range"
@@ -204,13 +215,13 @@
                                     step="0.01"
                                     [(ngModel)]="delayGain"
                                 />
-                                <fieldset [Output]="chain">
+                                <fieldset [waOutput]="chain">
                                     <legend>Output</legend>
                                     <em>Connected back to the beginning of the chain</em>
                                 </fieldset>
                             </fieldset>
                         </fieldset>
-                        <fieldset AudioDestinationNode>
+                        <fieldset waAudioDestinationNode>
                             <legend>AudioDestinationNode</legend>
                         </fieldset>
                     </fieldset>
@@ -219,12 +230,12 @@
                 <ng-container *ngSwitchCase="'complex'">
                     <fieldset
                         #chain="AudioNode"
-                        BiquadFilterNode
+                        waBiquadFilterNode
                         [type]="type"
-                        [gain]="filterGain | AudioParam: 0.1"
-                        [frequency]="frequency | AudioParam: 0.1"
-                        [Q]="Q | AudioParam: 0.1"
-                        [detune]="detune | AudioParam: 0.1"
+                        [gain]="filterGain | waAudioParam: 0.1"
+                        [frequency]="frequency | waAudioParam: 0.1"
+                        [Q]="Q | waAudioParam: 0.1"
+                        [detune]="detune | waAudioParam: 0.1"
                     >
                         <legend>BiquadFilterNode</legend>
                         <label>
@@ -267,7 +278,7 @@
                             <input type="range" min="0" max="100" [(ngModel)]="detune" />
                             <code>detune</code>
                         </label>
-                        <fieldset WaveShaperNode oversample="4x" [curve]="curve">
+                        <fieldset waWaveShaperNode oversample="4x" [curve]="curve">
                             <legend>WaveShaperNode</legend>
                             <input
                                 type="range"
@@ -278,12 +289,12 @@
                                 (ngModelChange)="onCurveChange($event)"
                             />
                             <ng-container
-                                GainNode
-                                [gain]="distortionCompensation | AudioParam: 0.1"
+                                waGainNode
+                                [gain]="distortionCompensation | waAudioParam: 0.1"
                             >
-                                <fieldset ConvolverNode buffer="assets/response.m4a">
+                                <fieldset waConvolverNode buffer="assets/response.m4a">
                                     <legend>ConvolverNode</legend>
-                                    <fieldset AudioDestinationNode>
+                                    <fieldset waAudioDestinationNode>
                                         <legend>AudioDestinationNode</legend>
                                     </fieldset>
                                 </fieldset>
@@ -297,5 +308,5 @@
 </main>
 <footer>
     Get it here: <a href="https://github.com/ng-web-apis/audio">GitHub</a> |
-    <a href="https://www.npmjs.com/package/ng-web-apis/audio">NPM</a>
+    <a href="https://www.npmjs.com/package/@ng-web-apis/audio">NPM</a>
 </footer>

@@ -10,19 +10,18 @@ import {
 } from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[OscillatorNode]',
+    selector: '[waOscillatorNode]',
     exportAs: 'AudioNode',
     inputs: ['type', 'channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => WebAudioOscillator),
         },
     ],

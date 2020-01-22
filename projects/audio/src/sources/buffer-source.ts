@@ -13,13 +13,12 @@ import {switchMap} from 'rxjs/operators';
 import {audioParam} from '../decorators/audio-param';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[AudioBufferSourceNode]',
+    selector: '[waAudioBufferSourceNode]',
     exportAs: 'AudioNode',
     inputs: [
         'loop',
@@ -31,7 +30,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => WebAudioBufferSource),
         },
     ],

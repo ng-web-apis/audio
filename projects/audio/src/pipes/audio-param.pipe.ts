@@ -4,7 +4,7 @@ import {AudioParamAutomationMode} from '../types/audio-param-automation-mode';
 import {AudioParamCurve} from '../types/audio-param-curve';
 
 @Pipe({
-    name: 'AudioParam',
+    name: 'waAudioParam',
 })
 export class WebAudioParamPipe implements PipeTransform {
     /**

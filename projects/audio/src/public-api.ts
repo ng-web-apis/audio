@@ -35,7 +35,6 @@ export * from './sources/media-source';
 export * from './sources/oscillator';
 
 export * from './tokens/audio-context';
-export * from './tokens/audio-node';
 export * from './tokens/audio-worklet-processors';
 export * from './tokens/audio-worklet-processors-init';
 

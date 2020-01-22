@@ -1,12 +1,18 @@
-import {Directive, forwardRef, Inject, OnDestroy, SkipSelf} from '@angular/core';
+import {
+    Directive,
+    forwardRef,
+    Inject,
+    OnDestroy,
+    Optional,
+    SkipSelf,
+} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {AUDIO_NODE} from '../tokens/audio-node';
 import {connect} from '../utils/connect';
 import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
-    selector: '[WaveShaperNode]',
+    selector: '[waWaveShaperNode]',
     exportAs: 'AudioNode',
     inputs: [
         'oversample',
@@ -17,7 +23,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     ],
     providers: [
         {
-            provide: AUDIO_NODE,
+            provide: AudioNode,
             useExisting: forwardRef(() => WebAudioWaveShaper),
         },
     ],
@@ -25,7 +31,7 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
 export class WebAudioWaveShaper extends WaveShaperNode implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
-        @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @SkipSelf() @Optional() @Inject(AudioNode) node: AudioNode | null,
     ) {
         const result = constructorPolyfill(
             context,
