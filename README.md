@@ -1,7 +1,7 @@
 # ![ng-web-apis logo](logo.svg) Web Audio API for Angular
 
-[![npm version](https://img.shields.io/npm/v/ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/ng-web-apis/audio)
+[![npm version](https://img.shields.io/npm/v/@ng-web-apis/audio.svg)](https://npmjs.com/package/ng-web-apis/audio)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)
 ![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)
 ![Coveralls github](https://img.shields.io/coveralls/github/ng-web-apis/audio)
 [![angular-open-source-starter](https://img.shields.io/badge/made%20with-angular--open--source--starter-d81676?logo=angular)](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
