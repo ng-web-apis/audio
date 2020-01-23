@@ -1,16 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioChannel} from '../channel';
+import {WebAudioChannelMerger} from '../channel-merger';
 
-describe('Channel', () => {
+describe('ChannelMergerNode', () => {
     @Component({
         template: `
-            <div waChannel></div>
+            <div waChannelMergerNode></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioChannel)
+        @ViewChild(WebAudioChannelMerger)
         node!: AudioNode;
     }
 
@@ -29,18 +29,18 @@ describe('Channel', () => {
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof ChannelMergerNode).toBe(true);
     });
 
     it('falls back to factory method', () => {
-        const temp = (window as any).GainNode;
+        const temp = (window as any).ChannelMergerNode;
 
-        (window as any).GainNode = undefined;
+        (window as any).ChannelMergerNode = undefined;
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        (window as any).GainNode = temp;
+        (window as any).ChannelMergerNode = temp;
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof ChannelMergerNode).toBe(true);
     });
 });

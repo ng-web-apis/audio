@@ -15,7 +15,7 @@ export function processAudioParam(
     }
 
     if (typeof value === 'number') {
-        param.value = value;
+        param.setValueAtTime(value, currentTime);
 
         return;
     }
@@ -47,6 +47,8 @@ function processSchedule(
         } else {
             param.setValueCurveAtTime(automation.value, currentTime, automation.duration);
         }
+
+        currentTime += automation.duration;
     });
 }
 

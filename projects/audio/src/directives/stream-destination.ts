@@ -15,7 +15,7 @@ export class WebAudioMediaStreamDestination extends MediaStreamAudioDestinationN
     ) {
         try {
             // @ts-ignore
-            const _test = new GainNode(context);
+            const _test = new MediaStreamAudioDestinationNode(context);
         } catch (_) {
             const result = context.createMediaStreamDestination();
 

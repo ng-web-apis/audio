@@ -1,16 +1,17 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioChannel} from '../channel';
+import {MEDIA_STREAM} from '../../tokens/media-stream';
+import {WebAudioMediaStreamSource} from '../media-stream-source';
 
-describe('Channel', () => {
+describe('MediaStreamAudioSourceNode', () => {
     @Component({
         template: `
-            <div waChannel></div>
+            <audio waMediaStreamAudioSourceNode></audio>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioChannel)
+        @ViewChild(WebAudioMediaStreamSource)
         node!: AudioNode;
     }
 
@@ -21,6 +22,17 @@ describe('Channel', () => {
         TestBed.configureTestingModule({
             imports: [WebAudioModule],
             declarations: [TestComponent],
+            providers: [
+                {
+                    provide: MEDIA_STREAM,
+                    useFactory: () => {
+                        const context = new AudioContext();
+                        const destination = new MediaStreamAudioDestinationNode(context);
+
+                        return destination.stream;
+                    },
+                },
+            ],
         });
     });
 
@@ -29,7 +41,7 @@ describe('Channel', () => {
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof MediaStreamAudioSourceNode).toBe(true);
     });
 
     it('falls back to factory method', () => {
@@ -41,6 +53,6 @@ describe('Channel', () => {
         fixture.detectChanges();
         (window as any).GainNode = temp;
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof MediaStreamAudioSourceNode).toBe(true);
     });
 });

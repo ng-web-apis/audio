@@ -1,16 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioChannel} from '../channel';
+import {WebAudioChannelSplitter} from '../channel-splitter';
 
-describe('Channel', () => {
+describe('ChannelSplitterNode', () => {
     @Component({
         template: `
-            <div waChannel></div>
+            <div waChannelSplitterNode></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioChannel)
+        @ViewChild(WebAudioChannelSplitter)
         node!: AudioNode;
     }
 
@@ -29,18 +29,18 @@ describe('Channel', () => {
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof ChannelSplitterNode).toBe(true);
     });
 
     it('falls back to factory method', () => {
-        const temp = (window as any).GainNode;
+        const temp = (window as any).ChannelSplitterNode;
 
-        (window as any).GainNode = undefined;
+        (window as any).ChannelSplitterNode = undefined;
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        (window as any).GainNode = temp;
+        (window as any).ChannelSplitterNode = temp;
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof ChannelSplitterNode).toBe(true);
     });
 });

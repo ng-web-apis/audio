@@ -12,6 +12,22 @@ module.exports = function(config) {
             require('karma-coverage-istanbul-reporter'),
             require('@angular-devkit/build-angular/plugins/karma'),
         ],
+        files: [
+            {
+                pattern: './demo.mp3',
+                watched: false,
+                included: false,
+                nocache: false,
+                served: true,
+            },
+            {
+                pattern: './test.js',
+                watched: false,
+                included: false,
+                nocache: false,
+                served: true,
+            },
+        ],
         client: {
             clearContext: false, // leave Jasmine Spec Runner output visible in browser
         },
@@ -35,6 +51,7 @@ module.exports = function(config) {
                     '--headless',
                     '--disable-gpu',
                     '--remote-debugging-port=9222',
+                    '--autoplay-policy=no-user-gesture-required',
                 ],
             },
         },

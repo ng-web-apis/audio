@@ -1,16 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioChannel} from '../channel';
+import {WebAudioOscillator} from '../oscillator';
 
-describe('Channel', () => {
+describe('OscillatorNode', () => {
     @Component({
         template: `
-            <div waChannel></div>
+            <div waOscillatorNode></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioChannel)
+        @ViewChild(WebAudioOscillator)
         node!: AudioNode;
     }
 
@@ -29,7 +29,7 @@ describe('Channel', () => {
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof OscillatorNode).toBe(true);
     });
 
     it('falls back to factory method', () => {
@@ -41,6 +41,6 @@ describe('Channel', () => {
         fixture.detectChanges();
         (window as any).GainNode = temp;
 
-        expect(testComponent.node instanceof AudioNode).toBe(true);
+        expect(testComponent.node instanceof OscillatorNode).toBe(true);
     });
 });

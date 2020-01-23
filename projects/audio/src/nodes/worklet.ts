@@ -14,7 +14,7 @@ import {connect} from '../utils/connect';
 
 // @dynamic
 @Directive({
-    selector: '[waAudioWorkletNode]',
+    selector: '[waAudioWorkletNode][name]',
     exportAs: 'AudioNode',
     inputs: ['channelCount', 'channelCountMode', 'channelInterpretation'],
     providers: [

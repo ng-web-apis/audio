@@ -102,7 +102,8 @@
                         "tsConfig": "projects/audio/tsconfig.spec.json",
                         "karmaConfig": "projects/audio/karma.conf.js",
                         "codeCoverage": true,
-                        "browsers": "ChromeHeadless"
+                        "browsers": "ChromeHeadless",
+                        "codeCoverageExclude": ["projects/audio/src/polyfill.js"]
                     }
                 },
                 "lint": {
