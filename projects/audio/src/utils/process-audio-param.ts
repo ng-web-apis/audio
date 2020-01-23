@@ -63,12 +63,10 @@ function processAutomation(
             param.setValueAtTime(guard(value), currentTime + duration);
             break;
         case 'exponential':
-            const v = guard(value);
-
-            if (v > 0) {
-                param.exponentialRampToValueAtTime(guard(value), currentTime + duration);
-            } else {
+            if (value < 0 || value * param.value < 0) {
                 param.linearRampToValueAtTime(guard(value), currentTime + duration);
+            } else {
+                param.exponentialRampToValueAtTime(guard(value), currentTime + duration);
             }
 
             param.setValueAtTime(guard(value), currentTime + duration);

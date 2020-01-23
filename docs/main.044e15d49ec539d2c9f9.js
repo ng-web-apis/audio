@@ -6643,8 +6643,9 @@
                         e.setValueAtTime(Yi(t), l), e.setValueAtTime(Yi(t), l + r);
                         break;
                     case 'exponential':
-                        Yi(t),
-                            e.linearRampToValueAtTime(Yi(t), l + r),
+                        t < 0 || t * e.value < 0
+                            ? e.linearRampToValueAtTime(Yi(t), l + r)
+                            : e.exponentialRampToValueAtTime(Yi(t), l + r),
                             e.setValueAtTime(Yi(t), l + r);
                         break;
                     case 'linear':
