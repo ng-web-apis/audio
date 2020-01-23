@@ -6,7 +6,9 @@ import {WebAudioContext} from '../audio-context';
 describe('AudioListener', () => {
     @Component({
         template: `
-            <div waAudioContext [forwardX]="237"></div>
+            <div waAudioContext [forwardX]="237">
+                <div waAudioDestinationNode></div>
+            </div>
         `,
     })
     class TestComponent {
@@ -34,7 +36,10 @@ describe('AudioListener', () => {
         expect(testComponent.context.listener instanceof AudioListener).toBe(true);
     });
 
-    it('sets AudioParam value', () => {
-        expect(testComponent.context.listener.forwardX.value).toBe(237);
+    it('sets AudioParam value', done => {
+        setTimeout(() => {
+            expect(testComponent.context.listener.forwardX.value).toBe(237);
+            done();
+        }, 50);
     });
 });

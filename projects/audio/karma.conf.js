@@ -35,6 +35,7 @@ module.exports = function(config) {
                     '--headless',
                     '--disable-gpu',
                     '--remote-debugging-port=9222',
+                    '--autoplay-policy=no-user-gesture-required',
                 ],
             },
         },
