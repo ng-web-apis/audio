@@ -36,13 +36,23 @@ describe('IIRFilterNode', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof IIRFilterNode).toBe(true);
     });
 
-    it('creates node', () => {
+    it('falls back to factory method', () => {
+        const temp = (window as any).IIRFilterNode;
+
+        (window as any).IIRFilterNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).IIRFilterNode = temp;
+
         expect(testComponent.node instanceof IIRFilterNode).toBe(true);
     });
 });

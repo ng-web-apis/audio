@@ -24,13 +24,23 @@ describe('Channel', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof AudioNode).toBe(true);
     });
 
-    it('creates node', () => {
+    it('falls back to factory method', () => {
+        const temp = (window as any).GainNode;
+
+        (window as any).GainNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).GainNode = temp;
+
         expect(testComponent.node instanceof AudioNode).toBe(true);
     });
 });

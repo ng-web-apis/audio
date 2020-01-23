@@ -39,7 +39,7 @@ export class WebAudioChannelMerger extends ChannelMergerNode implements OnDestro
 
         try {
             // @ts-ignore
-            const _test = new GainNode(context);
+            const _test = new ChannelMergerNode(context);
         } catch (_) {
             const result = context.createChannelMerger(numberOfInputs);
 

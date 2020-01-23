@@ -24,13 +24,23 @@ describe('StereoPannerNode', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof StereoPannerNode).toBe(true);
     });
 
-    it('creates node', () => {
-        expect(testComponent.node instanceof StereoPannerNode).toBe(true);
+    it('falls back to PannerNode', () => {
+        const temp = (window as any).StereoPannerNode;
+
+        (window as any).StereoPannerNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).StereoPannerNode = temp;
+
+        expect(testComponent.node instanceof PannerNode).toBe(true);
     });
 });

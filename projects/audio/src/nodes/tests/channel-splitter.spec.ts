@@ -24,13 +24,23 @@ describe('ChannelSplitterNode', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof ChannelSplitterNode).toBe(true);
     });
 
-    it('creates node', () => {
+    it('falls back to factory method', () => {
+        const temp = (window as any).ChannelSplitterNode;
+
+        (window as any).ChannelSplitterNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).ChannelSplitterNode = temp;
+
         expect(testComponent.node instanceof ChannelSplitterNode).toBe(true);
     });
 });

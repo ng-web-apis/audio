@@ -24,13 +24,23 @@ describe('MediaStreamAudioDestinationNode', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
     });
 
-    it('creates node', () => {
+    it('falls back to factory method', () => {
+        const temp = (window as any).MediaStreamAudioDestinationNode;
+
+        (window as any).MediaStreamAudioDestinationNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).MediaStreamAudioDestinationNode = temp;
+
         expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
     });
 });

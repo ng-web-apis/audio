@@ -43,7 +43,7 @@ export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDe
 
         try {
             // @ts-ignore
-            const _test = new GainNode(context);
+            const _test = new ChannelSplitterNode(context);
         } catch (_) {
             const result = context.createChannelSplitter(numberOfOutputs);
 

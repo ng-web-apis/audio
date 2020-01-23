@@ -33,4 +33,17 @@ describe('ScriptProcessorNode', () => {
     it('creates node', () => {
         expect(testComponent.node instanceof ScriptProcessorNode).toBe(true);
     });
+
+    it('100% coverage FTW!', () => {
+        expect(
+            () =>
+                new WebAudioScriptProcessor(
+                    null,
+                    null,
+                    null,
+                    (null as any) as AudioContext,
+                    null,
+                ),
+        ).toThrowError();
+    });
 });

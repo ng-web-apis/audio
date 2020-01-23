@@ -24,13 +24,23 @@ describe('ChannelMergerNode', () => {
         });
     });
 
-    beforeEach(() => {
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+
+        expect(testComponent.node instanceof ChannelMergerNode).toBe(true);
     });
 
-    it('creates node', () => {
+    it('falls back to factory method', () => {
+        const temp = (window as any).ChannelMergerNode;
+
+        (window as any).ChannelMergerNode = undefined;
+        fixture = TestBed.createComponent(TestComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        (window as any).ChannelMergerNode = temp;
+
         expect(testComponent.node instanceof ChannelMergerNode).toBe(true);
     });
 });

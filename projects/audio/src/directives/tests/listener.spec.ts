@@ -37,20 +37,34 @@ describe('AudioListener', () => {
         });
     });
 
-    beforeEach(() => {
+    describe('normal behavior', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestComponent);
+            testComponent = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('creates node', () => {
+            expect(testComponent.context.listener instanceof AudioListener).toBe(true);
+        });
+
+        it('sets AudioParam value', done => {
+            setTimeout(() => {
+                expect(testComponent.context.listener.forwardX.value).toBe(237);
+                done();
+            }, 50);
+        });
+    });
+
+    it('falls back to factory method', () => {
+        const temp = (window as any).GainNode;
+
+        (window as any).GainNode = undefined;
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-    });
+        (window as any).GainNode = temp;
 
-    it('creates node', () => {
         expect(testComponent.context.listener instanceof AudioListener).toBe(true);
-    });
-
-    it('sets AudioParam value', done => {
-        setTimeout(() => {
-            expect(testComponent.context.listener.forwardX.value).toBe(237);
-            done();
-        }, 50);
     });
 });
