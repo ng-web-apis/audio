@@ -6628,13 +6628,14 @@
                                   t.forEach(t => {
                                       'mode' in t
                                           ? Ji(e, t, n)
-                                          : e.setValueCurveAtTime(t.value, n, t.duration);
+                                          : e.setValueCurveAtTime(t.value, n, t.duration),
+                                          (n += t.duration);
                                   });
                               })(e, t, n)
                             : 'mode' in t
                             ? (e.setValueAtTime(e.value, n), Ji(e, t, n))
                             : e.setValueCurveAtTime(t.value, n, t.duration)
-                        : (e.value = t);
+                        : e.setValueAtTime(t, n);
             }
             function Ji(e, {value: t, mode: n = 'instant', duration: r}, l) {
                 switch (n) {
@@ -6653,6 +6654,7 @@
                 return (t, n) => {
                     Object.defineProperty(t, n, {
                         set(r) {
+                            r = 'string' == typeof r ? Number.parseFloat(r) : r;
                             const l =
                                 this instanceof AudioWorkletNode
                                     ? this.parameters.get(n)
@@ -10840,14 +10842,42 @@
                 }
             }
             class wc {
+                constructor(e) {
+                    this.predicate = e;
+                }
+                call(e, t) {
+                    return t.subscribe(new bc(e, this.predicate));
+                }
+            }
+            class bc extends g {
+                constructor(e, t) {
+                    super(e),
+                        (this.predicate = t),
+                        (this.skipping = !0),
+                        (this.index = 0);
+                }
+                _next(e) {
+                    const t = this.destination;
+                    this.skipping && this.tryCallPredicate(e), this.skipping || t.next(e);
+                }
+                tryCallPredicate(e) {
+                    try {
+                        const n = this.predicate(e, this.index++);
+                        this.skipping = Boolean(n);
+                    } catch (t) {
+                        this.destination.error(t);
+                    }
+                }
+            }
+            class Cc {
                 constructor(e, t) {
                     (this.dueTime = e), (this.scheduler = t);
                 }
                 call(e, t) {
-                    return t.subscribe(new bc(e, this.dueTime, this.scheduler));
+                    return t.subscribe(new Ec(e, this.dueTime, this.scheduler));
                 }
             }
-            class bc extends g {
+            class Ec extends g {
                 constructor(e, t, n) {
                     super(e),
                         (this.dueTime = t),
@@ -10862,7 +10892,7 @@
                         (this.hasValue = !0),
                         this.add(
                             (this.debouncedSubscription = this.scheduler.schedule(
-                                Cc,
+                                xc,
                                 this.dueTime,
                                 this,
                             )),
@@ -10887,18 +10917,18 @@
                         (this.debouncedSubscription = null));
                 }
             }
-            function Cc(e) {
+            function xc(e) {
                 e.debouncedNext();
             }
-            class Ec {
+            class Tc {
                 constructor(e, t) {
                     (this.predicate = e), (this.thisArg = t);
                 }
                 call(e, t) {
-                    return t.subscribe(new xc(e, this.predicate, this.thisArg));
+                    return t.subscribe(new Sc(e, this.predicate, this.thisArg));
                 }
             }
-            class xc extends g {
+            class Sc extends g {
                 constructor(e, t, n) {
                     super(e), (this.predicate = t), (this.thisArg = n), (this.count = 0);
                 }
@@ -10910,22 +10940,6 @@
                         return void this.destination.error(n);
                     }
                     t && this.destination.next(e);
-                }
-            }
-            class Tc {
-                constructor(e) {
-                    this.total = e;
-                }
-                call(e, t) {
-                    return t.subscribe(new Sc(e, this.total));
-                }
-            }
-            class Sc extends g {
-                constructor(e, t) {
-                    super(e), (this.total = t), (this.count = 0);
-                }
-                _next(e) {
-                    ++this.count > this.total && this.destination.next(e);
                 }
             }
             const Ac = 128,
@@ -10954,14 +10968,15 @@
                             yo(t => e.getByteTimeDomainData(t)),
                             F(t => e.isSilent(t)),
                             e => e.lift(new yc(void 0, void 0)),
+                            ((n = e => !e), e => e.lift(new wc(n))),
                             (function(e, t = ao) {
-                                return e => e.lift(new wc(1e3, t));
+                                return e => e.lift(new Cc(1e3, t));
                             })(),
-                            ((n = e => e),
-                            function(e) {
-                                return e.lift(new Ec(n, void 0));
-                            }),
-                            e => e.lift(new Tc(1)),
+                            (function(e, t) {
+                                return function(t) {
+                                    return t.lift(new Tc(e, void 0));
+                                };
+                            })(e => e),
                         ));
                 }
             }
@@ -11064,7 +11079,7 @@
                 }
             }
             class Mc {
-                transform(e, t = 0, n = 'exponential') {
+                transform(e, t, n = 'exponential') {
                     return e instanceof Array
                         ? {value: e, duration: t}
                         : {value: e, duration: t, mode: n};
