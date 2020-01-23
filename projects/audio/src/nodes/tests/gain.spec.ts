@@ -45,7 +45,7 @@ describe('GainNode', () => {
                 setTimeout(() => {
                     expect(testComponent.node.gain.value).toBe(10);
                     done();
-                }, 50);
+                }, 100);
             });
 
             it('sets gain linearly', done => {
