@@ -11,11 +11,11 @@ export function processAudioParam(
         param.cancelAndHoldAtTime(currentTime);
     } else {
         param.cancelScheduledValues(currentTime);
-        param.setValueAtTime(param.value, currentTime);
+        param.setValueAtTime(guard(param.value), currentTime);
     }
 
     if (typeof value === 'number') {
-        param.setValueAtTime(value, currentTime);
+        param.setValueAtTime(guard(value), currentTime);
 
         return;
     }
@@ -32,7 +32,7 @@ export function processAudioParam(
         return;
     }
 
-    param.setValueAtTime(param.value, currentTime);
+    param.setValueAtTime(guard(param.value), currentTime);
     processAutomation(param, value, currentTime);
 }
 
@@ -59,15 +59,26 @@ function processAutomation(
 ) {
     switch (mode) {
         case 'instant':
-            param.setValueAtTime(value, currentTime);
-            param.setValueAtTime(value, currentTime + duration);
+            param.setValueAtTime(guard(value), currentTime);
+            param.setValueAtTime(guard(value), currentTime + duration);
             break;
         case 'exponential':
-            param.exponentialRampToValueAtTime(value || 0.001, currentTime + duration);
-            param.setValueAtTime(value, currentTime + duration);
+            const v = guard(value);
+
+            if (v > 0) {
+                param.linearRampToValueAtTime(guard(value), currentTime + duration);
+            } else {
+                param.linearRampToValueAtTime(guard(value), currentTime + duration);
+            }
+
+            param.setValueAtTime(guard(value), currentTime + duration);
             break;
         case 'linear':
-            param.linearRampToValueAtTime(value, currentTime + duration);
+            param.linearRampToValueAtTime(guard(value), currentTime + duration);
             break;
     }
+}
+
+function guard(v: number): number {
+    return v || 0.00000001;
 }
