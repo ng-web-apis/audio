@@ -1,17 +1,17 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioContext} from '../audio-context';
+import {WebAudioMediaStreamDestination} from '../stream-destination';
 
-describe('AudioContext', () => {
+describe('MediaStreamAudioDestinationNode', () => {
     @Component({
         template: `
-            <div waAudioContext sampleRate="22050"></div>
+            <div waMediaStreamAudioDestinationNode></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioContext)
-        audioContext!: AudioContext;
+        @ViewChild(WebAudioMediaStreamDestination)
+        node!: MediaStreamAudioDestinationNode;
     }
 
     let fixture: ComponentFixture<TestComponent>;
@@ -30,7 +30,7 @@ describe('AudioContext', () => {
         fixture.detectChanges();
     });
 
-    it('creates context', () => {
-        expect(testComponent.audioContext instanceof AudioContext).toBe(true);
+    it('creates node', () => {
+        expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
     });
 });

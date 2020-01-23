@@ -14,6 +14,8 @@ export function audioParam<K extends string>(
     const decorator: AudioParamDecorator<K> = (target, propertyKey) => {
         Object.defineProperty(target, propertyKey, {
             set(this: AudioNodeWithParams<K> | AudioWorkletNode, value: AudioParamInput) {
+                value = typeof value === 'string' ? Number.parseFloat(value) : value;
+
                 const audioParam =
                     this instanceof AudioWorkletNode
                         ? (this.parameters as Map<string, AudioParam | undefined>).get(

@@ -1,17 +1,17 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WebAudioModule} from '../../module';
-import {WebAudioContext} from '../audio-context';
+import {WebAudioPeriodicWavePipe} from '../periodic-wave.pipe';
 
-describe('AudioContext', () => {
+describe('waPeriodicWave', () => {
     @Component({
         template: `
-            <div waAudioContext sampleRate="22050"></div>
+            <div waOscillatorNode [periodicWave]="[10] | waPeriodicWave"></div>
         `,
     })
     class TestComponent {
-        @ViewChild(WebAudioContext)
-        audioContext!: AudioContext;
+        @ViewChild(WebAudioPeriodicWavePipe)
+        pipe!: WebAudioPeriodicWavePipe;
     }
 
     let fixture: ComponentFixture<TestComponent>;
@@ -30,7 +30,7 @@ describe('AudioContext', () => {
         fixture.detectChanges();
     });
 
-    it('creates context', () => {
-        expect(testComponent.audioContext instanceof AudioContext).toBe(true);
+    it('creates PeriodicWave', () => {
+        expect(testComponent.pipe.transform([10]) instanceof PeriodicWave).toBe(true);
     });
 });

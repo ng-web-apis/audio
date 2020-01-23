@@ -6,7 +6,18 @@ import {WebAudioContext} from '../audio-context';
 describe('AudioListener', () => {
     @Component({
         template: `
-            <div waAudioContext [forwardX]="237">
+            <div
+                waAudioContext
+                forwardX="237"
+                forwardY="1"
+                forwardZ="2"
+                positionX="3"
+                positionY="4"
+                positionZ="5"
+                upX="6"
+                upY="7"
+                upZ="8"
+            >
                 <div waAudioDestinationNode></div>
             </div>
         `,

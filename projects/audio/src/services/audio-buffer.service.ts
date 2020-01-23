@@ -6,7 +6,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
     providedIn: 'root',
 })
 export class AudioBufferService {
-    readonly cache = new Map<string, AudioBuffer>();
+    private readonly cache = new Map<string, AudioBuffer>();
 
     constructor(@Inject(AUDIO_CONTEXT) private readonly context: BaseAudioContext) {}
 

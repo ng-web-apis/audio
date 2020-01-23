@@ -16,7 +16,7 @@ export class WebAudioParamPipe implements PipeTransform {
      */
     transform(
         value: number | number[],
-        duration: number = 0,
+        duration: number,
         mode: AudioParamAutomationMode = 'exponential',
     ): AudioParamAutomation | AudioParamCurve {
         return value instanceof Array
