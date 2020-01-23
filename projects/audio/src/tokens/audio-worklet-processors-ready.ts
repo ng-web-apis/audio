@@ -2,7 +2,7 @@ import {inject, InjectionToken} from '@angular/core';
 import {AUDIO_CONTEXT} from './audio-context';
 import {AUDIO_WORKLET_PROCESSORS} from './audio-worklet-processors';
 
-export const AUDIO_WORKLET_PROCESSORS_INIT = new InjectionToken<Promise<unknown>>(
+export const AUDIO_WORKLET_PROCESSORS_READY = new InjectionToken<Promise<boolean>>(
     'Web Audio API worklet processors resolution promise',
     {
         providedIn: 'root',
@@ -16,7 +16,7 @@ export const AUDIO_WORKLET_PROCESSORS_INIT = new InjectionToken<Promise<unknown>
 
             return Promise.all(
                 processors.map(processor => context.audioWorklet.addModule(processor)),
-            );
+            ).then(() => true);
         },
     },
 );

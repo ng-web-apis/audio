@@ -172,15 +172,9 @@ export class AppModule {}
     templateUrl: './app.component.html',
 })
 export class AppComponent {
-    ready = false;
-
     constructor(
-        @Inject(AUDIO_WORKLET_PROCESSORS_INIT) processorsReady: Promise<unknown>,
-    ) {
-        processorsReady.then(() => {
-            this.ready = true;
-        });
-    }
+        @Inject(AUDIO_WORKLET_PROCESSORS_READY) readonly processorsReady: Promise<boolean>,
+    ) {}
 
     // ...
 }
@@ -191,7 +185,7 @@ You can then instantiate your
 [AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode):
 
 ```html
-<ng-container waAudioWorkletNode name="my-processor">
+<ng-container *ngIf="processorsReady | async" waAudioWorkletNode name="my-processor">
     <ng-container waAudioDestinationNode></ng-container>
 </ng-container>
 ```
@@ -362,7 +356,7 @@ envelope = [
     [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
     to be added to default
     [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)
--   Inject `AUDIO_WORKLET_PROCESSORS_INIT` token to initialize provided
+-   Inject `AUDIO_WORKLET_PROCESSORS_READY` token to initialize provided
     [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
     loading and watch for
     [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)

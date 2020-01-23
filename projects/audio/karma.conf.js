@@ -20,6 +20,13 @@ module.exports = function(config) {
                 nocache: false,
                 served: true,
             },
+            {
+                pattern: './test.js',
+                watched: false,
+                included: false,
+                nocache: false,
+                served: true,
+            },
         ],
         client: {
             clearContext: false, // leave Jasmine Spec Runner output visible in browser
