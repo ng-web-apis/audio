@@ -19,8 +19,17 @@ function copyExtraFiles() {
     ) {
         throw new Error('Requested files do not exit');
     } else {
-        fs.copyFileSync(README_PATH, PATH_TO_README);
+        copyReadmeIntoDistFolder(README_PATH, PATH_TO_README);
         fs.copyFileSync(POLYFILL_PATH, PATH_TO_POLYFILL);
         fs.copyFileSync(ENVELOPE_PATH, PATH_TO_ENVELOPE);
     }
+}
+
+function copyReadmeIntoDistFolder(srcPath, toPath) {
+    const fileBody = fs.readFileSync(srcPath).toString();
+    const withoutLogos = fileBody
+        .replace('![ng-web-apis logo](logo.svg) ', '')
+        .replace('<img src="web-api.svg" align="top"> ', '');
+
+    fs.writeFileSync(toPath, withoutLogos);
 }
