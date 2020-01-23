@@ -6,7 +6,7 @@ import {
     filter,
     map,
     mapTo,
-    skip,
+    skipWhile,
     tap,
 } from 'rxjs/operators';
 import {DC_OFFSET} from '../constants/dc-offset';
@@ -70,9 +70,9 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
             tap(array => that.getByteTimeDomainData(array)),
             map(array => that.isSilent(array)),
             distinctUntilChanged(),
+            skipWhile(isSilent => !isSilent),
             debounceTime(1000),
             filter(isSilent => isSilent),
-            skip(1),
         );
     }
 }
