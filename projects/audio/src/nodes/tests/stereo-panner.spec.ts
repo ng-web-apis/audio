@@ -41,6 +41,6 @@ describe('StereoPannerNode', () => {
         fixture.detectChanges();
         (window as any).StereoPannerNode = temp;
 
-        expect(testComponent.node instanceof PannerNode).toBe(true);
+        expect(testComponent.node instanceof StereoPannerNode).toBe(true);
     });
 });
