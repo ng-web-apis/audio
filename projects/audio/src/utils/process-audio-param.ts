@@ -66,7 +66,7 @@ function processAutomation(
             const v = guard(value);
 
             if (v > 0) {
-                param.linearRampToValueAtTime(guard(value), currentTime + duration);
+                param.exponentialRampToValueAtTime(guard(value), currentTime + duration);
             } else {
                 param.linearRampToValueAtTime(guard(value), currentTime + duration);
             }
