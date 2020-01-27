@@ -124,10 +124,7 @@ describe('GainNode', () => {
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(
-                        testComponent.node.gain.value < 6 &&
-                            testComponent.node.gain.value > 5,
-                    ).toBe(true);
+                    expect(Math.round(testComponent.node.gain.value)).toBe(5);
                     setTimeout(() => {
                         expect(
                             testComponent.node.gain.value < 9 &&
