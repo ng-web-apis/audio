@@ -3,9 +3,9 @@
 > Part of <img src="projects/demo/src/assets/web-api.svg" align="top"> [Web APIs for Angular](https://ng-web-apis.github.io/)
 
 [![npm version](https://img.shields.io/npm/v/@ng-web-apis/audio.svg)](https://npmjs.com/package/@ng-web-apis/audio)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)
-![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)(https://travis-ci.org/ng-web-apis/audio)
-![Coveralls github](https://img.shields.io/coveralls/github/ng-web-apis/audio)(https://coveralls.io/github/ng-web-apis/audio?branch=master)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)](https://bundlephobia.com/result?p=@ng-web-apis/audio)
+[![Travis (.org)](https://img.shields.io/travis/ng-web-apis/audio)](https://travis-ci.org/ng-web-apis/audio)
+[![Coveralls github](https://img.shields.io/coveralls/github/ng-web-apis/audio)](https://coveralls.io/github/ng-web-apis/audio?branch=master)
 [![angular-open-source-starter](https://img.shields.io/badge/made%20with-angular--open--source--starter-d81676?logo=angular)](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
 
 This is a library for declarative use of
