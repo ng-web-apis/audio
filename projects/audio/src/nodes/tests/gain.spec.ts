@@ -77,7 +77,10 @@ describe('GainNode', () => {
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(Math.round(testComponent.node.gain.value)).toBe(3);
+                    expect(
+                        testComponent.node.gain.value < 4 &&
+                            testComponent.node.gain.value > 2,
+                    ).toBe(true);
                     setTimeout(() => {
                         expect(Math.round(testComponent.node.gain.value)).toBe(10);
                         done();
@@ -121,13 +124,22 @@ describe('GainNode', () => {
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(Math.round(testComponent.node.gain.value)).toBe(5);
+                    expect(
+                        testComponent.node.gain.value < 6 &&
+                            testComponent.node.gain.value > 5,
+                    ).toBe(true);
                     setTimeout(() => {
-                        expect(Math.round(testComponent.node.gain.value)).toBe(8);
+                        expect(
+                            testComponent.node.gain.value < 9 &&
+                                testComponent.node.gain.value > 7,
+                        ).toBe(true);
                         setTimeout(() => {
                             expect(Math.round(testComponent.node.gain.value)).toBe(10);
                             setTimeout(() => {
-                                expect(Math.round(testComponent.node.gain.value)).toBe(5);
+                                expect(
+                                    testComponent.node.gain.value < 6 &&
+                                        testComponent.node.gain.value > 5,
+                                ).toBe(true);
                                 setTimeout(() => {
                                     expect(
                                         Math.round(testComponent.node.gain.value),

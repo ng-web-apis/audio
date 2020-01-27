@@ -29,7 +29,7 @@
                             },
                             "src/favicon.ico"
                         ],
-                        "styles": ["src/styles.css"],
+                        "styles": ["src/styles.css", "src/audio.css"],
                         "scripts": []
                     },
                     "configurations": {

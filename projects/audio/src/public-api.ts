@@ -46,6 +46,7 @@ export * from './tokens/feedback-coefficients';
 export * from './tokens/feedforward-coefficients';
 export * from './tokens/media-stream';
 export * from './tokens/media-stream-track';
+export * from './tokens/supported';
 
 export * from './types/audio-param-input';
 export * from './types/audio-param-automation';

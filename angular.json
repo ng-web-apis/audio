@@ -29,7 +29,10 @@
                             },
                             "projects/demo/src/favicon.ico"
                         ],
-                        "styles": ["projects/demo/src/styles.css"],
+                        "styles": [
+                            "projects/demo/src/styles.css",
+                            "projects/demo/src/audio.css"
+                        ],
                         "scripts": []
                     },
                     "configurations": {

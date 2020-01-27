@@ -1,6 +1,6 @@
-# ![ng-web-apis logo](logo.svg) Web Audio API for Angular
+# ![ng-web-apis logo](projects/demo/src/assets/logo.svg) Web Audio API for Angular
 
-> Part of <img src="web-api.svg" align="top"> [Web APIs for Angular](https://ng-web-apis.github.io/)
+> Part of <img src="projects/demo/src/assets/web-api.svg" align="top"> [Web APIs for Angular](https://ng-web-apis.github.io/)
 
 [![npm version](https://img.shields.io/npm/v/@ng-web-apis/audio.svg)](https://npmjs.com/package/@ng-web-apis/audio)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@ng-web-apis/audio)
@@ -335,6 +335,9 @@ envelope = [
 
 ## 💡 Tokens
 
+-   You can check
+    [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+    support in current browser by injecting `WEB_AUDIO_SUPPORTED` token
 -   You can inject
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     through `AUDIO_CONTEXT` token
