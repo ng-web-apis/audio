@@ -52,7 +52,7 @@ describe('AudioListener', () => {
             setTimeout(() => {
                 expect(testComponent.context.listener.forwardX.value).toBe(237);
                 done();
-            }, 100);
+            }, 500);
         });
     });
 
