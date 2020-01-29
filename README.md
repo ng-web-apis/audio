@@ -395,3 +395,14 @@ method if browser does not support it
 ## Demo
 
 You can [try online demo here](https://ng-web-apis.github.io/audio)
+
+## See also
+
+All [@ng-web-apis](https://ng-web-apis.github.io/) for your apps
+
+## Open-source
+
+Do you also want to open-source something, but hate the collateral work?
+Check out this [Angular Open-source Library Starter](https://github.com/TinkoffCreditSystems/angular-open-source-starter)
+we’ve created for our projects. It got you covered on continuous integration,
+pre-commit checks, linting, versioning + changelog, code coverage and all that jazz.
