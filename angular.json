@@ -13,9 +13,9 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "baseHref": "/",
-                        "deployUrl": "/",
-                        "outputPath": "docs",
+                        "baseHref": "/audio/",
+                        "deployUrl": "/audio/",
+                        "outputPath": "dist/demo",
                         "index": "projects/demo/src/index.html",
                         "main": "projects/demo/src/main.browser.ts",
                         "polyfills": "projects/demo/src/polyfills.local.ts",
@@ -34,28 +34,6 @@
                             "projects/demo/src/audio.css"
                         ],
                         "scripts": []
-                    },
-                    "configurations": {
-                        "production": {
-                            "baseHref": "/audio/",
-                            "deployUrl": "/audio/",
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "aot": true,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                }
-                            ]
-                        }
                     }
                 },
                 "serve": {

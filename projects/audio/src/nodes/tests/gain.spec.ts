@@ -16,7 +16,7 @@ describe('GainNode', () => {
         @ViewChild(WebAudioGain)
         node!: GainNode;
 
-        gain: AudioParamInput = 10;
+        gain: AudioParamInput = 1;
     }
 
     let fixture: ComponentFixture<TestComponent>;
@@ -42,10 +42,13 @@ describe('GainNode', () => {
 
         describe('AudioParam', () => {
             it('sets gain instantly', done => {
+                testComponent.gain = 10;
+                fixture.detectChanges();
+
                 setTimeout(() => {
                     expect(testComponent.node.gain.value).toBe(10);
                     done();
-                }, 500);
+                }, 100);
             });
 
             it('sets gain linearly', done => {

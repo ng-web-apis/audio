@@ -5,6 +5,7 @@
         "ng": "ng",
         "start": "ng serve",
         "start:ssr": "npm run build:demo:ssr && npm run serve:ssr",
+        "prebuild": "ng build demo",
         "build": "ng build",
         "postbuild": "node scripts/postbuild.js",
         "build:demo:client": "ng run demo:build",
@@ -20,25 +21,16 @@
         "release:patch": "npm run release -- --release-as patch",
         "release:minor": "npm run release -- --release-as minor",
         "release:major": "npm run release -- --release-as major",
-        "prepublish": "npm run build && ng build demo --configuration=production",
-        "publish": "npm publish ./dist/audio"
+        "publish": "npm run build && npm publish ./dist/audio"
     },
     "description": "This is a library for declarative use of Web Audio API with Angular",
-    "keywords": [
-        "angular",
-        "ng",
-        "audio",
-        "web audio",
-        "web audio api"
-    ],
+    "keywords": ["angular", "ng", "audio", "web audio", "web audio api"],
     "license": "MIT",
     "author": {
         "name": "Alex Inkin",
         "email": "alexander@inkin.ru"
     },
-    "contributors": [
-        "Roman Sedov <79601794011@ya.ru> (http://marsibarsi.me/)"
-    ],
+    "contributors": ["Roman Sedov <79601794011@ya.ru> (http://marsibarsi.me/)"],
     "repository": "https://github.com/ng-web-apis/audio",
     "bugs": "https://github.com/ng-web-apis/audio/issues",
     "homepage": "https://github.com/ng-web-apis/audio#README",
@@ -107,10 +99,7 @@
         }
     },
     "lint-staged": {
-        "*.{js,ts,html,md,less,json}": [
-            "prettier --write",
-            "git add"
-        ],
+        "*.{js,ts,html,md,less,json}": ["prettier --write", "git add"],
         "*.ts": "tslint"
     },
     "standard-version": {
