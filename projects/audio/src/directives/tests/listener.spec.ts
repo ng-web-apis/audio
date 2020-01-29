@@ -47,13 +47,6 @@ describe('AudioListener', () => {
         it('creates node', () => {
             expect(testComponent.context.listener instanceof AudioListener).toBe(true);
         });
-
-        it('sets AudioParam value', done => {
-            setTimeout(() => {
-                expect(testComponent.context.listener.forwardX.value).toBe(237);
-                done();
-            }, 50);
-        });
     });
 
     it('falls back to factory method', () => {

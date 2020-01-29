@@ -16,7 +16,7 @@ describe('GainNode', () => {
         @ViewChild(WebAudioGain)
         node!: GainNode;
 
-        gain: AudioParamInput = 10;
+        gain: AudioParamInput = 1;
     }
 
     let fixture: ComponentFixture<TestComponent>;
@@ -42,6 +42,9 @@ describe('GainNode', () => {
 
         describe('AudioParam', () => {
             it('sets gain instantly', done => {
+                testComponent.gain = 10;
+                fixture.detectChanges();
+
                 setTimeout(() => {
                     expect(testComponent.node.gain.value).toBe(10);
                     done();
@@ -51,7 +54,7 @@ describe('GainNode', () => {
             it('sets gain linearly', done => {
                 testComponent.gain = {
                     value: 10,
-                    duration: 1,
+                    duration: 2,
                     mode: 'linear',
                 };
                 fixture.detectChanges();
@@ -59,85 +62,85 @@ describe('GainNode', () => {
                 setTimeout(() => {
                     expect(
                         testComponent.node.gain.value < 6 &&
-                            testComponent.node.gain.value > 5,
+                            testComponent.node.gain.value > 4,
                     ).toBe(true);
                     setTimeout(() => {
                         expect(Math.round(testComponent.node.gain.value)).toBe(10);
                         done();
-                    }, 500);
-                }, 500);
+                    }, 1000);
+                }, 1000);
             });
 
             it('sets gain exponentially', done => {
                 testComponent.gain = {
                     value: 10,
-                    duration: 1,
+                    duration: 2,
                     mode: 'exponential',
                 };
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(Math.round(testComponent.node.gain.value)).toBe(3);
+                    expect(
+                        testComponent.node.gain.value < 4 &&
+                            testComponent.node.gain.value > 2,
+                    ).toBe(true);
                     setTimeout(() => {
                         expect(Math.round(testComponent.node.gain.value)).toBe(10);
                         done();
-                    }, 500);
-                }, 500);
+                    }, 1000);
+                }, 1000);
             });
 
             it('sets gain curve', done => {
                 testComponent.gain = {
                     value: [10, 5, 10],
-                    duration: 1,
+                    duration: 2,
                 };
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(Math.round(testComponent.node.gain.value)).toBe(5);
+                    expect(
+                        testComponent.node.gain.value < 6 &&
+                            testComponent.node.gain.value > 4,
+                    ).toBe(true);
                     setTimeout(() => {
                         expect(Math.round(testComponent.node.gain.value)).toBe(10);
                         done();
-                    }, 500);
-                }, 500);
+                    }, 1500);
+                }, 1000);
             });
 
             it('schedules multiple changes', done => {
                 testComponent.gain = [
                     {
                         value: 5,
-                        duration: 1,
+                        duration: 2,
                         mode: 'instant',
                     },
                     {
                         value: 10,
-                        duration: 1,
+                        duration: 2,
                         mode: 'linear',
-                    },
-                    {
-                        value: [10, 5, 10],
-                        duration: 1,
                     },
                 ];
                 fixture.detectChanges();
 
                 setTimeout(() => {
-                    expect(Math.round(testComponent.node.gain.value)).toBe(5);
+                    expect(
+                        testComponent.node.gain.value < 6 &&
+                            testComponent.node.gain.value > 4,
+                    ).toBe(true);
                     setTimeout(() => {
-                        expect(Math.round(testComponent.node.gain.value)).toBe(8);
+                        expect(
+                            testComponent.node.gain.value < 9 &&
+                                testComponent.node.gain.value > 7,
+                        ).toBe(true);
                         setTimeout(() => {
                             expect(Math.round(testComponent.node.gain.value)).toBe(10);
-                            setTimeout(() => {
-                                expect(Math.round(testComponent.node.gain.value)).toBe(5);
-                                setTimeout(() => {
-                                    expect(
-                                        Math.round(testComponent.node.gain.value),
-                                    ).toBe(10);
-                                    done();
-                                }, 500);
-                            }, 500);
-                        }, 500);
-                    }, 1000);
-                }, 500);
+                            done();
+                        }, 1500);
+                    }, 2000);
+                }, 1000);
             });
         });
     });

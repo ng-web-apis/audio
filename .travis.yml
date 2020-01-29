@@ -7,3 +7,10 @@ script:
   - npm run test
 notifications:
   webhooks: https://coveralls.io/webhook
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: $github_token
+    local_dir: dist/demo
+    on:
+        branch: master

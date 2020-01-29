@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Inject, ViewChild} from '@angular/co
 import {AUDIO_CONTEXT} from '@ng-web-apis/audio';
 
 @Component({
-    selector: 'app',
+    selector: 'main',
     templateUrl: './app.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
