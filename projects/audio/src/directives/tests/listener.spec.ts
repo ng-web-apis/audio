@@ -38,21 +38,21 @@ describe('AudioListener', () => {
     });
 
     describe('normal behavior', () => {
-        beforeEach(() => {
+        beforeEach(done => {
             fixture = TestBed.createComponent(TestComponent);
             testComponent = fixture.componentInstance;
             fixture.detectChanges();
+            setTimeout(() => {
+                done();
+            }, 1000);
         });
 
         it('creates node', () => {
             expect(testComponent.context.listener instanceof AudioListener).toBe(true);
         });
 
-        it('sets AudioParam value', done => {
-            setTimeout(() => {
-                expect(testComponent.context.listener.forwardX.value).toBe(237);
-                done();
-            }, 500);
+        it('sets AudioParam value', () => {
+            expect(testComponent.context.listener.forwardX.value).toBe(237);
         });
     });
 
