@@ -398,7 +398,7 @@ You can [try online demo here](https://ng-web-apis.github.io/audio)
 
 ## See also
 
-All [@ng-web-apis](https://ng-web-apis.github.io/) for your apps
+Other [Web APIs for Angular](https://ng-web-apis.github.io/) by [@ng-web-apis](https://github.com/ng-web-apis)
 
 ## Open-source
 
