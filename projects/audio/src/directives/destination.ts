@@ -13,8 +13,8 @@ import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -28,20 +28,19 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createAnalyser',
-            WebAudioDestination,
-            node,
-        );
+        if (modern) {
+            super(context);
+            WebAudioDestination.init(this, node);
+        } else {
+            const result = context.createAnalyser() as WebAudioDestination;
 
-        if (result) {
+            Object.setPrototypeOf(result, WebAudioDestination.prototype);
+            WebAudioDestination.init(result, node);
+
             return result;
         }
-
-        super(context);
-        WebAudioDestination.init(this, node);
     }
 
     ngOnDestroy() {

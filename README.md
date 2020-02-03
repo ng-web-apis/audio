@@ -263,10 +263,17 @@ You can use `waAudioParam` pipe to turn your number values into `AudioParamAutom
 or number arrays to `AudioParamCurve` (second argument `duration` is in **seconds**):
 
 ```html
-<ng-container waGainNode [gain]="gain | waAudioParam : 0.1 : 'linear'"></ng-container>
+<ng-container
+    waGainNode
+    gain="0"
+    [gain]="gain | waAudioParam : 0.1 : 'linear'"
+></ng-container>
 ```
 
 This way values would change smoothly rather than abruptly, causing audio artifacts.
+
+**NOTE:** You can set initial value for [AudioParam](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam)
+through argument binding combined with dynamic property binding as seen above.
 
 To schedule an audio envelope looking something like this:
 

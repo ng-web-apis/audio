@@ -1,6 +1,6 @@
 import {Directive, Inject, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 
 // @dynamic
 @Directive({
@@ -8,19 +8,22 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     exportAs: 'AudioNode',
 })
 export class WebAudioChannel extends GainNode implements OnDestroy {
-    constructor(@Inject(AUDIO_CONTEXT) context: BaseAudioContext) {
-        const result = constructorPolyfill(context, 'createGain', WebAudioChannel);
+    constructor(
+        @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
+    ) {
+        if (modern) {
+            super(context);
+        } else {
+            const result = context.createGain();
 
-        if (result) {
-            return result;
+            Object.setPrototypeOf(result, WebAudioChannel.prototype);
+
+            return result as WebAudioChannel;
         }
-
-        super(context);
     }
 
     ngOnDestroy() {
         this.disconnect();
     }
-
-    static init() {}
 }

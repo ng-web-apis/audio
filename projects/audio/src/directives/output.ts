@@ -1,8 +1,8 @@
 import {Directive, Inject, Input, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -21,15 +21,25 @@ export class WebAudioOutput extends GainNode implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const result = constructorPolyfill(context, 'createGain', WebAudioOutput, node);
+        if (modern) {
+            super(context);
+            connect(
+                node,
+                this,
+            );
+        } else {
+            const result = context.createGain();
 
-        if (result) {
-            return result;
+            Object.setPrototypeOf(result, WebAudioOutput.prototype);
+            connect(
+                node,
+                result,
+            );
+
+            return result as WebAudioOutput;
         }
-
-        super(context);
-        WebAudioOutput.init(this, node);
     }
 
     ngOnDestroy() {

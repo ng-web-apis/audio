@@ -1,10 +1,18 @@
-import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {
+    Attribute,
+    Directive,
+    forwardRef,
+    Inject,
+    Input,
+    OnDestroy,
+    SkipSelf,
+} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -43,30 +51,44 @@ export class WebAudioDynamicsCompressor extends DynamicsCompressorNode
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
+        @Attribute('attack') attackArg: string | null,
+        @Attribute('knee') kneeArg: string | null,
+        @Attribute('ratio') ratioArg: string | null,
+        @Attribute('release') releaseArg: string | null,
+        @Attribute('threshold') thresholdArg: string | null,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createDynamicsCompressor',
-            WebAudioDynamicsCompressor,
-            node,
-        );
+        const attack = Number.parseFloat(attackArg || '') || 0.003;
+        const knee = Number.parseFloat(kneeArg || '') || 30;
+        const ratio = Number.parseFloat(ratioArg || '') || 12;
+        const release = Number.parseFloat(releaseArg || '') || 0.25;
+        const threshold = Number.parseFloat(thresholdArg || '') || -24;
 
-        if (result) {
+        if (modern) {
+            super(context, {attack, knee, ratio, release, threshold});
+            connect(
+                node,
+                this,
+            );
+        } else {
+            const result = context.createDynamicsCompressor() as WebAudioDynamicsCompressor;
+
+            Object.setPrototypeOf(result, WebAudioDynamicsCompressor.prototype);
+            connect(
+                node,
+                result,
+            );
+            result.attack.value = attack;
+            result.knee.value = knee;
+            result.ratio.value = ratio;
+            result.release.value = release;
+            result.threshold.value = threshold;
+
             return result;
         }
-
-        super(context);
-        WebAudioDynamicsCompressor.init(this, node);
     }
 
     ngOnDestroy() {
         this.disconnect();
-    }
-
-    static init(that: WebAudioDynamicsCompressor, node: AudioNode | null) {
-        connect(
-            node,
-            that,
-        );
     }
 }

@@ -38,8 +38,11 @@ export class WebAudioConstantSource extends ConstantSourceNode implements OnDest
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Attribute('autoplay') autoplay: string | null,
+        @Attribute('offset') offset: string | null,
     ) {
-        super(context);
+        super(context, {
+            offset: Number.parseFloat(offset || '') || 0,
+        });
 
         if (autoplay !== null) {
             this.start();

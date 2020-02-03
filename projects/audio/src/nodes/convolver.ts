@@ -4,8 +4,8 @@ import {switchMap} from 'rxjs/operators';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -31,21 +31,19 @@ export class WebAudioConvolver extends ConvolverNode implements OnDestroy {
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createConvolver',
-            WebAudioConvolver,
-            node,
-            audioBufferService,
-        );
+        if (modern) {
+            super(context);
+            WebAudioConvolver.init(this, node, audioBufferService);
+        } else {
+            const result = context.createConvolver() as WebAudioConvolver;
 
-        if (result) {
+            Object.setPrototypeOf(result, WebAudioConvolver.prototype);
+            WebAudioConvolver.init(result, node, audioBufferService);
+
             return result;
         }
-
-        super(context);
-        WebAudioConvolver.init(this, node, audioBufferService);
     }
 
     ngOnDestroy() {
