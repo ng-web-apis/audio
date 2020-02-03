@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ng-web-apis/audio/compare/v1.1.0...v1.2.0) (2020-02-03)
+
+
+### Features
+
+* **AudioParam:** support initial setting of AudioParam inputs through argument ([676f96e](https://github.com/ng-web-apis/audio/commit/676f96e))
+
 ## [1.1.0](https://github.com/ng-web-apis/audio/compare/v1.0.3...v1.1.0) (2020-01-29)
 
 
