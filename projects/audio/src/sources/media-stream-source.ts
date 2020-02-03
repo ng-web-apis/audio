@@ -1,6 +1,7 @@
 import {Directive, forwardRef, Inject, OnDestroy} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {MEDIA_STREAM} from '../tokens/media-stream';
 
 // @dynamic
@@ -19,19 +20,17 @@ export class WebAudioMediaStreamSource extends MediaStreamAudioSourceNode
     constructor(
         @Inject(MEDIA_STREAM) mediaStream: MediaStream,
         @Inject(AUDIO_CONTEXT) context: AudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        try {
-            // @ts-ignore
-            const _test = new GainNode(context);
-        } catch (_) {
+        if (modern) {
+            super(context, {mediaStream});
+        } else {
             const result = context.createMediaStreamSource(mediaStream);
 
             Object.setPrototypeOf(result, WebAudioMediaStreamSource.prototype);
 
             return result as WebAudioMediaStreamSource;
         }
-
-        super(context, {mediaStream});
     }
 
     ngOnDestroy() {

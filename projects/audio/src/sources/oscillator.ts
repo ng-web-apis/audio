@@ -11,9 +11,9 @@ import {
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -46,22 +46,28 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
         @Attribute('autoplay') autoplay: string | null,
+        @Attribute('detune') detuneArg: string | null,
+        @Attribute('frequency') frequencyArg: string | null,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createOscillator',
-            WebAudioOscillator,
-            null,
-            autoplay,
-        );
+        const detune = Number.parseFloat(detuneArg || '') || 0;
+        const frequency = Number.parseFloat(frequencyArg || '') || 440;
 
-        if (result) {
+        if (modern) {
+            super(context, {detune, frequency});
+            WebAudioOscillator.init(this, null, autoplay);
+        } else {
+            const result = context.createOscillator() as WebAudioOscillator;
+
+            Object.setPrototypeOf(result, WebAudioOscillator.prototype);
+
+            result.detune.value = detune;
+            result.frequency.value = frequency;
+            WebAudioOscillator.init(result, null, autoplay);
+
             return result;
         }
-
-        super(context);
-        WebAudioOscillator.init(this, null, autoplay);
     }
 
     ngOnDestroy() {

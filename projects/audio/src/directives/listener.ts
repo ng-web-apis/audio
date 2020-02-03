@@ -1,8 +1,8 @@
 import {Directive, Inject, Input, OnChanges, Self} from '@angular/core';
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
 // @dynamic
@@ -46,14 +46,19 @@ export class WebAudioListener extends GainNode implements OnChanges {
     @audioParam('upZ')
     upZParam?: AudioParamInput;
 
-    constructor(@Self() @Inject(AUDIO_CONTEXT) context: BaseAudioContext) {
-        const result = constructorPolyfill(context, 'createGain', WebAudioListener);
+    constructor(
+        @Self() @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
+    ) {
+        if (modern) {
+            super(context);
+        } else {
+            const result = context.createGain();
 
-        if (result) {
-            return result;
+            Object.setPrototypeOf(result, WebAudioListener.prototype);
+
+            return result as WebAudioListener;
         }
-
-        super(context);
     }
 
     get forwardX(): AudioParam {
@@ -112,6 +117,4 @@ export class WebAudioListener extends GainNode implements OnChanges {
             fallbackAudioParam(this.positionZParam),
         );
     }
-
-    static init() {}
 }

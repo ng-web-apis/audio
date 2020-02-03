@@ -10,6 +10,7 @@ import {
 import {WebAudioChannel} from '../directives/channel';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 
 // @dynamic
 @Directive({
@@ -34,21 +35,19 @@ export class WebAudioChannelMerger extends ChannelMergerNode implements OnDestro
     constructor(
         @Attribute('numberOfInputs') inputs: string | null,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
         const numberOfInputs = Number.parseInt(inputs || '', 10) || 6;
 
-        try {
-            // @ts-ignore
-            const _test = new ChannelMergerNode(context);
-        } catch (_) {
+        if (modern) {
+            super(context, {numberOfInputs});
+        } else {
             const result = context.createChannelMerger(numberOfInputs);
 
             Object.setPrototypeOf(result, WebAudioChannelMerger.prototype);
 
             return result as WebAudioChannelMerger;
         }
-
-        super(context, {numberOfInputs});
     }
 
     ngOnDestroy() {

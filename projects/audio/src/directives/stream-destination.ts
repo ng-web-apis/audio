@@ -1,6 +1,7 @@
 import {Directive, Inject} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
 
 // @dynamic
@@ -12,11 +13,15 @@ export class WebAudioMediaStreamDestination extends MediaStreamAudioDestinationN
     constructor(
         @Inject(AUDIO_CONTEXT) context: AudioContext,
         @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        try {
-            // @ts-ignore
-            const _test = new MediaStreamAudioDestinationNode(context);
-        } catch (_) {
+        if (modern) {
+            super(context);
+            connect(
+                node,
+                this,
+            );
+        } else {
             const result = context.createMediaStreamDestination();
 
             Object.setPrototypeOf(result, WebAudioMediaStreamDestination.prototype);
@@ -27,11 +32,5 @@ export class WebAudioMediaStreamDestination extends MediaStreamAudioDestinationN
 
             return result as WebAudioMediaStreamDestination;
         }
-
-        super(context);
-        connect(
-            node,
-            this,
-        );
     }
 }

@@ -14,8 +14,8 @@ import {audioParam} from '../decorators/audio-param';
 import {AudioBufferService} from '../services/audio-buffer.service';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -58,23 +58,28 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
     constructor(
         @Inject(AudioBufferService) audioBufferService: AudioBufferService,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
         @Attribute('autoplay') autoplay: string | null,
+        @Attribute('detune') detuneArg: string | null,
+        @Attribute('playbackRate') playbackRateArg: string | null,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createBufferSource',
-            WebAudioBufferSource,
-            null,
-            autoplay,
-            audioBufferService,
-        );
+        const detune = Number.parseFloat(detuneArg || '') || 0;
+        const playbackRate = Number.parseFloat(playbackRateArg || '') || 1;
 
-        if (result) {
+        if (modern) {
+            super(context, {detune, playbackRate});
+            WebAudioBufferSource.init(this, null, autoplay, audioBufferService);
+        } else {
+            const result = context.createBufferSource() as WebAudioBufferSource;
+
+            Object.setPrototypeOf(result, WebAudioBufferSource.prototype);
+
+            result.detune.value = detune;
+            result.playbackRate.value = playbackRate;
+            WebAudioBufferSource.init(result, null, autoplay, audioBufferService);
+
             return result;
         }
-
-        super(context);
-        WebAudioBufferSource.init(this, null, autoplay, audioBufferService);
     }
 
     ngOnDestroy() {

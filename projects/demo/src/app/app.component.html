@@ -185,7 +185,7 @@
                             step="0.01"
                             [(ngModel)]="delayTime"
                         />
-                        <fieldset waGainNode [gain]="delayGain | waAudioParam: 0.1">
+                        <fieldset waGainNode [gain]="delayGain">
                             <legend>GainNode</legend>
                             <input
                                 type="range"

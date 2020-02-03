@@ -41,13 +41,19 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
             const result = (context.createPanner() as unknown) as WebAudioStereoPanner;
 
             Object.setPrototypeOf(result, WebAudioStereoPanner.prototype);
-            WebAudioStereoPanner.init(result, node);
+            connect(
+                node,
+                result,
+            );
 
             return result;
         }
 
         super(context);
-        WebAudioStereoPanner.init(this, node);
+        connect(
+            node,
+            this,
+        );
     }
 
     ngOnDestroy() {
@@ -63,12 +69,5 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
 
         // @ts-ignore
         this.setPosition(x, 0, z);
-    }
-
-    static init(that: WebAudioStereoPanner, node: AudioNode | null) {
-        connect(
-            node,
-            that,
-        );
     }
 }

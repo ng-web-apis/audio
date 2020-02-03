@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
 
 // @dynamic
@@ -38,17 +39,20 @@ export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDe
         @Attribute('numberOfOutputs') outputs: string | null,
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
         const numberOfOutputs = Number.parseInt(outputs || '', 10) || 6;
 
-        try {
-            // @ts-ignore
-            const _test = new ChannelSplitterNode(context);
-        } catch (_) {
+        if (modern) {
+            super(context, {numberOfOutputs});
+            connect(
+                node,
+                this,
+            );
+        } else {
             const result = context.createChannelSplitter(numberOfOutputs);
 
             Object.setPrototypeOf(result, WebAudioChannelSplitter.prototype);
-
             connect(
                 node,
                 result,
@@ -56,12 +60,6 @@ export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDe
 
             return result as WebAudioChannelSplitter;
         }
-
-        super(context, {numberOfOutputs});
-        connect(
-            node,
-            this,
-        );
     }
 
     ngOnDestroy() {

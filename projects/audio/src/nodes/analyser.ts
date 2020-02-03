@@ -3,8 +3,8 @@ import {animationFrameScheduler, interval, Observable} from 'rxjs';
 import {map, mapTo, tap} from 'rxjs/operators';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 
 // @dynamic
 @Directive({
@@ -13,7 +13,6 @@ import {constructorPolyfill} from '../utils/constructor-polyfill';
     inputs: [
         'fftSize',
         'minDecibels',
-        'maxDecibels',
         'maxDecibels',
         'smoothingTimeConstant',
         'channelCount',
@@ -43,20 +42,19 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const result = constructorPolyfill(
-            context,
-            'createAnalyser',
-            WebAudioAnalyser,
-            node,
-        );
+        if (modern) {
+            super(context);
+            WebAudioAnalyser.init(this, node);
+        } else {
+            const result = context.createAnalyser() as WebAudioAnalyser;
 
-        if (result) {
+            Object.setPrototypeOf(result, WebAudioAnalyser.prototype);
+            WebAudioAnalyser.init(result, node);
+
             return result;
         }
-
-        super(context);
-        WebAudioAnalyser.init(this, node);
     }
 
     ngOnDestroy() {

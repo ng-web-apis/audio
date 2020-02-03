@@ -10,9 +10,9 @@ import {
 import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
-import {constructorPolyfill} from '../utils/constructor-polyfill';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
 
 // @dynamic
@@ -67,15 +67,25 @@ export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const result = constructorPolyfill(context, 'createPanner', WebAudioPanner, node);
+        if (modern) {
+            super(context);
+            connect(
+                node,
+                this,
+            );
+        } else {
+            const result = context.createPanner() as WebAudioPanner;
 
-        if (result) {
+            Object.setPrototypeOf(result, WebAudioPanner.prototype);
+            connect(
+                node,
+                result,
+            );
+
             return result;
         }
-
-        super(context);
-        WebAudioPanner.init(this, node);
     }
 
     ngOnChanges() {
@@ -98,12 +108,5 @@ export class WebAudioPanner extends PannerNode implements OnDestroy, OnChanges {
 
     ngOnDestroy() {
         this.disconnect();
-    }
-
-    static init(that: WebAudioPanner, node: AudioNode | null) {
-        connect(
-            node,
-            that,
-        );
     }
 }

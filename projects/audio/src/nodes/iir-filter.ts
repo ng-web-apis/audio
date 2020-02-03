@@ -1,6 +1,7 @@
 import {Directive, forwardRef, Inject, OnDestroy, SkipSelf} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
+import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {FEEDBACK_COEFFICIENTS} from '../tokens/feedback-coefficients';
 import {FEEDFORWARD_COEFFICIENTS} from '../tokens/feedforward-coefficients';
 import {connect} from '../utils/connect';
@@ -22,12 +23,16 @@ export class WebAudioIIRFilter extends IIRFilterNode implements OnDestroy {
         @Inject(FEEDBACK_COEFFICIENTS) feedback: number[],
         @Inject(FEEDFORWARD_COEFFICIENTS) feedforward: number[],
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
+        @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
     ) {
-        try {
-            // @ts-ignore
-            const _test = new IIRFilterNode(context, {feedback, feedforward});
-        } catch (_) {
+        if (modern) {
+            super(context, {feedback, feedforward});
+            connect(
+                node,
+                this,
+            );
+        } else {
             const result = context.createIIRFilter(
                 feedback,
                 feedforward,
@@ -41,12 +46,6 @@ export class WebAudioIIRFilter extends IIRFilterNode implements OnDestroy {
 
             return result;
         }
-
-        super(context, {feedback, feedforward});
-        connect(
-            node,
-            this,
-        );
     }
 
     ngOnDestroy() {
