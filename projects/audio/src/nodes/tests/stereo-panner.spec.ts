@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {providers} from '../../constants/fallback';
 import {WebAudioModule} from '../../module';
 import {WebAudioStereoPanner} from '../stereo-panner';
 
@@ -24,23 +25,46 @@ describe('StereoPannerNode', () => {
         });
     });
 
-    it('creates node', () => {
+    beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-
-        expect(testComponent.node instanceof StereoPannerNode).toBe(true);
     });
 
-    it('falls back to PannerNode', () => {
-        const temp = (window as any).StereoPannerNode;
+    it('creates node', () => {
+        expect(testComponent.node instanceof StereoPannerNode).toBe(true);
+    });
+});
 
-        (window as any).StereoPannerNode = undefined;
+describe('StereoPannerNode factory fallback', () => {
+    @Component({
+        template: `
+            <div waStereoPannerNode></div>
+        `,
+    })
+    class TestComponent {
+        @ViewChild(WebAudioStereoPanner)
+        node!: AudioNode;
+    }
+
+    let fixture: ComponentFixture<TestComponent>;
+    let testComponent: TestComponent;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [WebAudioModule],
+            declarations: [TestComponent],
+            providers,
+        });
+    });
+
+    beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        (window as any).StereoPannerNode = temp;
+    });
 
+    it('creates node', () => {
         expect(testComponent.node instanceof StereoPannerNode).toBe(true);
     });
 });

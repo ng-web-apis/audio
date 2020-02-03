@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {providers} from '../../constants/fallback';
 import {WebAudioModule} from '../../module';
 import {WebAudioChannel} from '../channel';
 
@@ -31,15 +32,34 @@ describe('Channel', () => {
 
         expect(testComponent.node instanceof AudioNode).toBe(true);
     });
+});
 
-    it('falls back to factory method', () => {
-        const temp = (window as any).GainNode;
+describe('Channel factory fallback', () => {
+    @Component({
+        template: `
+            <div waChannel></div>
+        `,
+    })
+    class TestComponent {
+        @ViewChild(WebAudioChannel)
+        node!: AudioNode;
+    }
 
-        (window as any).GainNode = undefined;
+    let fixture: ComponentFixture<TestComponent>;
+    let testComponent: TestComponent;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [WebAudioModule],
+            declarations: [TestComponent],
+            providers,
+        });
+    });
+
+    it('creates node', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        (window as any).GainNode = temp;
 
         expect(testComponent.node instanceof AudioNode).toBe(true);
     });

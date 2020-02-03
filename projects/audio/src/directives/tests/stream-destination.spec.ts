@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {providers} from '../../constants/fallback';
 import {WebAudioModule} from '../../module';
 import {WebAudioMediaStreamDestination} from '../stream-destination';
 
@@ -24,23 +25,46 @@ describe('MediaStreamAudioDestinationNode', () => {
         });
     });
 
-    it('creates node', () => {
+    beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-
-        expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
     });
 
-    it('falls back to factory method', () => {
-        const temp = (window as any).MediaStreamAudioDestinationNode;
+    it('creates node', () => {
+        expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
+    });
+});
 
-        (window as any).MediaStreamAudioDestinationNode = undefined;
+describe('MediaStreamAudioDestinationNode factory fallback', () => {
+    @Component({
+        template: `
+            <div waMediaStreamAudioDestinationNode></div>
+        `,
+    })
+    class TestComponent {
+        @ViewChild(WebAudioMediaStreamDestination)
+        node!: MediaStreamAudioDestinationNode;
+    }
+
+    let fixture: ComponentFixture<TestComponent>;
+    let testComponent: TestComponent;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [WebAudioModule],
+            declarations: [TestComponent],
+            providers,
+        });
+    });
+
+    beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        (window as any).MediaStreamAudioDestinationNode = temp;
+    });
 
+    it('creates node', () => {
         expect(testComponent.node instanceof MediaStreamAudioDestinationNode).toBe(true);
     });
 });
