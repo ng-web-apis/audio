@@ -13,6 +13,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -58,11 +59,11 @@ export class WebAudioDynamicsCompressor extends DynamicsCompressorNode
         @Attribute('release') releaseArg: string | null,
         @Attribute('threshold') thresholdArg: string | null,
     ) {
-        const attack = Number.parseFloat(attackArg || '') || 0.003;
-        const knee = Number.parseFloat(kneeArg || '') || 30;
-        const ratio = Number.parseFloat(ratioArg || '') || 12;
-        const release = Number.parseFloat(releaseArg || '') || 0.25;
-        const threshold = Number.parseFloat(thresholdArg || '') || -24;
+        const attack = parse(attackArg, 0.003);
+        const knee = parse(kneeArg, 30);
+        const ratio = parse(ratioArg, 12);
+        const release = parse(releaseArg, 0.25);
+        const threshold = parse(thresholdArg, -24);
 
         if (modern) {
             super(context, {attack, knee, ratio, release, threshold});

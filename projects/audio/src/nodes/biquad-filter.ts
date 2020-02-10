@@ -13,6 +13,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -52,10 +53,10 @@ export class WebAudioBiquadFilter extends BiquadFilterNode implements OnDestroy 
         @Attribute('gain') gainArg: string | null,
         @Attribute('Q') QArg: string | null,
     ) {
-        const detune = Number.parseFloat(detuneArg || '') || 0;
-        const frequency = Number.parseFloat(frequencyArg || '') || 350;
-        const gain = Number.parseFloat(gainArg || '') || 0;
-        const Q = Number.parseFloat(QArg || '') || 1;
+        const detune = parse(detuneArg, 0);
+        const frequency = parse(frequencyArg, 350);
+        const gain = parse(gainArg, 0);
+        const Q = parse(QArg, 1);
 
         if (modern) {
             super(context, {detune, frequency, gain, Q});

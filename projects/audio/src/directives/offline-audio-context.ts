@@ -25,9 +25,9 @@ export class WebAudioOfflineContext extends OfflineAudioContext {
         @Attribute('autoplay') autoplay: string | null,
     ) {
         super(
-            Number.parseInt(numberOfChannels || '', 10) || 1,
-            Number.parseInt(length, 10),
-            Number.parseInt(sampleRate, 10),
+            parseInt(numberOfChannels || '', 10) || 1,
+            parseInt(length, 10),
+            parseInt(sampleRate, 10),
         );
 
         if (autoplay !== null) {

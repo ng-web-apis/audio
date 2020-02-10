@@ -37,7 +37,7 @@ export class WebAudioChannelMerger extends ChannelMergerNode implements OnDestro
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const numberOfInputs = Number.parseInt(inputs || '', 10) || 6;
+        const numberOfInputs = parseInt(inputs || '', 10) || 6;
 
         if (modern) {
             super(context, {numberOfInputs});
