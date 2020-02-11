@@ -13,6 +13,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -37,7 +38,7 @@ export class WebAudioGain extends GainNode implements OnDestroy {
         @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
         @Attribute('gain') gainArg: string | null,
     ) {
-        const gain = Number.parseFloat(gainArg || '') || 1;
+        const gain = parse(gainArg, 1);
 
         if (modern) {
             super(context, {gain});

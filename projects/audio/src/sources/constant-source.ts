@@ -12,6 +12,7 @@ import {audioParam} from '../decorators/audio-param';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -41,7 +42,7 @@ export class WebAudioConstantSource extends ConstantSourceNode implements OnDest
         @Attribute('offset') offset: string | null,
     ) {
         super(context, {
-            offset: Number.parseFloat(offset || '') || 0,
+            offset: parse(offset, 0),
         });
 
         if (autoplay !== null) {

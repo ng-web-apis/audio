@@ -14,6 +14,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -51,8 +52,8 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
         @Attribute('detune') detuneArg: string | null,
         @Attribute('frequency') frequencyArg: string | null,
     ) {
-        const detune = Number.parseFloat(detuneArg || '') || 0;
-        const frequency = Number.parseFloat(frequencyArg || '') || 440;
+        const detune = parse(detuneArg, 0);
+        const frequency = parse(frequencyArg, 440);
 
         if (modern) {
             super(context, {detune, frequency});

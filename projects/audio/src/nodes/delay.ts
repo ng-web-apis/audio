@@ -13,6 +13,7 @@ import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -38,8 +39,8 @@ export class WebAudioDelay extends DelayNode implements OnDestroy {
         @Attribute('delayTime') delayTimeArg: string | null,
         @Attribute('maxDelayTime') maxDelayTimeArg: string | null,
     ) {
-        const delayTime = Number.parseFloat(delayTimeArg || '') || 0;
-        const maxDelayTime = Number.parseFloat(maxDelayTimeArg || '') || 1;
+        const delayTime = parse(delayTimeArg, 0);
+        const maxDelayTime = parse(maxDelayTimeArg, 1);
 
         if (modern) {
             super(context, {delayTime, maxDelayTime});

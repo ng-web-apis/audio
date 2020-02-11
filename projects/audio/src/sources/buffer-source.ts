@@ -16,6 +16,7 @@ import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {AudioParamInput} from '../types/audio-param-input';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -63,8 +64,8 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
         @Attribute('detune') detuneArg: string | null,
         @Attribute('playbackRate') playbackRateArg: string | null,
     ) {
-        const detune = Number.parseFloat(detuneArg || '') || 0;
-        const playbackRate = Number.parseFloat(playbackRateArg || '') || 1;
+        const detune = parse(detuneArg, 0);
+        const playbackRate = parse(playbackRateArg, 1);
 
         if (modern) {
             super(context, {detune, playbackRate});

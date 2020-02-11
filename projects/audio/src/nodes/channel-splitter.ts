@@ -41,7 +41,7 @@ export class WebAudioChannelSplitter extends ChannelSplitterNode implements OnDe
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
     ) {
-        const numberOfOutputs = Number.parseInt(outputs || '', 10) || 6;
+        const numberOfOutputs = parseInt(outputs || '', 10) || 6;
 
         if (modern) {
             super(context, {numberOfOutputs});
