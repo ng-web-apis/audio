@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/ng-web-apis/audio/compare/v1.2.1...v1.2.2) (2020-02-14)
+
+
+### Bug Fixes
+
+* **tokens:** rename `WEB_AUDIO_SUPPORTED` to `WEB_AUDIO_SUPPORT` (Note: not considered breaking change since library is not publicly announced yet, such things will not happen in future) ([565fe16](https://github.com/ng-web-apis/audio/commit/565fe16))
+
 ### [1.2.1](https://github.com/ng-web-apis/audio/compare/v1.2.0...v1.2.1) (2020-02-11)
 
 
