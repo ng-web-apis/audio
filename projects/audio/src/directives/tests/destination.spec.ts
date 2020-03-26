@@ -27,6 +27,8 @@ describe('AudioDestinationNode', () => {
     let fixture: ComponentFixture<TestComponent>;
     let testComponent: TestComponent;
 
+    const timeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [WebAudioModule],
@@ -38,9 +40,11 @@ describe('AudioDestinationNode', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     });
 
     afterEach(() => {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = timeout;
         testComponent.source.stop();
     });
 
