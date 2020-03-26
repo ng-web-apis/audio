@@ -64,7 +64,7 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
             map(array => that.isSilent(array)),
             distinctUntilChanged(),
             skipWhile(isSilent => isSilent),
-            debounceTime(2000),
+            debounceTime(5000),
             filter(isSilent => isSilent),
         );
     }

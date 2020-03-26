@@ -92,7 +92,8 @@ You can use following audio nodes through directives of the same name
     referencing the same
     [BaseAudioContext.destination](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/destination)
 
-    💡 Has `(quiet)` output to watch for particular graph branch going silent
+    💡 Has `(quiet)` output to watch for particular graph branch going _almost_ silent for 5 seconds straight
+    so you can remove branch after all effects played out to silence to free up resources
 
 -   [MediaStreamAudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode)
 
