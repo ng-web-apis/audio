@@ -62,7 +62,7 @@ describe('AudioDestinationNode', () => {
             fixture.detectChanges();
             expect(testComponent.quiet).toBe(true);
             done();
-        }, 2000);
+        }, 6000);
     });
 });
 
