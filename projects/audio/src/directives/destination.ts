@@ -48,13 +48,7 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
     }
 
     private isSilent(array: Uint8Array): boolean {
-        for (let i = 0; i < array.length; i++) {
-            if (Math.abs(array[i] - DC_OFFSET) > 2) {
-                return false;
-            }
-        }
-
-        return true;
+        return array.every(e => e === DC_OFFSET || e === DC_OFFSET - 1);
     }
 
     static init(that: WebAudioDestination, node: AudioNode | null) {
@@ -62,15 +56,15 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
             node,
             that,
         );
-        that.fftSize = 256;
+        that.fftSize = 512;
         that.connect(that.context.destination);
         that.quiet = interval(POLLING_TIME).pipe(
             mapTo(new Uint8Array(that.fftSize)),
             tap(array => that.getByteTimeDomainData(array)),
             map(array => that.isSilent(array)),
             distinctUntilChanged(),
-            skipWhile(isSilent => !isSilent),
-            debounceTime(1000),
+            skipWhile(isSilent => isSilent),
+            debounceTime(2000),
             filter(isSilent => isSilent),
         );
     }
