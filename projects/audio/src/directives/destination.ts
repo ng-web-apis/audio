@@ -9,7 +9,6 @@ import {
     skipWhile,
     tap,
 } from 'rxjs/operators';
-import {DC_OFFSET} from '../constants/dc-offset';
 import {POLLING_TIME} from '../constants/polling-time';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
@@ -47,14 +46,8 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         this.disconnect();
     }
 
-    private isSilent(array: Uint8Array): boolean {
-        for (let i = 0; i < array.length; i++) {
-            if (Math.abs(array[i] - DC_OFFSET) > 2) {
-                return false;
-            }
-        }
-
-        return true;
+    private isSilent(array: Float32Array): boolean {
+        return Math.abs(array.reduce((acc, cur) => acc + cur, 0)) < 0.001;
     }
 
     static init(that: WebAudioDestination, node: AudioNode | null) {
@@ -65,12 +58,12 @@ export class WebAudioDestination extends AnalyserNode implements OnDestroy {
         that.fftSize = 256;
         that.connect(that.context.destination);
         that.quiet = interval(POLLING_TIME).pipe(
-            mapTo(new Uint8Array(that.fftSize)),
-            tap(array => that.getByteTimeDomainData(array)),
+            mapTo(new Float32Array(that.fftSize)),
+            tap(array => that.getFloatTimeDomainData(array)),
             map(array => that.isSilent(array)),
             distinctUntilChanged(),
-            skipWhile(isSilent => !isSilent),
-            debounceTime(1000),
+            skipWhile(isSilent => isSilent),
+            debounceTime(5000),
             filter(isSilent => isSilent),
         );
     }

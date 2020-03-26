@@ -1,9 +1,18 @@
-import {Directive, forwardRef, Inject, Input, OnDestroy, SkipSelf} from '@angular/core';
+import {
+    Attribute,
+    Directive,
+    forwardRef,
+    Inject,
+    Input,
+    OnDestroy,
+    SkipSelf,
+} from '@angular/core';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {AudioParamInput} from '../types/audio-param-input';
 import {connect} from '../utils/connect';
 import {fallbackAudioParam} from '../utils/fallback-audio-param';
+import {parse} from '../utils/parse';
 import {processAudioParam} from '../utils/process-audio-param';
 
 // @dynamic
@@ -33,7 +42,10 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
+        @Attribute('pan') panArg: string | null,
     ) {
+        const pan = parse(panArg, 0);
+
         try {
             // @ts-ignore
             const _test = new StereoPannerNode(context);
@@ -41,6 +53,7 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
             const result = (context.createPanner() as unknown) as WebAudioStereoPanner;
 
             Object.setPrototypeOf(result, WebAudioStereoPanner.prototype);
+            result.fallbackToPannerNode(fallbackAudioParam(pan));
             connect(
                 node,
                 result,
@@ -49,7 +62,7 @@ export class WebAudioStereoPanner extends StereoPannerNode implements OnDestroy 
             return result;
         }
 
-        super(context);
+        super(context, {pan});
         connect(
             node,
             this,

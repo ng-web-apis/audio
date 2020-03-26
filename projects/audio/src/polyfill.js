@@ -1,17 +1,18 @@
 var windowRef = typeof window === 'undefined' ? globalThis : window;
 
-AudioContext = windowRef.AudioContext || windowRef.webkitAudioContext;
-PannerNode = windowRef.PannerNode || windowRef.webkitAudioPannerNode;
-StereoPannerNode = windowRef.StereoPannerNode || windowRef.PannerNode;
+windowRef.AudioContext = windowRef.AudioContext || windowRef.webkitAudioContext;
+windowRef.PannerNode = windowRef.PannerNode || windowRef.webkitAudioPannerNode;
+windowRef.StereoPannerNode = windowRef.StereoPannerNode || windowRef.PannerNode;
 
 // Just to compile in old browsers, these features are not supported if not supported natively
-BaseAudioContext = windowRef.BaseAudioContext || windowRef.AudioContext;
-OfflineAudioContext = windowRef.OfflineAudioContext || windowRef.AudioContext;
-ConstantSourceNode = windowRef.ConstantSourceNode || function() {};
-AudioWorkletNode = windowRef.AudioWorkletNode || function() {};
-IIRFilterNode = windowRef.IIRFilterNode || function() {};
-MediaStreamAudioDestinationNode =
+windowRef.BaseAudioContext = windowRef.BaseAudioContext || windowRef.AudioContext;
+windowRef.OfflineAudioContext = windowRef.OfflineAudioContext || windowRef.AudioContext;
+windowRef.ConstantSourceNode = windowRef.ConstantSourceNode || function() {};
+windowRef.AudioWorkletNode = windowRef.AudioWorkletNode || function() {};
+windowRef.IIRFilterNode = windowRef.IIRFilterNode || function() {};
+windowRef.MediaStreamAudioDestinationNode =
     windowRef.MediaStreamAudioDestinationNode || function() {};
-MediaStreamAudioSourceNode = windowRef.MediaStreamAudioSourceNode || function() {};
-MediaStreamTrackAudioSourceNode =
+windowRef.MediaStreamAudioSourceNode =
+    windowRef.MediaStreamAudioSourceNode || function() {};
+windowRef.MediaStreamTrackAudioSourceNode =
     windowRef.MediaStreamTrackAudioSourceNode || function() {};
