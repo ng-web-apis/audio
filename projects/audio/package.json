@@ -1,6 +1,6 @@
 {
     "name": "@ng-web-apis/audio",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "peerDependencies": {
         "@angular/core": ">=7.0.0",
         "rxjs": ">=6.0.0"
