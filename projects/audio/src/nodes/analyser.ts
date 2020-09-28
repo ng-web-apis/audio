@@ -90,9 +90,7 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
         that.timeByte$ = interval(0, animationFrameScheduler).pipe(
             mapTo(new Uint8Array(that.fftSize)),
             map(array =>
-                array.length === that.fftSize
-                    ? array
-                    : new Uint8Array(that.frequencyBinCount),
+                array.length === that.fftSize ? array : new Uint8Array(that.fftSize),
             ),
             tap(array => that.getByteTimeDomainData(array)),
         );
@@ -100,9 +98,7 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
         that.timeFloat$ = interval(0, animationFrameScheduler).pipe(
             mapTo(new Float32Array(that.fftSize)),
             map(array =>
-                array.length === that.fftSize
-                    ? array
-                    : new Float32Array(that.frequencyBinCount),
+                array.length === that.fftSize ? array : new Float32Array(that.fftSize),
             ),
             tap(array => that.getFloatTimeDomainData(array)),
         );
