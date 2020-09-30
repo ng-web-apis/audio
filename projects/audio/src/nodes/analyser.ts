@@ -1,10 +1,19 @@
-import {Directive, forwardRef, Inject, OnDestroy, Output, SkipSelf} from '@angular/core';
+import {
+    Attribute,
+    Directive,
+    forwardRef,
+    Inject,
+    OnDestroy,
+    Output,
+    SkipSelf,
+} from '@angular/core';
 import {animationFrameScheduler, interval, Observable} from 'rxjs';
 import {map, mapTo, tap} from 'rxjs/operators';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
 import {connect} from '../utils/connect';
+import {parse} from '../utils/parse';
 
 // @dynamic
 @Directive({
@@ -43,15 +52,29 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
         @SkipSelf() @Inject(AUDIO_NODE) node: AudioNode | null,
         @Inject(CONSTRUCTOR_SUPPORT) modern: boolean,
+        @Attribute('fftSize') fftSizeArg: string | null,
+        @Attribute('maxDecibels') maxDecibelsArg: string | null,
+        @Attribute('minDecibels') minDecibelsArg: string | null,
+        @Attribute('smoothingTimeConstant') smoothingTimeConstantArg: string | null,
     ) {
+        const fftSize = parse(fftSizeArg, 2048);
+        const maxDecibels = parse(maxDecibelsArg, -30);
+        const minDecibels = parse(minDecibelsArg, -100);
+        const smoothingTimeConstant = parse(smoothingTimeConstantArg, 0.8);
+
         if (modern) {
-            super(context);
+            super(context, {fftSize, maxDecibels, minDecibels, smoothingTimeConstant});
             WebAudioAnalyser.init(this, node);
         } else {
             const result = context.createAnalyser() as WebAudioAnalyser;
 
             Object.setPrototypeOf(result, WebAudioAnalyser.prototype);
             WebAudioAnalyser.init(result, node);
+
+            result.fftSize = fftSize;
+            result.maxDecibels = maxDecibels;
+            result.minDecibels = minDecibels;
+            result.smoothingTimeConstant = smoothingTimeConstant;
 
             return result;
         }
