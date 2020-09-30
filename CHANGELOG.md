@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ng-web-apis/audio/compare/v1.2.4...v1.3.0) (2020-09-30)
+
+
+### Features
+
+* **analyser:** allow attributes to set `AnalyserOptions` in constructor ([acfde3f](https://github.com/ng-web-apis/audio/commit/acfde3f))
+
 ### [1.2.4](https://github.com/ng-web-apis/audio/compare/v1.2.3...v1.2.4) (2020-09-28)
 
 
