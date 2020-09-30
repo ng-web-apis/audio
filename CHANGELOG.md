@@ -4,24 +4,21 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.3.0](https://github.com/ng-web-apis/audio/compare/v1.2.4...v1.3.0) (2020-09-30)
 
-
 ### Features
 
-* **analyser:** allow attributes to set `AnalyserOptions` in constructor ([acfde3f](https://github.com/ng-web-apis/audio/commit/acfde3f))
+-   **analyser:** allow attributes to set `AnalyserOptions` in constructor ([acfde3f](https://github.com/ng-web-apis/audio/commit/acfde3f))
 
 ### [1.2.4](https://github.com/ng-web-apis/audio/compare/v1.2.3...v1.2.4) (2020-09-28)
 
-
 ### Bug Fixes
 
-* **analyzer:** fix fftSize and arrays length inconsistency ([901228f](https://github.com/ng-web-apis/audio/commit/901228f))
+-   **analyzer:** fix `fftSize` and arrays length inconsistency ([901228f](https://github.com/ng-web-apis/audio/commit/901228f))
 
 ### [1.2.3](https://github.com/ng-web-apis/audio/compare/v1.2.2...v1.2.3) (2020-03-26)
 
-
 ### Bug Fixes
 
-* **destination:** fix `quiet` output and several other issues ([435f6b3](https://github.com/ng-web-apis/audio/commit/435f6b3))
+-   **destination:** fix `quiet` output and several other issues ([435f6b3](https://github.com/ng-web-apis/audio/commit/435f6b3))
 
 ### [1.2.2](https://github.com/ng-web-apis/audio/compare/v1.2.1...v1.2.2) (2020-02-14)
 

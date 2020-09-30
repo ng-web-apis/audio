@@ -36,17 +36,18 @@ import {parse} from '../utils/parse';
     ],
 })
 export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
+    // '!' because it is actually set in constructor
     @Output()
-    frequencyByte$?: Observable<Uint8Array>;
+    frequencyByte$!: Observable<Uint8Array>;
 
     @Output()
-    frequencyFloat$?: Observable<Float32Array>;
+    frequencyFloat$!: Observable<Float32Array>;
 
     @Output()
-    timeByte$?: Observable<Uint8Array>;
+    timeByte$!: Observable<Uint8Array>;
 
     @Output()
-    timeFloat$?: Observable<Float32Array>;
+    timeFloat$!: Observable<Float32Array>;
 
     constructor(
         @Inject(AUDIO_CONTEXT) context: BaseAudioContext,
