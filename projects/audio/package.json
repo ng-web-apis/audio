@@ -12,6 +12,7 @@
         "name": "Alex Inkin",
         "email": "alexander@inkin.ru"
     },
+    "sideEffects": ["polyfill.js"],
     "contributors": ["Roman Sedov <79601794011@ya.ru> (http://marsibarsi.me/)"],
     "repository": "https://github.com/ng-web-apis/audio",
     "bugs": "https://github.com/ng-web-apis/audio/issues",
