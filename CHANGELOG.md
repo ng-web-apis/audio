@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/ng-web-apis/audio/compare/v1.3.0...v1.3.1) (2020-11-23)
+
+
+### Bug Fixes
+
+* **polyfill:** add `polyfill.js` to sideEffects so it is not dropped by production builds ([5de6152](https://github.com/ng-web-apis/audio/commit/5de6152))
+
 ## [1.3.0](https://github.com/ng-web-apis/audio/compare/v1.2.4...v1.3.0) (2020-09-30)
 
 ### Features
