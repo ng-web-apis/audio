@@ -400,6 +400,11 @@ and [PannerNode](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode) fa
 ([setOrientation](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener/setOrientation))
 method if browser does not support it
 
+## Angular Universal
+
+If you want to use this package with SSR, you need to mock native Web Audio API classes on the server. 
+You can use our Universal package for this, see [this example](https://github.com/ng-web-apis/universal#mocks).
+
 ## Demo
 
 You can [try online demo here](https://ng-web-apis.github.io/audio)
