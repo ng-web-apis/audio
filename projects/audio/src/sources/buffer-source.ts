@@ -75,7 +75,6 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
 
             Object.setPrototypeOf(result, WebAudioBufferSource.prototype);
 
-            result.detune.value = detune;
             result.playbackRate.value = playbackRate;
             WebAudioBufferSource.init(result, null, autoplay, audioBufferService);
 
