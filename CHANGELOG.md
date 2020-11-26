@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/ng-web-apis/audio/compare/v1.3.1...v1.3.2) (2020-11-26)
+
+
+### Bug Fixes
+
+* **polyfill:** fix wrong names for OscillatorNode and AudioBufferSourceNode classes in Safari ([8afae10](https://github.com/ng-web-apis/audio/commit/8afae10))
+
 ### [1.3.1](https://github.com/ng-web-apis/audio/compare/v1.3.0...v1.3.1) (2020-11-23)
 
 
