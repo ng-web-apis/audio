@@ -1,6 +1,9 @@
 var windowRef = typeof window === 'undefined' ? globalThis : window;
 
 windowRef.AudioContext = windowRef.AudioContext || windowRef.webkitAudioContext;
+windowRef.OscillatorNode = windowRef.OscillatorNode || windowRef.WebKitOscillatorNode;
+windowRef.AudioBufferSourceNode =
+    windowRef.AudioBufferSourceNode || windowRef.WebKitAudioBufferSourceNode;
 windowRef.PannerNode = windowRef.PannerNode || windowRef.webkitAudioPannerNode;
 windowRef.StereoPannerNode = windowRef.StereoPannerNode || windowRef.PannerNode;
 
