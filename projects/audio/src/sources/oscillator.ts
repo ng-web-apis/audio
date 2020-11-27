@@ -61,6 +61,10 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
         } else {
             const result = context.createOscillator() as WebAudioOscillator;
 
+            Object.setPrototypeOf(
+                WebAudioOscillator.prototype,
+                (result as any).__proto__,
+            );
             Object.setPrototypeOf(result, WebAudioOscillator.prototype);
 
             result.detune.value = detune;
