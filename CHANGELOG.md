@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/ng-web-apis/audio/compare/v1.3.2...v1.3.3) (2020-11-27)
+
+
+### Bug Fixes
+
+* **OscillatorNode:** fix wrong prototype chain in Safari ([#16](https://github.com/ng-web-apis/audio/issues/16)) ([802c847](https://github.com/ng-web-apis/audio/commit/802c847))
+
 ### [1.3.2](https://github.com/ng-web-apis/audio/compare/v1.3.1...v1.3.2) (2020-11-26)
 
 
