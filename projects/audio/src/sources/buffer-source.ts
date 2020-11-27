@@ -75,7 +75,7 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
 
             Object.setPrototypeOf(
                 WebAudioBufferSource.prototype,
-                (result as any).__proto__,
+                Object.getPrototypeOf(result),
             );
             Object.setPrototypeOf(result, WebAudioBufferSource.prototype);
 

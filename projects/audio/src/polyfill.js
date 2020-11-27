@@ -1,4 +1,4 @@
-var windowRef = typeof window === 'undefined' ? globalThis : window;
+var windowRef = typeof window === 'undefined' ? global : window;
 
 windowRef.AudioContext = windowRef.AudioContext || windowRef.webkitAudioContext;
 windowRef.OscillatorNode = windowRef.OscillatorNode || function() {};

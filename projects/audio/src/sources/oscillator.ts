@@ -63,7 +63,7 @@ export class WebAudioOscillator extends OscillatorNode implements OnDestroy {
 
             Object.setPrototypeOf(
                 WebAudioOscillator.prototype,
-                (result as any).__proto__,
+                Object.getPrototypeOf(result),
             );
             Object.setPrototypeOf(result, WebAudioOscillator.prototype);
 
