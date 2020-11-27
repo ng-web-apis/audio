@@ -73,6 +73,10 @@ export class WebAudioBufferSource extends AudioBufferSourceNode implements OnDes
         } else {
             const result = context.createBufferSource() as WebAudioBufferSource;
 
+            Object.setPrototypeOf(
+                WebAudioBufferSource.prototype,
+                (result as any).__proto__,
+            );
             Object.setPrototypeOf(result, WebAudioBufferSource.prototype);
 
             result.playbackRate.value = playbackRate;
