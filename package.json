@@ -1,6 +1,6 @@
 {
     "name": "@ng-web-apis/audio",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",

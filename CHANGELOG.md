@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/ng-web-apis/audio/compare/v1.3.3...v1.3.4) (2020-11-27)
+
+
+### Bug Fixes
+
+* **polyfill:** change globalThis to global to support older Node.js ([f43f1ae](https://github.com/ng-web-apis/audio/commit/f43f1ae))
+
 ### [1.3.3](https://github.com/ng-web-apis/audio/compare/v1.3.2...v1.3.3) (2020-11-27)
 
 
