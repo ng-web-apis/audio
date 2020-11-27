@@ -16,6 +16,9 @@ for 💡 emoji in this README for additional features and special use cases.
 
 ## How to use
 
+> After you installed the package, you **must** add `@ng-web-apis/audio/polyfill` to your `polyfills.ts`.
+> It is required to normalize things like `webkitAudioContext`, otherwise your code would fail.
+
 You can build audio graph with directives. For example, here's a typical echo feedback loop:
 
 ```html
@@ -402,7 +405,7 @@ method if browser does not support it
 
 ## Angular Universal
 
-If you want to use this package with SSR, you need to mock native Web Audio API classes on the server. 
+If you want to use this package with SSR, you need to mock native Web Audio API classes on the server.
 You can use our Universal package for this, see [this example](https://github.com/ng-web-apis/universal#mocks).
 
 ## Demo
