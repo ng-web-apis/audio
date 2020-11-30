@@ -6,8 +6,8 @@ windowRef.AudioBufferSourceNode = windowRef.AudioBufferSourceNode || function() 
 windowRef.PannerNode = windowRef.PannerNode || windowRef.webkitAudioPannerNode;
 windowRef.StereoPannerNode = windowRef.StereoPannerNode || windowRef.PannerNode;
 
-if (global.AnalyserNode && !global.AnalyserNode.prototype.getFloatTimeDomainData) {
-    global.AnalyserNode.prototype.getFloatTimeDomainData = function(array) {
+if (windowRef.AnalyserNode && !windowRef.AnalyserNode.prototype.getFloatTimeDomainData) {
+    windowRef.AnalyserNode.prototype.getFloatTimeDomainData = function(array) {
         var uint8 = new Uint8Array(this.fftSize);
         this.getByteTimeDomainData(uint8);
         for (var i = 0, imax = array.length; i < imax; i++) {
