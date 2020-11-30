@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/ng-web-apis/audio/compare/v1.3.4...v1.4.0) (2020-11-30)
+
+
+### Features
+
+* **polyfill:** add `AnalyserNode.prototype.getFloatTimeDomainData` polyfill for Safari ([f115354](https://github.com/ng-web-apis/audio/commit/f115354))
+
 ### [1.3.4](https://github.com/ng-web-apis/audio/compare/v1.3.3...v1.3.4) (2020-11-27)
 
 
