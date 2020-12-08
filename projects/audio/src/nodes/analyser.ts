@@ -8,7 +8,7 @@ import {
     SkipSelf,
 } from '@angular/core';
 import {animationFrameScheduler, interval, Observable} from 'rxjs';
-import {map, mapTo, tap} from 'rxjs/operators';
+import {map, share} from 'rxjs/operators';
 import {AUDIO_CONTEXT} from '../tokens/audio-context';
 import {AUDIO_NODE} from '../tokens/audio-node';
 import {CONSTRUCTOR_SUPPORT} from '../tokens/constructor-support';
@@ -91,40 +91,61 @@ export class WebAudioAnalyser extends AnalyserNode implements OnDestroy {
             that,
         );
 
+        let freqByte = new Uint8Array(that.frequencyBinCount);
+        let freqFloat = new Float32Array(that.frequencyBinCount);
+        let timeByte = new Uint8Array(that.fftSize);
+        let timeFloat = new Float32Array(that.fftSize);
+
         that.frequencyByte$ = interval(0, animationFrameScheduler).pipe(
-            mapTo(new Uint8Array(that.frequencyBinCount)),
-            map(array =>
-                array.length === that.frequencyBinCount
-                    ? array
-                    : new Uint8Array(that.frequencyBinCount),
-            ),
-            tap(array => that.getByteFrequencyData(array)),
+            map(() => {
+                if (freqByte.length !== that.frequencyBinCount) {
+                    freqByte = new Uint8Array(that.frequencyBinCount);
+                }
+
+                that.getByteFrequencyData(freqByte);
+
+                return freqByte;
+            }),
+            share(),
         );
 
         that.frequencyFloat$ = interval(0, animationFrameScheduler).pipe(
-            mapTo(new Float32Array(that.frequencyBinCount)),
-            map(array =>
-                array.length === that.frequencyBinCount
-                    ? array
-                    : new Float32Array(that.frequencyBinCount),
-            ),
-            tap(array => that.getFloatFrequencyData(array)),
+            map(() => {
+                if (freqFloat.length !== that.frequencyBinCount) {
+                    freqFloat = new Float32Array(that.frequencyBinCount);
+                }
+
+                that.getFloatFrequencyData(freqFloat);
+
+                return freqFloat;
+            }),
+            share(),
         );
 
         that.timeByte$ = interval(0, animationFrameScheduler).pipe(
-            mapTo(new Uint8Array(that.fftSize)),
-            map(array =>
-                array.length === that.fftSize ? array : new Uint8Array(that.fftSize),
-            ),
-            tap(array => that.getByteTimeDomainData(array)),
+            map(() => {
+                if (timeByte.length !== that.fftSize) {
+                    timeByte = new Uint8Array(that.frequencyBinCount);
+                }
+
+                that.getByteTimeDomainData(timeByte);
+
+                return timeByte;
+            }),
+            share(),
         );
 
         that.timeFloat$ = interval(0, animationFrameScheduler).pipe(
-            mapTo(new Float32Array(that.fftSize)),
-            map(array =>
-                array.length === that.fftSize ? array : new Float32Array(that.fftSize),
-            ),
-            tap(array => that.getFloatTimeDomainData(array)),
+            map(() => {
+                if (timeFloat.length !== that.fftSize) {
+                    timeFloat = new Float32Array(that.frequencyBinCount);
+                }
+
+                that.getFloatTimeDomainData(timeFloat);
+
+                return timeFloat;
+            }),
+            share(),
         );
     }
 }
