@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/ng-web-apis/audio/compare/v1.4.1...v1.4.2) (2020-12-08)
+
+
+### Bug Fixes
+
+* **analyser:** improve performance ([#17](https://github.com/ng-web-apis/audio/issues/17)) ([e72d67f](https://github.com/ng-web-apis/audio/commit/e72d67f))
+
 ### [1.4.1](https://github.com/ng-web-apis/audio/compare/v1.4.0...v1.4.1) (2020-11-30)
 
 
