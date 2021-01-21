@@ -163,7 +163,8 @@ you can use tokens:
     providers: [
         {
             provide: AUDIO_WORKLET_PROCESSORS,
-            useValue: ['assets/my-processor.js'],
+            useValue: 'assets/my-processor.js',
+            multi: true,
         },
     ],
 })
@@ -205,7 +206,7 @@ and add `audioParam` decorator to new component's inputs:
     exportAs: 'AudioNode',
     providers: [
         {
-            provide: AudioNode,
+            provide: AUDIO_NODE,
             useExisting: forwardRef(() => MyWorklet),
         },
     ],
