@@ -150,7 +150,7 @@ You can use following audio nodes through directives of the same name
 
 ## [AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode)
 
-You can use [WaveShaperNode](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode)
+You can use [AudioWorkletNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode)
 in supporting browsers. To register your
 [AudioWorkletProcessors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor)
 in a global default [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)
