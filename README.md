@@ -350,6 +350,9 @@ envelope = [
 -   You can check
     [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
     support in current browser by injecting `WEB_AUDIO_SUPPORT` token
+-   You can check
+    [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
+    support in current browser by injecting `AUDIO_WORKLET_SUPPORT` token
 -   You can inject
     [BaseAudioContext](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext)
     through `AUDIO_CONTEXT` token

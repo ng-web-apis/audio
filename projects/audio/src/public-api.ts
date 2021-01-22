@@ -42,6 +42,7 @@ export * from './tokens/audio-context';
 export * from './tokens/audio-node';
 export * from './tokens/audio-worklet-processors';
 export * from './tokens/audio-worklet-processors-ready';
+export * from './tokens/audio-worklet-support';
 export * from './tokens/feedback-coefficients';
 export * from './tokens/feedforward-coefficients';
 export * from './tokens/media-stream';
