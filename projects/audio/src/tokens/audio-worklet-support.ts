@@ -1,5 +1,5 @@
 import {inject, InjectionToken} from '@angular/core';
-import {AUDIO_CONTEXT} from '@ng-web-apis/audio';
+import {AUDIO_CONTEXT} from './audio-context';
 
 export const AUDIO_WORKLET_SUPPORT = new InjectionToken<boolean>(
     'AudioWorklet browser support',
