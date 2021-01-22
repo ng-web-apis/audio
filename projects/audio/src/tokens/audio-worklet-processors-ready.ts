@@ -12,7 +12,7 @@ export const AUDIO_WORKLET_PROCESSORS_READY = new InjectionToken<Promise<boolean
             const processors = inject(AUDIO_WORKLET_PROCESSORS);
 
             if (!inject(AUDIO_WORKLET_SUPPORT)) {
-                return Promise.reject('AudioWorklet is not supported');
+                return Promise.reject('AudioWorklet is not supported').catch(() => false);
             }
 
             return Promise.all(
